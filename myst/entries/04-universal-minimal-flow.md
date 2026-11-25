@@ -12,7 +12,7 @@ A minimal $G$-flow $M$ ({prf:ref}`def-minimal`) is *universal* if every
 minimal $G$-flow is a factor of $M$.
 :::
 
-:::{prf:theorem} Ellis {cite}`Ellis1960`
+:::{prf:theorem} {cite:t}`Ellis1960`
 :label: thm-ellis
 
 Every topological group $G$ has a universal minimal flow, and any two

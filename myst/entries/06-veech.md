@@ -4,7 +4,7 @@
 For locally compact groups the universal minimal flow is as large as it can
 be: the group acts on it freely.
 
-:::{prf:theorem} Veech {cite}`Veech1977`
+:::{prf:theorem} {cite:t}`Veech1977`
 :label: thm-veech
 
 Every locally compact group $G$ acts freely on its greatest ambit $S(G)$

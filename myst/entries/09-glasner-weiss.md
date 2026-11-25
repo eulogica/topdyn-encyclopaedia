@@ -16,7 +16,7 @@ and only if $g^{-1}(a)<g^{-1}(b)$. This makes $\mathrm{LO}(\mathbb{N})$ an
 $S_\infty$-flow.
 :::
 
-:::{prf:theorem} Glasner–Weiss {cite}`GlasnerWeiss2002`
+:::{prf:theorem} {cite:t}`GlasnerWeiss2002`
 :label: thm-glasner-weiss
 
 The universal minimal flow of $S_\infty$ is $\mathrm{LO}(\mathbb{N})$.

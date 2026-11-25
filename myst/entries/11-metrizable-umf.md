@@ -42,7 +42,7 @@ $\mathrm{LO}(\mathbb{N})$, which is minimal. This recovers
 {prf:ref}`thm-glasner-weiss`.
 :::
 
-:::{prf:theorem} Melleray–Nguyen Van Thé–Tsankov {cite}`MNT2016`
+:::{prf:theorem} {cite:t}`MNT2016`
 :label: thm-mnt
 
 Let $G$ be a Polish group. If $M(G)$ is metrizable and contains a $G_\delta$
@@ -50,7 +50,7 @@ orbit $Gx_0$, then the stabiliser $G_{x_0}$ is closed, co-precompact and
 extremely amenable, and $M(G)$ is isomorphic to $\widehat{G/G_{x_0}}$.
 :::
 
-:::{prf:theorem} Ben Yaacov–Melleray–Tsankov {cite}`BYMT2017`
+:::{prf:theorem} {cite:t}`BYMT2017`
 :label: thm-bymt
 
 Let $G$ be a Polish group with metrizable universal minimal flow. Then $M(G)$

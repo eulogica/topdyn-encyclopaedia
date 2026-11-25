@@ -5,7 +5,7 @@ The first natural example of an extremely amenable group came from asymptotic
 geometric analysis: concentration of measure on high-dimensional spheres and
 groups forces fixed points.
 
-:::{prf:theorem} Gromov–Milman {cite}`GromovMilman1983`
+:::{prf:theorem} {cite:t}`GromovMilman1983`
 :label: thm-gromov-milman
 
 The unitary group $U(\ell^2)$ of an infinite-dimensional separable Hilbert

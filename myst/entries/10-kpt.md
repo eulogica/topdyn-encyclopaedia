@@ -37,7 +37,7 @@ constant, in the sense that $c$ is constant on
 $\binom{\mathbf{B}'}{\mathbf{A}}$.
 :::
 
-:::{prf:theorem} Kechris–Pestov–Todorcevic {cite}`KPT2005`
+:::{prf:theorem} {cite:t}`KPT2005`
 :label: thm-kpt
 
 Let $\mathcal{K}$ be a Fraïssé order class ({prf:ref}`def-fraisse`) with

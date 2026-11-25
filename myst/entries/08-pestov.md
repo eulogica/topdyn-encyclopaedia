@@ -5,7 +5,7 @@ Pestov found the first extremely amenable groups of homeomorphisms and
 automorphisms, and with them the first nontrivial universal minimal flow
 computed explicitly for a non-locally compact group.
 
-:::{prf:theorem} Pestov {cite}`Pestov1998`
+:::{prf:theorem} {cite:t}`Pestov1998`
 :label: thm-pestov-ea
 
 The group $\mathrm{Aut}(\mathbb{Q},<)$ of order-preserving bijections of the
@@ -23,7 +23,7 @@ finite Ramsey theorem. This is the prototype of the
 Kechris–Pestov–Todorcevic correspondence of [](#sec-kpt).
 :::
 
-:::{prf:theorem} Pestov {cite}`Pestov1998`
+:::{prf:theorem} {cite:t}`Pestov1998`
 :label: thm-pestov-circle
 
 The universal minimal flow of $\mathrm{Homeo}_+(\mathbb{S}^1)$ is the circle
