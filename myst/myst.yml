@@ -1,0 +1,31 @@
+# Configuration for the newer MyST engine (mystmd / Jupyter Book 2).
+# Sphinx ignores this file; mystmd ignores conf.py. Use either engine:
+#   myst start          # local preview at http://localhost:3000
+#   myst build --html   # static site in _build/html
+version: 1
+project:
+  title: Topological dynamics of topological groups
+  subtitle: A living, hypertextual encyclopaedia (prototype)
+  authors:
+    - name: Martino Lupini
+  bibliography:
+    - ../references.bib
+  numbering:
+    enumerator: "%s"
+  toc:
+    - file: index.md
+    - file: entries/01-flows.md
+    - file: entries/02-minimal-flows.md
+    - file: entries/03-greatest-ambit.md
+    - file: entries/04-universal-minimal-flow.md
+    - file: entries/05-extreme-amenability.md
+    - file: entries/06-veech.md
+    - file: entries/07-gromov-milman.md
+    - file: entries/08-pestov.md
+    - file: entries/09-glasner-weiss.md
+    - file: entries/10-kpt.md
+    - file: entries/11-metrizable-umf.md
+  exclude:
+    - bibliography.md
+site:
+  template: book-theme

@@ -70,9 +70,15 @@ this table.
   for sections. Citations: ``{cite}`Ellis1960` ``.
 * Math between `$...$` or `$$...$$`, standard LaTeX only.
 * There are no dependency lists or permanent tags in this version.
-* Build: `cd myst && ./build.sh` → `_site/myst/index.html`. The same files can
-  be moved to the newer `mystmd` engine (Jupyter Book 2) later with small
-  syntax changes.
+* The same files build with two engines:
+  * Sphinx (older engine, configured in `myst/conf.py`):
+    `cd myst && ./build.sh` → `_site/myst/index.html`.
+  * mystmd (newer engine, Jupyter Book 2, configured in `myst/myst.yml`):
+    `cd myst && myst start` for a live preview, `myst build --html` for a
+    static site in `myst/_build/html`. New entries must be added both to the
+    toctree in `index.md` (Sphinx) and to `toc:` in `myst.yml` (mystmd).
+    mystmd warns about the toctree directive in `index.md`; that warning is
+    expected while both engines are used.
 
 ## Workflow
 

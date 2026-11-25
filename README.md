@@ -36,7 +36,17 @@ pip install plastex plastexdepgraph beautifulsoup4 \
 (cd myst && ./build.sh)    # -> _site/myst/index.html
 ```
 
-The GitHub workflow builds both on every push and keeps the result as a
+The MyST files also build with the newer MyST engine, mystmd (Jupyter Book 2),
+which needs Node.js 22 or later:
+
+```sh
+pip install mystmd           # or: conda install -c conda-forge mystmd, or: npm install -g mystmd
+cd myst
+myst start                   # live preview at http://localhost:3000
+myst build --html            # static site in myst/_build/html
+```
+
+The GitHub workflow builds all three on every push and keeps the result as a
 downloadable artifact. Once the repository is public, it also publishes the
 site on GitHub Pages.
 
