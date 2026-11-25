@@ -82,6 +82,8 @@ this table.
 
 ## Workflow
 
-* Work on a branch and open a pull request; the build workflow in
-  `.github/workflows/build.yml` must pass.
+* **Every push to `main` is published** at <https://topologicaldynamics.org>
+  (mystmd build at the root, LaTeX build at `/latex/`). Work on a branch and
+  open a pull request; the build workflow in `.github/workflows/build.yml` must
+  pass before merging.
 * Do not commit build output (`_site/`, `*.aux`, `main.pdf`, ...).

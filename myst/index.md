@@ -8,6 +8,10 @@ dynamics of topological groups, with an emphasis on universal minimal flows. It
 is meant to grow: entries are added and revised over time. Hover over a
 reference to a definition or theorem to preview it.
 
+The same entries are also available in a
+[LaTeX version](https://topologicaldynamics.org/latex/), with a permanent tag
+for every statement, a dependency graph and a PDF.
+
 **Conventions.** Topological groups and compact spaces are Hausdorff. Actions
 are left actions. Conventions on left and right uniform structures differ
 across the literature; the ones used here are fixed in {prf:ref}`def-ruc`.

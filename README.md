@@ -1,5 +1,8 @@
 # Topological dynamics of topological groups
 
+**Website: <https://topologicaldynamics.org>** (MyST version; the LaTeX version
+is at <https://topologicaldynamics.org/latex/>).
+
 A living, hypertextual encyclopaedia of the topological dynamics of
 topological groups, with an emphasis on universal minimal flows.
 Editor: Martino Lupini. **Prototype**: the seed entries were drafted with AI
@@ -46,9 +49,9 @@ myst start                   # live preview at http://localhost:3000
 myst build --html            # static site in myst/_build/html
 ```
 
-The GitHub workflow builds all three on every push and keeps the result as a
-downloadable artifact. Once the repository is public, it also publishes the
-site on GitHub Pages.
+The GitHub workflow builds everything on every push and publishes the `main`
+branch to <https://topologicaldynamics.org> through GitHub Pages: the mystmd
+build at the root and the LaTeX build under `/latex/`.
 
 ## Contributing
 

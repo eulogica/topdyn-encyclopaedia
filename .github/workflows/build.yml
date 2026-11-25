@@ -1,4 +1,9 @@
-name: Build the encyclopaedia
+name: Build and deploy the encyclopaedia
+
+# Published at https://topologicaldynamics.org (GitHub Pages, custom domain):
+#   /        the MyST version, built with mystmd (the newer MyST engine)
+#   /latex/  the LaTeX version (permanent tags, dependency graph, PDF)
+# The Sphinx build of the MyST files is still run as a check but not published.
 
 on:
   push:
@@ -9,6 +14,10 @@ permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -35,41 +44,24 @@ jobs:
       - name: Check that every LaTeX label has a permanent tag
         run: python3 latex/tools/tags.py check
 
-      - name: Build LaTeX version (website and PDF)
-        run: ./latex/build.sh "$PWD/_site/latex"
-
-      - name: Build MyST version (Sphinx)
-        run: ./myst/build.sh "$PWD/_site/myst"
-
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
 
-      - name: Build MyST version (mystmd, the newer engine)
+      - name: Build MyST version with mystmd (site root)
         working-directory: myst
-        env:
-          BASE_URL: /${{ github.event.repository.name }}/mystmd
         run: |
           npm install -g mystmd
           myst build --html
-          mv _build/html "$GITHUB_WORKSPACE/_site/mystmd"
+          mkdir -p "$GITHUB_WORKSPACE/_site"
+          cp -r _build/html/. "$GITHUB_WORKSPACE/_site/"
           rm -rf _build
 
-      - name: Landing page
-        run: |
-          cat > _site/index.html <<'EOF'
-          <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>Topological dynamics of topological groups</title></head>
-          <body style="font:17px/1.5 Georgia,serif;max-width:40em;margin:3em auto;padding:0 1em">
-          <h1>Topological dynamics of topological groups</h1>
-          <p>A living, hypertextual encyclopaedia (prototype).</p>
-          <ul><li><a href="latex/index.html">LaTeX version</a> (permanent tags, dependency graph,
-          <a href="latex/encyclopaedia.pdf">PDF</a>)</li>
-          <li><a href="myst/index.html">MyST version</a> (hover previews, search)</li>
-          <li><a href="mystmd/">MyST version, newer engine</a></li></ul>
-          </body></html>
-          EOF
+      - name: Build LaTeX version (website and PDF) at /latex/
+        run: ./latex/build.sh "$PWD/_site/latex"
+
+      - name: Check the Sphinx build of the MyST files (not published)
+        run: ./myst/build.sh "$RUNNER_TEMP/sphinx-check"
 
       - uses: actions/upload-artifact@v4
         with:

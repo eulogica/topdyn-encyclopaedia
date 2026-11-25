@@ -136,6 +136,7 @@ def add_chrome(soup, depth):
             f'<li><a href="{p}dep_graph_document.html"><span class="toc_entry">Interactive graph</span></a></li>'
             f'<li><a href="{p}tags.html"><span class="toc_entry">All tags</span></a></li>'
             f'<li><a href="{p}encyclopaedia.pdf"><span class="toc_entry">PDF version</span></a></li>'
+            f'<li><a href="https://topologicaldynamics.org/"><span class="toc_entry">MyST version</span></a></li>'
             f'</ul>', "html.parser")
         toc.append(extra)
 
