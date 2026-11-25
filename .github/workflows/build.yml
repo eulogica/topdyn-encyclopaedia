@@ -1,0 +1,78 @@
+name: Build the encyclopaedia
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install TeX Live and Graphviz
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended \
+            graphviz libgraphviz-dev
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python packages
+        run: |
+          pip install plastex plastexdepgraph beautifulsoup4 \
+            sphinx myst-parser sphinx-proof sphinx-book-theme sphinxcontrib-bibtex sphinx-tippy
+
+      - name: Check that every LaTeX label has a permanent tag
+        run: python3 latex/tools/tags.py check
+
+      - name: Build LaTeX version (website and PDF)
+        run: ./latex/build.sh "$PWD/_site/latex"
+
+      - name: Build MyST version
+        run: ./myst/build.sh "$PWD/_site/myst"
+
+      - name: Landing page
+        run: |
+          cat > _site/index.html <<'EOF'
+          <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>Topological dynamics of topological groups</title></head>
+          <body style="font:17px/1.5 Georgia,serif;max-width:40em;margin:3em auto;padding:0 1em">
+          <h1>Topological dynamics of topological groups</h1>
+          <p>A living, hypertextual encyclopaedia (prototype).</p>
+          <ul><li><a href="latex/index.html">LaTeX version</a> (permanent tags, dependency graph,
+          <a href="latex/encyclopaedia.pdf">PDF</a>)</li>
+          <li><a href="myst/index.html">MyST version</a> (hover previews, search)</li></ul>
+          </body></html>
+          EOF
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: _site
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main' && !github.event.repository.private
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && !github.event.repository.private
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

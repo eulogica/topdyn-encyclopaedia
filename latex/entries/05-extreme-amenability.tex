@@ -1,0 +1,43 @@
+\section{Extreme amenability}\label{sec:ea}
+
+The simplest possible universal minimal flow is a single point. Groups with
+this property are far from locally compact, and they arise from concentration
+of measure and from structural Ramsey theory.
+
+\begin{definition}[Extremely amenable group]\label{def:ea}
+\uses{def:flow}
+A topological group $G$ is \emph{extremely amenable} if every $G$-flow has a
+fixed point, that is, a point $x$ with $gx=x$ for all $g\in G$. This is also
+called the \emph{fixed point on compacta property}.
+\end{definition}
+
+\begin{proposition}\label{prop:ea-trivial-umf}
+\uses{def:ea, thm:ellis, prop:minimal-subflow}
+A topological group $G$ is extremely amenable if and only if $M(G)$ is a
+single point.
+\end{proposition}
+
+\begin{proof}
+If $G$ is extremely amenable, a fixed point of $M(G)$ is a subflow, so
+$M(G)$ is a point by minimality. Conversely, if $M(G)$ is a point, let $X$ be
+a $G$-flow. By Proposition~\ref{prop:minimal-subflow} it contains a minimal
+subflow $Y$, which is a factor of $M(G)$ and hence a single fixed point.
+\end{proof}
+
+\begin{remark}\label{rem:ea-amenable}
+\uses{def:ea}
+A topological group is \emph{amenable} if every $G$-flow carries a
+$G$-invariant regular Borel probability measure. Extremely amenable groups are
+amenable: the Dirac measure at a fixed point is invariant.
+\end{remark}
+
+\begin{remark}[The first examples]\label{rem:herer-christensen}
+\uses{def:ea, rem:ea-amenable}
+Historically, the first extremely amenable groups were the groups
+$L^0(\varphi,\mathbb{R})$ of Herer and Christensen \cite{HererChristensen1975},
+built from a pathological submeasure $\varphi$. They have no nontrivial
+continuous unitary representations; being abelian, they are amenable, and
+together the two properties make them extremely amenable. Natural examples
+came later: see Sections~\ref{sec:gromov-milman}, \ref{sec:pestov}
+and~\ref{sec:kpt}, and the monograph \cite{Pestov2006}.
+\end{remark}

@@ -1,0 +1,36 @@
+\section{Flows}\label{sec:flows}
+
+Abstract topological dynamics studies continuous actions of topological groups
+on compact spaces. The basic objects and morphisms are the following.
+
+\begin{definition}[Flow]\label{def:flow}
+Let $G$ be a topological group. A \emph{$G$-flow} is a compact space $X$
+together with a continuous action $G\times X\to X$, $(g,x)\mapsto gx$. If $X$
+and $Y$ are $G$-flows, a \emph{$G$-map} is a continuous map
+$\varphi\colon X\to Y$ such that $\varphi(gx)=g\varphi(x)$ for all $g\in G$
+and $x\in X$. A \emph{subflow} of $X$ is a nonempty closed $G$-invariant
+subset of $X$. A $G$-flow $Y$ is a \emph{factor} of $X$ if there is a
+surjective $G$-map $X\to Y$, and $X$ and $Y$ are \emph{isomorphic} if there is
+a bijective $G$-map $X\to Y$.
+\end{definition}
+
+\begin{remark}\label{rem:flow-terminology}
+\uses{def:flow}
+By compactness, the inverse of a bijective $G$-map is continuous, so
+isomorphic flows are isomorphic in every reasonable sense. Flows are also
+called compact $G$-spaces, $G$-systems or dynamical systems in the literature.
+\end{remark}
+
+\begin{example}\label{ex:flows}
+\uses{def:flow}
+\begin{enumerate}
+\item A compact group $G$ acting on itself by left translation.
+\item A $\mathbb{Z}$-flow is the same thing as a compact space together with
+  a homeomorphism $T$, the action being $(n,x)\mapsto T^n x$.
+\item The group $\mathrm{Homeo}_+(\mathbb{S}^1)$ of orientation-preserving
+  homeomorphisms of the circle, with the compact-open topology, acting on
+  $\mathbb{S}^1$; see Section~\ref{sec:pestov}.
+\item The group $S_\infty$ of all permutations of $\mathbb{N}$ acting on the
+  space of linear orders on $\mathbb{N}$; see Section~\ref{sec:glasner-weiss}.
+\end{enumerate}
+\end{example}

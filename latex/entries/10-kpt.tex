@@ -1,0 +1,62 @@
+\section{The Kechris--Pestov--Todorcevic correspondence}\label{sec:kpt}
+
+For automorphism groups of countable homogeneous structures, extreme
+amenability is equivalent to a purely combinatorial property of the finite
+substructures: the Ramsey property. For simplicity we restrict to relational
+signatures.
+
+\begin{definition}[Fraïssé classes]\label{def:fraisse}
+Let $L$ be a relational signature. A class $\mathcal{K}$ of finite
+$L$-structures, closed under isomorphism, is a \emph{Fraïssé class} if it
+contains only countably many structures up to isomorphism, contains structures
+of arbitrarily large finite cardinality, and has the hereditary property, the
+joint embedding property and the amalgamation property. By Fraïssé's theorem
+there is a unique, up to isomorphism, countable ultrahomogeneous structure
+$\mathbf{F}=\mathrm{Flim}(\mathcal{K})$ whose finite substructures are, up to
+isomorphism, exactly the members of $\mathcal{K}$. Its automorphism group
+$\mathrm{Aut}(\mathbf{F})$, with the topology of pointwise convergence, is a
+closed subgroup of $S_\infty$. The class $\mathcal{K}$ is a \emph{Fraïssé order
+class} if $L$ contains a binary relation symbol $<$ that is interpreted as a
+linear order in every member of $\mathcal{K}$.
+\end{definition}
+
+\begin{definition}[Ramsey property]\label{def:ramsey}
+\uses{def:fraisse}
+For $\mathbf{A},\mathbf{B}\in\mathcal{K}$, write
+$\binom{\mathbf{B}}{\mathbf{A}}$ for the set of substructures of $\mathbf{B}$
+isomorphic to $\mathbf{A}$. The class $\mathcal{K}$ has the \emph{Ramsey
+property} if for all $\mathbf{A},\mathbf{B}\in\mathcal{K}$ such that
+$\mathbf{A}$ embeds in $\mathbf{B}$, and every $k\geq 1$, there is
+$\mathbf{C}\in\mathcal{K}$ such that for every colouring
+$c\colon\binom{\mathbf{C}}{\mathbf{A}}\to\{1,\dots,k\}$ there is
+$\mathbf{B}'\in\binom{\mathbf{C}}{\mathbf{B}}$ on which $c$ is constant, in
+the sense that $c$ is constant on $\binom{\mathbf{B}'}{\mathbf{A}}$.
+\end{definition}
+
+\begin{theorem}[Kechris--Pestov--Todorcevic \cite{KPT2005}]\label{thm:kpt}
+\uses{def:fraisse, def:ramsey, def:ea}
+Let $\mathcal{K}$ be a Fraïssé order class with Fraïssé limit $\mathbf{F}$.
+Then $\mathrm{Aut}(\mathbf{F})$ is extremely amenable if and only if
+$\mathcal{K}$ has the Ramsey property.
+\end{theorem}
+
+\begin{example}\label{ex:kpt-rationals}
+\uses{thm:kpt, thm:pestov-ea}
+The finite linear orders form a Fraïssé order class with Fraïssé limit
+$(\mathbb{Q},<)$, and their Ramsey property is the finite Ramsey theorem.
+Theorem~\ref{thm:kpt} thus recovers the extreme amenability of
+$\mathrm{Aut}(\mathbb{Q},<)$.
+\end{example}
+
+\begin{remark}\label{rem:kpt-general}
+\uses{thm:kpt}
+More generally, for any Fraïssé structure $\mathbf{F}$, the group
+$\mathrm{Aut}(\mathbf{F})$ is extremely amenable if and only if the class of
+finite substructures of $\mathbf{F}$ has the Ramsey property and consists of
+rigid structures; see \cite{NguyenVanThe2014}. Since every closed subgroup of
+$S_\infty$ is the automorphism group of a Fraïssé structure, this
+characterises the extremely amenable closed subgroups of $S_\infty$.
+Kechris, Pestov and Todorcevic also developed a method for computing universal
+minimal flows from order expansions with the Ramsey property and the ordering
+property \cite{KPT2005}.
+\end{remark}

@@ -1,0 +1,45 @@
+% Topological dynamics of topological groups: a living, hypertextual encyclopaedia.
+% Main file for both outputs:
+%   * web: plasTeX + plastexdepgraph  (see build.sh)
+%   * PDF: pdflatex + bibtex
+% Conventions for authors (human or AI) are in ../AGENTS.md.
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{depgraph}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Topological dynamics of topological groups}
+\author{A living, hypertextual encyclopaedia. Editor: Martino Lupini}
+\date{Prototype, seed version of 25 November 2026}
+
+\begin{document}
+\maketitle
+
+\input{entries/00-about}
+\input{entries/01-flows}
+\input{entries/02-minimal-flows}
+\input{entries/03-greatest-ambit}
+\input{entries/04-universal-minimal-flow}
+\input{entries/05-extreme-amenability}
+\input{entries/06-veech}
+\input{entries/07-gromov-milman}
+\input{entries/08-pestov}
+\input{entries/09-glasner-weiss}
+\input{entries/10-kpt}
+\input{entries/11-metrizable-umf}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

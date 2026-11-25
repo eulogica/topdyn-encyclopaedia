@@ -1,0 +1,36 @@
+\section{Veech's theorem}\label{sec:veech}
+
+For locally compact groups the universal minimal flow is as large as it can
+be: the group acts on it freely.
+
+\begin{theorem}[Veech \cite{Veech1977}]\label{thm:veech}
+\uses{prop:greatest-ambit, cor:umf-in-ambit}
+Every locally compact group $G$ acts freely on its greatest ambit $S(G)$:
+$gx\neq x$ for all $x\in S(G)$ and all $g\neq 1$. In particular, $G$ acts
+freely on $M(G)$.
+\end{theorem}
+
+\begin{remark}\label{rem:veech-history}
+\uses{thm:veech}
+Veech's theorem shows in particular that every locally compact group admits a
+free action on a compact space; for discrete groups this was proved earlier by
+Ellis. Pestov's paper \cite{Pestov1998} starts from the question of which
+other topological groups admit such actions.
+\end{remark}
+
+\begin{corollary}\label{cor:lc-not-ea}
+\uses{thm:veech, prop:ea-trivial-umf}
+A nontrivial locally compact group is not extremely amenable.
+\end{corollary}
+
+\begin{proof}
+If $M(G)$ is a single point and $G$ acts freely on it, then $G$ is trivial.
+\end{proof}
+
+\begin{remark}\label{rem:lc-metrizable}
+\uses{thm:veech}
+Kechris, Pestov and Todorcevic observed that a locally compact Polish group
+with metrizable universal minimal flow is compact \cite{KPT2005}; see also
+\cite{BYMT2017}. Compare Section~\ref{sec:metrizable}, where metrizable
+universal minimal flows of Polish groups are described.
+\end{remark}

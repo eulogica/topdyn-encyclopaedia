@@ -1,0 +1,50 @@
+\section{The universal minimal flow}\label{sec:umf}
+
+Every topological group has a canonical minimal flow that maps onto all
+others. Computing it, or deciding whether it is trivial or metrizable, is one
+of the central problems of the subject.
+
+\begin{definition}[Universal minimal flow]\label{def:umf}
+\uses{def:minimal}
+A minimal $G$-flow $M$ is \emph{universal} if every minimal $G$-flow is a
+factor of $M$.
+\end{definition}
+
+\begin{theorem}[Ellis \cite{Ellis1960}]\label{thm:ellis}
+\uses{def:umf, prop:greatest-ambit, prop:minimal-subflow}
+Every topological group $G$ has a universal minimal flow, and any two
+universal minimal flows of $G$ are isomorphic. It is denoted $M(G)$.
+\end{theorem}
+
+\begin{proof}[Proof of existence]
+By Proposition~\ref{prop:minimal-subflow}, $S(G)$ contains a minimal subflow
+$M$. Let $Y$ be a minimal $G$-flow and $y\in Y$. Then $(Y,y)$ is an ambit, so
+Proposition~\ref{prop:greatest-ambit} gives a $G$-map $\pi\colon S(G)\to Y$.
+The image $\pi(M)$ is a subflow of $Y$, so $\pi(M)=Y$ by minimality.
+Uniqueness is the subtle part; see \cite{Ellis1960}, and \cite{GutmanLi2013}
+for a short proof.
+\end{proof}
+
+\begin{corollary}\label{cor:umf-in-ambit}
+\uses{thm:ellis}
+Every minimal subflow of the greatest ambit $S(G)$ is isomorphic to $M(G)$.
+\end{corollary}
+
+\begin{example}\label{ex:umf-compact}
+\uses{thm:ellis}
+If $G$ is compact, then $M(G)$ is $G$ acting on itself by left translation.
+Indeed, this flow is minimal, and for a minimal $G$-flow $Y$ and $y\in Y$ the
+map $g\mapsto gy$ is a $G$-map onto the orbit $Gy$, which is compact and dense,
+hence equal to $Y$.
+\end{example}
+
+\begin{remark}[Ellis's problem]\label{rem:ellis-problem}
+\uses{thm:ellis, prop:greatest-ambit}
+The greatest ambit maps canonically onto the enveloping (Ellis) semigroup
+$E(M(G))$ of the universal minimal flow. Ellis asked, in his 1969
+\emph{Lectures on Topological Dynamics}, whether this map is always an
+isomorphism. Pestov observed that every nontrivial extremely amenable group
+(Section~\ref{sec:ea}) answers this in the negative, since its universal
+minimal flow, and hence its enveloping semigroup, is trivial
+\cite{Pestov1998}.
+\end{remark}

@@ -1,0 +1,29 @@
+\section{Minimal flows}\label{sec:minimal}
+
+Minimal flows are the irreducible objects of topological dynamics: they cannot
+be shrunk to a smaller subflow.
+
+\begin{definition}[Minimal flow]\label{def:minimal}
+\uses{def:flow}
+A $G$-flow $X$ is \emph{minimal} if its only subflow is $X$ itself;
+equivalently, the orbit $Gx$ is dense in $X$ for every $x\in X$.
+\end{definition}
+
+\begin{proposition}\label{prop:minimal-subflow}
+\uses{def:minimal}
+Every $G$-flow contains a minimal subflow.
+\end{proposition}
+
+\begin{proof}
+Order the subflows of $X$ by reverse inclusion. The intersection of a chain of
+subflows is closed and invariant, and it is nonempty by compactness, since the
+chain has the finite intersection property. By Zorn's lemma there is a
+minimal subflow.
+\end{proof}
+
+\begin{example}\label{ex:minimal}
+\uses{def:minimal}
+A fixed point is a minimal subflow. The rotation of the circle by an
+irrational multiple of $2\pi$ is a minimal $\mathbb{Z}$-flow, since every orbit
+is dense.
+\end{example}

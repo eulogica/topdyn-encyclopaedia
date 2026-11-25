@@ -1,0 +1,11 @@
+_site/
+myst/_build/
+latex/*.aux
+latex/*.log
+latex/*.out
+latex/*.bbl
+latex/*.blg
+latex/*.toc
+latex/*.paux
+latex/main.pdf
+__pycache__/
