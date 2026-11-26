@@ -10,7 +10,10 @@ reference to a definition or theorem to preview it.
 
 The same entries are also available in a
 [LaTeX version](https://topologicaldynamics.org/latex/), with a permanent tag
-for every statement, a dependency graph and a PDF.
+for every statement, a dependency graph and a PDF. The
+[interactive proof tree](https://topologicaldynamics.org/proof-tree/) draws
+every statement with what it rests on; selecting a result shows its
+statement, its proof and its proof tree.
 
 **Conventions.** Topological groups and compact spaces are Hausdorff. Actions
 are left actions. Conventions on left and right uniform structures differ

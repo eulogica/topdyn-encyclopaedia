@@ -49,7 +49,9 @@ this table.
   proof tree. The proof tree also shows the results of other works that a
   statement or proof cites with a locator, as in `\cite[Theorem~2.1]{Key}`;
   a citation after "see also" or "compare" counts as a pointer and is left
-  out.
+  out. The same data build the interactive proof tree of the whole
+  encyclopaedia at `/proof-tree/` (`latex/tools/proof_tree_page.py`, called by
+  `postprocess.py`).
 * Only standard LaTeX and AMS commands inside math. Do **not** define macros
   for use in formulas: the web version is rendered by MathJax, which does not
   see the preamble.
