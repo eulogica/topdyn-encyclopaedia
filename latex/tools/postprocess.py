@@ -14,7 +14,10 @@ Adds, on top of plasTeX + plastexdepgraph:
     time, so it needs no WebAssembly in the browser);
   * links from every section page and tag page to its source files on GitHub
     (LaTeX and MyST twins), their history and the GitHub editor;
-  * extra navigation links and a small stylesheet.
+  * extra navigation links and a small stylesheet;
+  * the interactive proof tree of the whole encyclopaedia, written by
+    proof_tree_page.py to proof-tree/index.html beside SITE_DIR (so at
+    /proof-tree/ when SITE_DIR is the site's latex/ folder).
 
 Usage: python3 tools/postprocess.py SITE_DIR
 """
@@ -27,6 +30,8 @@ import sys
 from pathlib import Path
 
 from bs4 import BeautifulSoup
+
+import proof_tree_page
 
 ROOT = Path(__file__).resolve().parent.parent
 REPO = "https://github.com/eulogica/topdyn-encyclopaedia"
@@ -478,7 +483,9 @@ def main():
                     'directly or through other statements, as declared in its source and in the '
                     'sources of its proof. An arrow means that the second item uses the first; '
                     'implied arrows are left out. Dashed boxes are results of other works that '
-                    'these statements and proofs cite. Click a node to open its tag.</p>'
+                    'these statements and proofs cite. Click a node to open its tag, or '
+                    f'<a href="../proof-tree/#tree={html.escape(label)}">open this tree in the '
+                    'interactive proof tree</a>.</p>'
                     f'<p class="graph-legend">{legend}</p>')
                 wrap = soup.new_tag("div")
                 wrap["class"] = ["graph-wrap"]
@@ -588,6 +595,15 @@ def main():
         else:
             for node in reversed(note):
                 main_text.insert(0, node)
+
+    # The interactive proof tree of the whole encyclopaedia, next to the LaTeX
+    # version: _site/proof-tree/ when this is _site/latex/.
+    out = SITE.resolve().parent / "proof-tree" / "index.html"
+    count = proof_tree_page.write(
+        out, items, {l: it["uses"] for l, it in items.items()},
+        {l: it["uses_proof"] for l, it in items.items()}, cites, bib, pages, locs,
+        ROOT.parent / "myst", KIND_ABBR)
+    print("interactive proof tree: %d nodes, %d dependencies, %d main results, in %s" % (count + (out,)))
 
     (SITE / "styles" / "encyclopaedia.css").write_text(CSS)
     for name, soup in pages.items():
