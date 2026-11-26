@@ -12,6 +12,7 @@ of Section~\ref{sec:operator-algebras} from those of the preprint.
 \subsection{Main results of the preprint}\label{sec:st-main-results}
 
 \begin{theorem}\label{thm:st-kk}
+\uses{def:cu-definition-1}
  Let $A$ be a stable Kirchberg algebra, with no UCT
 assumption, and put 
 \begin{equation*}
@@ -38,6 +39,7 @@ amenable.
 \end{theorem}
 
 \begin{theorem}\label{thm:st-nuclear-norm}
+\uses{def:cu-definition-1}
 If \(C\) is unital and nuclear, \(V_{C\otimes\mathcal K}\) is whirly amenable in
 norm, and
 \[
@@ -50,7 +52,7 @@ whirly amenability of \(U_1(B)_0\).
 \end{theorem}
 
 \begin{theorem}\label{thm:st-geometric}
-\uses{cor:st-direct-sum-bohr-general}
+\uses{cor:st-direct-sum-bohr-general, def:lo, def:maximal-chain}
  Let $B$ be a stable Kirchberg algebra such that $\operatorname{Aut} (B)$ is extremely amenable. For a nonempty finite set $I$, for $\mathbb{N}$,
 and for the Cantor set $X$, respectively, 
 \begin{align*}
@@ -79,6 +81,7 @@ direct-sum automorphism group.
 \end{theorem}
 
 \begin{theorem}\label{thm:st-stable-stabilizer}
+\uses{def:cu-definition-1}
  Let $A$ be a stable Kirchberg algebra,
 without UCT, and let $\varphi$ be a pure state. Then 
 \begin{equation*}
@@ -123,6 +126,7 @@ has support fixed by \(H\), hence by \(G\), proving the third.
 In particular, whirly amenability passes to continuous dense images.
 
 \begin{lemma}\label{lem:st-products}
+\uses{def:cu-definition-1, def:ea}
  Finite products of extremely amenable groups are
 extremely amenable. A group with a dense directed union of extremely
 amenable subgroups is extremely amenable. Consequently arbitrary products,
@@ -154,6 +158,7 @@ on \(U(n)\). Its Hilbert--Schmidt form is recorded in
 Lemma~\ref{lem:st-unitary-levy}, and implies operator-norm concentration.
 
 \begin{lemma}\label{lem:st-nonarch-whirly}
+\uses{def:cu-definition-1}
  A Polish non-Archimedean group is whirly
 amenable if and only if it is trivial.
 \end{lemma}
@@ -169,7 +174,7 @@ The converse is immediate.
 \end{proof}
 
 \begin{proposition}\label{prop:st-transfer}
-\uses{lem:cu-kernel}
+\uses{lem:cu-kernel, def:cu-definition-1}
  The minimal-flow assertion is Lemma~\ref{lem:cu-kernel}; the additional consequences are recorded together here. Let $q:G\to Q$ be a continuous open surjective
 homomorphism, and suppose $N=\ker q$ is extremely amenable. Every minimal $G$-flow factors through $q$, and 
 \begin{equation}  \label{eq:st-transfer}
@@ -348,6 +353,7 @@ The Bohr counterpart follows from Lemma~\ref{lem:st-bohr-finite-products}:
 \end{equation}
 
 \begin{lemma}\label{lem:st-locally-compact-umf}
+\uses{thm:ellis}
  For a locally compact Polish group $L$, the
 universal minimal flow $M(L)$ is metrizable if and only if $L$ is compact.
 \end{lemma}
@@ -405,6 +411,7 @@ strict approximation. Its proof uses stable uniqueness and Haar
 concentration and does not depend on the present section.
 
 \begin{theorem}[Strict multiplier unitaries]\label{thm:st-multiplier-whirly}
+\uses{def:cu-definition-1, def:ea}
  If $B$ is unital, separable, simple, and
 nuclear, put $A=B\otimes\mathcal K$. The inclusion
 \[
@@ -477,7 +484,7 @@ with the quotient action.
 \end{theorem}
 
 \begin{proof}
-\uses{lem:st-adjoint, prop:st-transfer, rem:st-alternative-whirly, thm:st-multiplier-whirly}
+\uses{lem:st-adjoint, prop:st-transfer, thm:st-multiplier-whirly}
 Theorem~\ref{thm:st-multiplier-whirly} and Lemma~\ref{lem:st-adjoint} and the dense-image principle prove
 the first assertion. A stable Kirchberg algebra contains a nonzero
 projection $p$. Simplicity makes it full, and $B=pAp$ is unital, separable,
@@ -833,7 +840,7 @@ group has an invariant probability measure.
 \end{corollary}
 
 \begin{proof}
-\uses{prop:st-transfer}
+\uses{prop:st-transfer, thm:st-kk}
 The equivalence of (i) and (ii) follows from Theorem~\ref{thm:st-kk}, or
 directly from Proposition~\ref{prop:st-transfer}. The closure of the identity
 in $\mathsf G_A/J_A$ is $N_A/J_A$. It acts trivially in every continuous action on a
@@ -866,7 +873,7 @@ Haar measure on the displayed quotient.
 \end{corollary}
 
 \begin{proof}
-\uses{lem:st-locally-compact-umf}
+\uses{lem:st-locally-compact-umf, thm:st-kk}
 Theorem~\ref{thm:st-kk} and Lemma~\ref{lem:st-locally-compact-umf} prove the
 equivalence. When it holds, the displayed formulas follow from Theorem~\ref{thm:st-kk} and the compact-group facts in Section~\ref{sec:st-dynamics}; Haar measure is the unique invariant
 probability measure on the left-translation flow.
@@ -1101,7 +1108,7 @@ unitaries of the minimal unitisation.
 \end{lemma}
 
 \begin{proof}
-\uses{lem:st-adjoint, thm:st-kernel-ea, thm:st-multiplier-whirly}
+\uses{lem:st-adjoint, thm:st-multiplier-whirly}
 As in the proof of Theorem~\ref{thm:st-kernel-ea}, write
 $A\cong B\otimes\mathcal K$ with $B$ a unital Kirchberg algebra.
 The strict-density assertion of Theorem~\ref{thm:st-multiplier-whirly}
@@ -1450,7 +1457,7 @@ compactification is trivial.
 \end{proof}
 
 \begin{corollary}\label{cor:st-geometric-amenability}
-\uses{cor:st-geometric-bohr}
+\uses{cor:st-geometric-bohr, def:lo}
  For every nonempty finite or countable set 
 $I$, the group $\operatorname{Aut}(c_0(I,B))$ is amenable and its universal minimal flow
 is uniquely ergodic. For $I=\mathbb{N}$, the unique measure on $\operatorname{LO}(\mathbb{N})$ is the uniform random-order measure, characterised by 
@@ -1567,6 +1574,7 @@ Haar probabilities form a L\'evy net; for Polish groups and sequences
 this is the notion already used in Section~\ref{sec:st-dynamics}.
 
 \begin{theorem}[Concentration criterion]\label{thm:st-schneider}
+\uses{def:cu-definition-1}
 If a Hausdorff topological group admits a L\'evy net of Borel
 probability measures converging to invariance in the UEB topology,
 then it is whirly amenable.
@@ -1850,6 +1858,7 @@ can be discarded in a fixed matrix corner.
 \end{remark}
 
 \begin{corollary}[Nuclearity of stabilisations of unital algebras]\label{cor:st-nuclearity}
+\uses{def:ea}
 Let \(B=A\otimes\mathcal K\), with \(A\) unital. The following are equivalent:
 \begin{enumerate}
 \item \(B\) is nuclear;
@@ -2006,7 +2015,7 @@ are not used. The same fixed-support argument applies.
 \end{proof}
 
 \begin{remark}\label{rem:st-alternative-whirly}
-\uses{lem:st-stable-u0-density, prop:st-whirly, thm:st-kernel-ea}
+\uses{lem:st-stable-u0-density, prop:st-whirly}
  Proposition~\ref{prop:st-whirly}, together
 with the strict-density argument in Section~\ref{sec:st-kernel}, gives a
 second proof of the whirliness half of Theorem~\ref{thm:st-kernel-ea}.
@@ -2138,7 +2147,7 @@ For \(3\leq n<\infty\), and for \(n=\infty\), the norm group
 \]
 \end{corollary}
 \begin{proof}
-\uses{thm:cu-main}
+\uses{thm:cu-main, thm:st-nuclear-norm}
 Each coefficient algebra is unital nuclear with \(K_1=0\), so apply
 Theorem~\ref{thm:st-nuclear-norm}. The \(n=2\) calculation remains the
 existing result Theorem~\ref{thm:cu-main}.
