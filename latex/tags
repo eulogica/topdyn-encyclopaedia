@@ -141,3 +141,8 @@
 003W thm:lupini-inductive-umf
 003X thm:lupini-trace-class
 003Y rem:lupini-trace-class
+003Z thm:lupini-stable-norm
+0040 thm:lupini-inductive-free
+0041 rem:lupini-inductive-free
+0042 rem:lupini-lp
+0043 rem:lupini-nuclear

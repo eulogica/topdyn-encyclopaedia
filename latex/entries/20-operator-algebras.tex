@@ -35,15 +35,17 @@ unitisation $D^+$.
 Since $\mathcal{O}_2$ is strongly self-absorbing and its state space is not a
 point, part~(3) answers negatively a question of Eagle, Farah, Hart, Kadets,
 Kalashnyk and Lupini, whether the automorphism group of every strongly
-self-absorbing C*-algebra is extremely amenable. Parts~(1) and~(4) settle, for
-$n=2$, in the affirmative, the case of a conjecture of Alekseev, Schmidt and
-Thom asking whether $U((\mathcal{O}_n\otimes\mathcal{K})^+)$ is amenable in
-the norm topology \cite{LupiniCuntz2026}. Part~(3) is obtained from part~(2) as in
+self-absorbing C*-algebra is extremely amenable. Alekseev, Schmidt and Thom
+asked, as a case of a conjecture of theirs, whether
+$U((\mathcal{O}_n\otimes\mathcal{K})^+)$ is amenable in the norm topology;
+parts~(1) and~(4) answer this affirmatively for $n=2$ \cite{LupiniCuntz2026},
+and Theorem~\ref{thm:lupini-stable-norm} below answers it for every $n$.
+Part~(3) is obtained from part~(2) as in
 Proposition~\ref{prop:coprecompact-ea}: the stabiliser of a pure state is a
 co-precompact subgroup whose completion is the whole state space.
 \end{remark}
 
-\begin{theorem}[Lupini \cite{LupiniStable2026}]\label{thm:lupini-stable}
+\begin{theorem}[Lupini \cite{LupiniStable2026,LupiniCuntz2026}]\label{thm:lupini-stable}
 \uses{prop:ea-normal}
 Let $A$ be a stable Kirchberg algebra, and let $N_A$ be the closure in
 $\mathrm{Aut}(A)$ of the automorphisms $\mathrm{Ad}(u)$, for $u$ a unitary of
@@ -53,27 +55,35 @@ the multiplier algebra of $A$.
   $\mathrm{Aut}(A)\to KL(A,A)^\times$ to the group of invertible elements of
   $KL(A,A)$ is continuous, open and surjective, with kernel $N_A$. Hence
   $M(\mathrm{Aut}(A))$ is $M(KL(A,A)^\times)$ with $\mathrm{Aut}(A)$ acting
-  through this map. No UCT assumption is needed.
+  through this map, and the two groups have the same Bohr compactification.
+  No UCT assumption is needed.
 \item If $A$ satisfies the UCT, the same holds with $KL(A,A)^\times$ replaced
   by the automorphism group of total K-theory $\underline{K}(A)$ with its
   coefficient operations, with the topology of pointwise convergence.
-\item If $A$ satisfies the UCT and $G_i=K_i(A)$ are finite, then
-  $M(\mathrm{Aut}(A))$ is the translation flow of a finite group of order
-  $|\mathrm{Aut}(G_0)|\,|\mathrm{Aut}(G_1)|\,|\mathrm{Ext}(G_0,G_1)|\,|\mathrm{Ext}(G_1,G_0)|$.
-  If the $G_i$ are finitely generated, then $M(\mathrm{Aut}(A))$ is metrizable
-  if and only if $\mathrm{Aut}(A)$ is amenable, if and only if the free ranks
-  of $G_0$ and $G_1$ are at most one.
+\item If $A$ satisfies the UCT and the groups $G_i=K_i(A)$ are finitely
+  generated, then the quotient group in~(2) is countable and discrete, and it
+  is finite exactly when the free ranks of $G_0$ and $G_1$ are at most one. In
+  that case $M(\mathrm{Aut}(A))$ is the translation flow of this finite group,
+  of order
+  $|\mathrm{Aut}(G_0)|\,|\mathrm{Aut}(G_1)|\,|\mathrm{Ext}(G_0,G_1)|\,|\mathrm{Ext}(G_1,G_0)|$;
+  otherwise $M(\mathrm{Aut}(A))$ is not metrizable. Moreover,
+  $\mathrm{Aut}(A)$ is amenable if and only if both free ranks are at most
+  one.
 \end{enumerate}
+Part~(3) is proved in \cite{LupiniCuntz2026}, except for the amenability
+criterion, which is proved in \cite{LupiniStable2026}.
 \end{theorem}
 
 \begin{example}\label{ex:lupini-stable-cuntz}
 \uses{thm:lupini-stable}
-For $n\geq1$, the stabilised Cuntz algebra $\mathcal{O}_{n+1}\otimes\mathcal{K}$
-satisfies the UCT, with $K_0=\mathbb{Z}/n$ and $K_1=0$. When $K_1(A)=0$ the
-total K-theory quotient reduces to $\mathrm{Aut}(K_0(A))$
-\cite{LupiniStable2026}, so $M(\mathrm{Aut}(\mathcal{O}_{n+1}\otimes\mathcal{K}))$
-is the translation flow of the group of units of $\mathbb{Z}/n$. In
-particular, the automorphism groups of $\mathcal{O}_2\otimes\mathcal{K}$ and
+For $2\leq n<\infty$, the stabilised Cuntz algebra $\mathcal{O}_n\otimes\mathcal{K}$
+satisfies the UCT, with $K_0=\mathbb{Z}/(n-1)$ and $K_1=0$. When $K_1(A)=0$
+the total K-theory quotient reduces to $\mathrm{Aut}(K_0(A))$, so
+$M(\mathrm{Aut}(\mathcal{O}_n\otimes\mathcal{K}))$ is the translation flow of
+the group $(\mathbb{Z}/(n-1))^\times$ of units of $\mathbb{Z}/(n-1)$; for
+$\mathcal{O}_\infty\otimes\mathcal{K}$, where $K_0=\mathbb{Z}$, it is the
+two-point group $\{1,-1\}$ \cite{LupiniCuntz2026}. In particular, the
+automorphism groups of $\mathcal{O}_2\otimes\mathcal{K}$ and
 $\mathcal{O}_3\otimes\mathcal{K}$ are extremely amenable.
 \end{example}
 
@@ -91,6 +101,19 @@ M(\mathrm{Aut}(C(X)\otimes B))\cong\Phi(X),
 \]
 with the actions induced by permutations of the summands and by
 homeomorphisms of $X$.
+\end{theorem}
+
+\begin{theorem}[Lupini \cite{LupiniStable2026}]\label{thm:lupini-stable-norm}
+\uses{thm:lupini-cuntz, prop:ea-normal}
+Let $C$ be a unital C*-algebra, let $B=C\otimes\mathcal{K}$, with minimal
+unitisation $B^+$, and give $U(B^+)$ the norm topology. Then $U(B^+)$ is
+amenable if and only if $C$ is nuclear. If $C$ is nuclear, then
+\[
+M(U(B^+))\cong\mathbb{T}\times M(K_1(C)),
+\]
+with $K_1(C)$ discrete, and $U(B^+)$ acting through the scalar character of
+$B^+$ and the $K_1$-class. For $C=\mathcal{O}_n$, where $K_1=0$, this gives
+$M(U((\mathcal{O}_n\otimes\mathcal{K})^+))\cong\mathbb{T}$ for every $n$.
 \end{theorem}
 
 \begin{theorem}[Lupini \cite{LupiniUnital2026}]\label{thm:lupini-unital}
@@ -126,7 +149,13 @@ nontrivial compact group $PU(d)$.
 \uses{thm:lupini-unital, thm:lupini-cuntz}
 For $A=\mathcal{O}_2$ the group $Q^0_A$ is trivial, and
 Theorem~\ref{thm:lupini-unital} recovers part~(3) of
-Theorem~\ref{thm:lupini-cuntz}. The proofs give more
+Theorem~\ref{thm:lupini-cuntz}. The same holds for $\mathcal{O}_n$ with
+$3\leq n\leq\infty$, and for every purely infinite strongly self-absorbing
+C*-algebra $A$: then $\mathrm{Aut}(A)=N^0_A$ and
+$M(\mathrm{Aut}(A))\cong S(A)$. For separable stable AF algebras $B$, the map
+$\mathrm{Aut}(B)\to\mathrm{Aut}(K_0(B),K_0(B)^+)$ is continuous, open and
+surjective with extremely amenable kernel, so $M(\mathrm{Aut}(B))$ is again
+computed from the ordered $K_0$-group \cite{LupiniStable2026}. The proofs give more
 \cite{LupiniUnital2026}. In the AF case the unitary group, in the norm
 topology, and the inner automorphism group are \emph{whirly amenable}, a
 property stronger than extreme amenability. In the Kirchberg case $N^0_A$ is

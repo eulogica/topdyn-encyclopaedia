@@ -4,9 +4,10 @@
 Two elementary principles compute many universal minimal flows: a group
 that is dense in a compact group has that compact group as its universal
 minimal flow, and a closed normal extremely amenable subgroup can be divided
-out. The computations in this section, apart from
-{prf:ref}`prop-ea-normal`, are taken from a preprint of the editor
-posted on Zenodo {cite}`LupiniPointwise2026`; it has not been refereed.
+out. The computations in this section are collected, with proofs, in a
+preprint of the editor posted on Zenodo {cite}`LupiniPointwise2026`, which has
+not been refereed. The preprint presents them as consequences and extensions
+of established results, which are credited with each statement below.
 
 :::{prf:proposition}
 :label: prop-ea-normal
@@ -30,10 +31,11 @@ uniform structure of $G$ is the one induced by the unique uniform structure
 of $Q$, so every bounded right uniformly continuous function on $G$ extends
 uniquely to a continuous function on $Q$. Hence $S(G)=Q$, which is a minimal
 $G$-flow because $G$ is dense, and {prf:ref}`cor-umf-in-ambit` gives
-$M(G)=Q$. See also Lemma 2.1 of {cite}`LupiniPointwise2026`.
+$M(G)=Q$. Both facts are standard {cite}`Pestov2006`; see also
+Lemma 2.1 of {cite}`LupiniPointwise2026`.
 :::
 
-:::{prf:theorem} {cite:t}`LupiniPointwise2026`
+:::{prf:theorem} {cite:t}`HernandezRodenas2007,ShakhmatovSpevak2010`
 :label: thm-lupini-cp
 
 Let $X$ be a Tychonoff space and $K$ a compact path-connected topological
@@ -47,6 +49,12 @@ $M(C_p(X,K))\cong K^X$, with $C_p(X,K)$ acting by left translation.
 
 Continuous maps can take any finitely many prescribed values, so
 $C_p(X,K)$ is dense in $K^X$ and {prf:ref}`prop-ea-normal` applies.
+The density is implicit in the separation property of Hernández and
+Ródenas, and Shakhmatov and Spěvák state the completion of $C_p(X,K)$
+explicitly; the theorem is therefore a consequence of existing results
+{cite}`LupiniPointwise2026`. For a compact Lie group $K$ that is not connected,
+the completion, and hence $M(C_p(X,K))$, also records which component of $K$
+a map takes on each clopen piece of $X$ (Theorem 2.8 of {cite}`LupiniPointwise2026`).
 The same argument computes, for the pointwise topology, the universal
 minimal flows of path, loop and gauge groups of compact Lie groups, and of
 groups of Lipschitz, Hölder, real-analytic and holomorphic maps. In the finer
@@ -80,9 +88,16 @@ $\mathrm{LO}(A_\mu)$ is the space of linear orders on $A_\mu$.
 :label: rem-lupini-aut-measure
 
 Both groups split as the product of the corresponding group of the atomless
-part, which is extremely amenable by Giordano and Pestov, and a permutation
-group of the atoms; {prf:ref}`prop-ea-normal` and
-{prf:ref}`thm-glasner-weiss` do the rest. The same decomposition gives the
+part, which is extremely amenable by Giordano and Pestov
+{cite}`GiordanoPestov2002`, and a permutation group of the atoms;
+{prf:ref}`prop-ea-normal` and {prf:ref}`thm-glasner-weiss` do the
+rest. Similarly, for a compact metrizable group $K$ and the group
+$L^0(Y,\mu;K)$ of measurable maps with convergence in measure,
+$M(L^0(Y,\mu;K))\cong K^{A_\mu}$ (Proposition 3.1 of {cite}`LupiniPointwise2026`).
+For atomless $\mu$ this says that $L^0(Y,\mu;K)$ is extremely amenable, which
+is due to Glasner for $K=\mathbb{T}$ and to Giordano and Pestov for amenable
+locally compact $K$; Pestov and Schneider treat arbitrary amenable $K$
+{cite}`Glasner1998,GiordanoPestov2007,PestovSchneider2017`. The same decomposition gives the
 universal minimal flows of measurable wreath products, of full groups of
 measured equivalence relations whose atomless part has an extremely amenable
 full group, which are products of spaces of linear orders over the atomic
@@ -106,7 +121,16 @@ In particular, the isometry group is extremely amenable when $\mu$ has no
 atoms.
 :::
 
-:::{prf:theorem} {cite:t}`LupiniPointwise2026`
+:::{prf:remark}
+:label: rem-lupini-lp
+
+For purely atomic $\mu$ the formula was stated by Pestov
+(Theorem 4.13 and Remark 4.14 of {cite}`PestovRemarks2002`); the preprint
+combines it with the theorem of Giordano and Pestov for the atomless part
+{cite}`LupiniPointwise2026`.
+:::
+
+:::{prf:theorem} Wreath products {cite:p}`LupiniPointwise2026`
 :label: thm-lupini-wreath
 
 Let $F$ be a Polish group whose universal minimal flow $X=M(F)$ is
@@ -125,18 +149,26 @@ $((f_a)_a,\sigma)\cdot((x_a)_a,<)=((f_a x_{\sigma^{-1}(a)})_a,\sigma\cdot{<})$.
 :::{prf:remark}
 :label: rem-lupini-wreath
 
-The proof combines {prf:ref}`thm-bymt`, which provides a co-precompact
-extremely amenable subgroup $F^*\leq F$, with the extremely amenable subgroup
-$(F^*)^\Omega\rtimes\mathrm{Aut}(\Omega,<_0)$ for an order $<_0$ of type
-$\mathbb{Q}$. Applied to the automorphism groups of the Gurarij space and of
-the noncommutative Gurarij space, which are extremely amenable, and of the
-Poulsen simplex and the noncommutative Poulsen simplex, whose universal
-minimal flows are known, it gives explicit wreath-product formulas; the
-preprint makes no separate priority claim for them
-(Theorem 4.5 and Corollary 4.6 of {cite}`LupiniPointwise2026`).
+The formula follows from the co-precompact-stabiliser method of Ben Yaacov,
+Melleray and Tsankov: {prf:ref}`thm-bymt` provides a co-precompact
+extremely amenable subgroup $F^*\leq F$, and
+$(F^*)^\Omega\rtimes\mathrm{Aut}(\Omega,<_0)$, for an order $<_0$ of type
+$\mathbb{Q}$, is a co-precompact extremely amenable subgroup of the wreath
+product. In the Fraïssé setting this flow is given by Sokić's theorem
+on ordered relational compositions {cite}`Sokic2013`; Pawliuk and Sokić treat
+compositions of expansions {cite}`PawliukSokic2020`, and Jahel and Zucker
+establish metrizability and unique ergodicity results for Polish wreath
+products {cite}`JahelZucker2026`. The formulation above, with an arbitrary
+Polish fibre group, is that of Theorem 4.5 of {cite}`LupiniPointwise2026`, which
+makes no separate claim of priority for the method or the formulas. Applied to
+the automorphism groups of the Gurarij space and of the noncommutative
+Gurarij space, which are extremely amenable, and of the Poulsen simplex and
+the noncommutative Poulsen simplex, whose universal minimal flows are known,
+it gives explicit wreath-product formulas
+(Corollary 4.6 of {cite}`LupiniPointwise2026`).
 :::
 
-:::{prf:theorem} {cite:t}`LupiniPointwise2026`
+:::{prf:theorem} {cite:t}`GiordanoPestov2002,GiordanoPestov2007,LupiniPointwise2026`
 :label: thm-lupini-nuclear
 
 Let $A$ be a unital separable nuclear C*-algebra, and give its unitary group
@@ -152,4 +184,12 @@ $u\in U(A)$ acts through the coordinates $\pi(u)$. In particular, $U(A)$ is
 extremely amenable in this topology when $A$ has no finite-dimensional
 irreducible representations, and $M(U(C(X)))\cong\mathbb{T}^X$ for every
 compact metrizable space $X$.
+:::
+
+:::{prf:remark}
+:label: rem-lupini-nuclear
+
+The formula makes explicit the compact factors in a decomposition of Giordano
+and Pestov {cite}`GiordanoPestov2002,GiordanoPestov2007`; the computation is in
+Theorem 5.18 and Corollary 5.19 of {cite}`LupiniPointwise2026`.
 :::
