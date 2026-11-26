@@ -15,8 +15,8 @@ can be compared before one is chosen:
 * `latex/`: LaTeX source, built into a website with
   [plasTeX](https://github.com/plastex/plastex) and Patrick Massot's
   dependency-graph plugin, plus a PDF. Every statement has a permanent
-  four-character tag (Stacks project style), a tag page with its dependencies,
-  and a node in the dependency graph.
+  four-character tag (Stacks project style), a tag page with its dependencies
+  and its proof tree, and a node in the dependency graph.
 * `myst/`: MyST Markdown source, built with Sphinx, myst-parser and
   sphinx-proof. Cross-references show a preview when you hover over them.
 
