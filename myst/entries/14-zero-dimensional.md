@@ -1,0 +1,88 @@
+(sec-zero-dim)=
+# Homeomorphism groups of zero-dimensional spaces
+
+For the Cantor set, and more generally for every compact zero-dimensional
+space whose nonempty clopen subsets are all homeomorphic, the flow of maximal
+chains is the universal minimal flow of the homeomorphism group.
+
+:::{prf:definition} Proximal flows
+:label: def-proximal
+
+Two points $x,y$ of a $G$-flow $X$ are *proximal* if there is a net
+$(g_i)$ in $G$ such that $(g_ix)$ and $(g_iy)$ converge to the same point. The
+flow is *proximal* if every pair of its points is proximal. A factor of
+a proximal flow is proximal.
+:::
+
+:::{prf:theorem} {cite:t}`GlasnerWeiss2003`
+:label: thm-gw-cantor
+
+Let $E$ be the Cantor set and let $G=\mathrm{Homeo}(E)$, with the topology of
+uniform convergence. Then $M(G)$ is isomorphic to the flow $\Phi(E)$ of
+maximal chains in $E$. In particular $M(G)$ is metrizable, and in fact
+homeomorphic to the Cantor set. Moreover, $\Phi(E)$ is proximal, so every
+minimal $G$-flow is proximal.
+:::
+
+:::{prf:example} The standard chain
+:label: ex-standard-chain
+
+Realise $E$ as the ternary Cantor set in $[0,1]$. The chain
+$c_0=\{E\cap[0,t] : t\in[0,1]\}$ is maximal, with root $0$. Its stabiliser is
+the group $P$ of order-preserving homeomorphisms of $E$, and $P$ is isomorphic
+to $\mathrm{Aut}(\mathbb{Q},<)$, through its action on the complementary open
+intervals of $E$, which are ordered like the rationals. Hence $P$ is extremely
+amenable by {prf:ref}`thm-pestov-ea`. Moreover, $P$ has exactly six fixed
+points in $\Phi(E)$, and the action of $G$ on $\Phi(E)$ is minimal
+(Theorems 1.2 and 1.3 of {cite}`GlasnerWeiss2003`).
+:::
+
+:::{prf:proof}
+*Proof of proximality, after Glasner and Weiss.* Let $c_1,c_2\in\Phi(E)$ and let $Z$ be the closure of the orbit of
+$(c_1,c_2)$ in $\Phi(E)\times\Phi(E)$. Since $P$ is extremely amenable, $Z$
+contains a pair $(a_1,a_2)$ of $P$-fixed points, and Glasner and Weiss check
+directly that any two of the six $P$-fixed chains are proximal. So $Z$
+contains a diagonal point $(a,a)$, which means that $c_1$ and $c_2$ are
+proximal.
+:::
+
+:::{prf:remark} Stone duality
+:label: rem-stone-duality
+
+The clopen subsets of $E$ form the countable atomless Boolean algebra
+$\mathbf{B}_\infty$, and $\mathrm{Homeo}(E)$ is isomorphic, as a topological
+group, to $\mathrm{Aut}(\mathbf{B}_\infty)$ with the topology of pointwise
+convergence. Kechris, Pestov and Todorcevic computed the universal minimal flow
+of $\mathrm{Aut}(\mathbf{B}_\infty)$ as the space of natural orders on
+$\mathbf{B}_\infty$ (Section 8 of {cite}`KPT2005`; see
+{prf:ref}`ex-kpt-computations`). By {prf:ref}`thm-ellis`, this flow is
+isomorphic to $\Phi(E)$.
+:::
+
+:::{prf:definition} h-homogeneous spaces
+:label: def-h-homogeneous
+
+A compact zero-dimensional space $X$ is *h-homogeneous* if all its
+nonempty clopen subsets are homeomorphic to each other; equivalently, by Stone
+duality, if its algebra of clopen sets is a homogeneous Boolean algebra. A
+metrizable h-homogeneous space with more than one point is homeomorphic to the
+Cantor set.
+:::
+
+:::{prf:theorem} {cite:t}`GlasnerGutman2012`
+:label: thm-glasner-gutman
+
+Let $X$ be an h-homogeneous compact zero-dimensional space and let
+$G=\mathrm{Homeo}(X)$, with the compact-open topology. Then $M(G)$ is isomorphic
+to $\Phi(X)$.
+:::
+
+:::{prf:remark}
+:label: rem-glasner-gutman
+
+For metrizable $X$ this is {prf:ref}`thm-gw-cantor`; as in that case, the
+main combinatorial tool is the dual Ramsey theorem, a consequence of the
+Graham–Rothschild theorem on $n$-parameter sets {cite}`GlasnerWeiss2003`.
+Non-metrizable h-homogeneous spaces give many new examples
+{cite}`GlasnerGutman2012`.
+:::

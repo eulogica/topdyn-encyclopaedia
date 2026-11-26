@@ -22,6 +22,7 @@ bibtex_reference_style = "label"
 prf_realtyp_to_countertyp = {
     "definition": "theorem", "proposition": "theorem", "corollary": "theorem",
     "lemma": "theorem", "remark": "theorem", "example": "theorem", "theorem": "theorem",
+    "conjecture": "theorem",
 }
 
 numfig = True
