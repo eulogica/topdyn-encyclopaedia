@@ -13,7 +13,7 @@ same entries**, kept so the two toolchains can be compared:
 
 | Folder   | Source format  | Built with                         | Extras                                         |
 |----------|----------------|------------------------------------|------------------------------------------------|
-| `latex/` | LaTeX          | plasTeX + plastexdepgraph, pdflatex | permanent tags, dependency graph, PDF          |
+| `latex/` | LaTeX          | plasTeX + plastexdepgraph, pdflatex | permanent tags, dependency graph, proof trees, PDF |
 | `myst/`  | MyST Markdown  | Sphinx + myst-parser + sphinx-proof | hover previews of references, search           |
 
 Both use `references.bib`. When one version is chosen, delete the other and
@@ -43,8 +43,13 @@ this table.
   `thm:`, `prop:`, `cor:`, `lem:`, `rem:`, `ex:`, followed by a descriptive
   slug (`thm:ellis`, not `thm:5-2`).
 * Every statement lists what it depends on with `\uses{label1, label2}` right
-  after `\label`. These build the dependency graph and the "Uses / Used by"
-  lists on tag pages.
+  after `\label`, and a proof lists what it uses with its own `\uses` (after
+  `\proves{label}` when it does not follow its statement). These build the
+  dependency graph and, on tag pages, the "Uses / Used by" lists and the
+  proof tree. The proof tree also shows the results of other works that a
+  statement or proof cites with a locator, as in `\cite[Theorem~2.1]{Key}`;
+  a citation after "see also" or "compare" counts as a pointer and is left
+  out.
 * Only standard LaTeX and AMS commands inside math. Do **not** define macros
   for use in formulas: the web version is rendered by MathJax, which does not
   see the preamble.
