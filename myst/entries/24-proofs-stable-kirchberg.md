@@ -894,7 +894,7 @@ definable. Apply {prf:ref}`thm-st-definable-transfer`.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-st-kk`.* {prf:ref}`lem-st-stable-kl-uniqueness` and {prf:ref}`lem-st-kl-realization` make $\kappa_A$ a continuous surjective homomorphism of Polish groups with kernel $N_A$. It is open by the Polish open mapping theorem. {prf:ref}`thm-st-kernel-ea` gives whirly amenability of $N_A$, and
+*Proof of {prf:ref}`thm-st-kk`.* {prf:ref}`lem-st-stable-kl-uniqueness` and {prf:ref}`lem-st-kl-realization` make $\kappa_A$ a continuous surjective homomorphism of Polish groups with kernel $N_A$. It is open by the Polish open mapping theorem. {prf:ref}`thm-st-kernel-ea` gives whirly amenability of $N_A$, and
 {prf:ref}`prop-st-transfer` gives the universal-minimal-flow and Bohr
 formulas. {prf:ref}`prop-st-kk-path-cover` and {prf:ref}`prop-st-definable-kk-units` prove the assertions
 about the definable unit group and its Hausdorff quotient.
@@ -1399,7 +1399,7 @@ identifies both minimal flows with the indicated pullbacks. Surjectivity of $H\t
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-st-stable-stabilizer`.* Combine {prf:ref}`thm-st-stable-marked-kernel` and {prf:ref}`cor-st-stable-stabilizer-umf`.
+*Proof of {prf:ref}`thm-st-stable-stabilizer`.* Combine {prf:ref}`thm-st-stable-marked-kernel` and {prf:ref}`cor-st-stable-stabilizer-umf`.
 :::
 
 (sec-st-geometric)=
@@ -1702,6 +1702,23 @@ stable AF algebras have no characters. Their automorphism conclusions
 therefore persist for minimal unitisations. In particular this verifies
 the unitisation assertion in {prf:ref}`thm-st-geometric`. Weighted
 states on sums of unital fibers are treated in {cite}`LupiniUnital2026`.
+
+:::{prf:proof}
+*Proof of {prf:ref}`thm-st-geometric`.* The hypothesis holds for
+$B=\mathcal{O}_2\otimes\mathcal{K}$ and $B=\mathcal{O}_3\otimes\mathcal{K}$, as recorded at the
+start of this section. By {prf:ref}`prop-st-direct-sum` and {prf:ref}`prop-st-field`, the
+universal minimal flows of $\operatorname{Aut}(c_0(I,B))$ and $\operatorname{Aut}(C(X)\otimes B)$ are those of
+$\operatorname{Sym}(I)$ and $\operatorname{Homeo}(X)$, through the permutation of summand ideals and the
+induced homeomorphism of $X$. For finite $I$ this is the regular flow of
+$\operatorname{Sym}(I)$. For $I=\mathbb{N}$ and for the Cantor set it is $\operatorname{LO}(\mathbb{N})$ and
+$\Phi(X)$, by the results of Glasner and Weiss recalled above
+{cite}`GlasnerWeiss2002,Glasner2002Orders` and {cite}`GlasnerWeiss2003`, Theorem 6.1.
+The Bohr compactifications are computed in {prf:ref}`cor-st-geometric-bohr`, and
+amenability, unique ergodicity and nonamenability in
+{prf:ref}`cor-st-geometric-amenability`. {prf:ref}`lem-st-unitization` and the paragraph
+following it give the statements after unitisation. The final assertions, for
+nonzero simple stable $C$, are {prf:ref}`cor-st-direct-sum-bohr-general`.
+:::
 
 (sec-st-stable-proof)=
 ## Stable nuclear norm-unitary groups
@@ -2163,7 +2180,7 @@ second can be seen directly by compressing compact paths into finite
 matrix corners as in the proof of {prf:ref}`thm-st-v`.
 
 :::{prf:proof}
-*Proof of prf:ref`thm-st-nuclear-norm`.* These two identifications give the continuous open map
+*Proof of {prf:ref}`thm-st-nuclear-norm`.* These two identifications give the continuous open map
 
 $$
 q_U:U((A\otimes\mathcal K)^+)\longrightarrow\mathbb T\times K_1(A),\qquad
@@ -2425,7 +2442,7 @@ retains its purpose for algebras outside the nuclear class.
 ## Proofs of statements in [](#sec-operator-algebras)
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-stable`.* Part (1) is {prf:ref}`thm-st-kk`; whirly amenability of $N_A$ implies its
+*Proof of {prf:ref}`thm-lupini-stable`.* Part (1) is {prf:ref}`thm-st-kk`; whirly amenability of $N_A$ implies its
 extreme amenability. Part (2) is {prf:ref}`cor-st-closed-preimages` with
 $L=Q_A$. For part (3), the quotient in (2) is the group $Q_B$ of
 {prf:ref}`thm-cu-stable-general`, and {prf:ref}`prop-cu-finite-k`
@@ -2442,7 +2459,7 @@ this means that both free ranks are at most one, as recorded in
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-stable-geometric`.* By {prf:ref}`prop-st-direct-sum`,
+*Proof of {prf:ref}`thm-lupini-stable-geometric`.* By {prf:ref}`prop-st-direct-sum`,
 $M(\mathrm{Aut}(c_0(I,B)))\cong M(\mathrm{Sym}(I))$. For finite $I$ this is
 $\mathrm{Sym}(I)$, as for every compact group
 ({prf:ref}`prop-ea-normal`), and for $I=\mathbb{N}$ it is
@@ -2453,7 +2470,7 @@ for the Cantor set $X$ by {prf:ref}`thm-gw-cantor`.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-stable-norm`.* The first two assertions are {prf:ref}`thm-st-nuclear-norm`. For
+*Proof of {prf:ref}`thm-lupini-stable-norm`.* The first two assertions are {prf:ref}`thm-st-nuclear-norm`. For
 $C=\mathcal{O}_n$ one has $K_1(\mathcal{O}_n)=0$ {cite}`Cuntz1981`, so the
 second factor is a point.
 :::

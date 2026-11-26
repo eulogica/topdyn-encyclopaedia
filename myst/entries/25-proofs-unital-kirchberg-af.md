@@ -388,7 +388,7 @@ Now use {prf:ref}`thm-un-marked-whirly`,
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-un-main-kirchberg`.* The preceding proposition gives $M(N^0)=S(A)$.
+*Proof of {prf:ref}`thm-un-main-kirchberg`.* The preceding proposition gives $M(N^0)=S(A)$.
 Since this flow is strongly proximal, it is also the Furstenberg
 boundary of $N^0$.
 Pure-state transitivity under $N^0$ gives $G=N^0H$. Hence
@@ -938,7 +938,7 @@ gives whirly amenability of $N_A$.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-un-main-af`.* Combine {prf:ref}`prop-un-af-quotient` with
+*Proof of {prf:ref}`thm-un-main-af`.* Combine {prf:ref}`prop-un-af-quotient` with
 {prf:ref}`prop-un-dynamical-inputs`2;
 for the whirly-amenability criterion also use
 {prf:ref}`prop-un-dynamical-inputs`4.
@@ -1151,11 +1151,11 @@ not resolve this AF-specific problem.
 ## Proofs of statements in [](#sec-operator-algebras)
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-unital`.* This is part of {prf:ref}`thm-un-main-kirchberg`.
+*Proof of {prf:ref}`thm-lupini-unital`.* This is part of {prf:ref}`thm-un-main-kirchberg`.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-af`.* The first assertions, including the case of infinite-dimensional simple
+*Proof of {prf:ref}`thm-lupini-af`.* The first assertions, including the case of infinite-dimensional simple
 separable unital AF algebras, are {prf:ref}`thm-un-main-af`. Let
 $A=M_d(\mathbb{C})$ with $d\geq2$. Its scaled dimension group is
 $(\mathbb{Z},\mathbb{Z}_{\geq0},d)$, whose only automorphism is the identity,

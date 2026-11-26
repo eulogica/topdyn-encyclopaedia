@@ -1770,22 +1770,22 @@ $\operatorname{PU}(n)=\mathrm U(n)/\mathbb T$.
 ## Proofs of the statements in [](#sec-maps-transformations)
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-cp`.* This is the first assertion of {prf:ref}`thm-pw-cp-umf`.
+*Proof of {prf:ref}`thm-lupini-cp`.* This is the first assertion of {prf:ref}`thm-pw-cp-umf`.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-aut-measure`.* This is {prf:ref}`thm-pw-measure-aut-umf`.
+*Proof of {prf:ref}`thm-lupini-aut-measure`.* This is {prf:ref}`thm-pw-measure-aut-umf`.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-lp`.* This is {prf:ref}`thm-pw-lp-isometry-umf`.
+*Proof of {prf:ref}`thm-lupini-lp`.* This is {prf:ref}`thm-pw-lp-isometry-umf`.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-wreath`.* This is {prf:ref}`thm-pw-metrizable-fibre-wreath-umf`.
+*Proof of {prf:ref}`thm-lupini-wreath`.* This is {prf:ref}`thm-pw-metrizable-fibre-wreath-umf`.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-nuclear`.* The formula and the extreme amenability are {prf:ref}`thm-pw-nuclear-weak-umf`;
+*Proof of {prf:ref}`thm-lupini-nuclear`.* The formula and the extreme amenability are {prf:ref}`thm-pw-nuclear-weak-umf`;
 the formula for $U(C(X))$ is part (1) of {prf:ref}`cor-pw-nuclear-weak-examples`.
 :::

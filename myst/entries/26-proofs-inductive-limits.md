@@ -338,7 +338,7 @@ existence of the map needed here.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-ind-main`.* Discarding the finitely many stages before $K_j$ does not change the
+*Proof of {prf:ref}`thm-ind-main`.* Discarding the finitely many stages before $K_j$ does not change the
 union or its final topology. Choose $D_n=D_{K_n}$ for $n\ge j$.
 {prf:ref}`lem-ind-bonding` provides $K_n$-equivariant maps
 $p_n:D_{n+1}\to D_n$. {prf:ref}`lem-ind-inverse-action` yields a
@@ -1112,7 +1112,7 @@ countable intersection gives $\mu(\operatorname{Free}(Z))=1$.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-ind-classical-free-locus`.* Let $X=\varprojlim D_m$ be the Oliver flow constructed in the proof
+*Proof of {prf:ref}`thm-ind-classical-free-locus`.* Let $X=\varprojlim D_m$ be the Oliver flow constructed in the proof
 of {prf:ref}`thm-ind-main`. A minimal subflow of $X$ is a factor of
 $M(G)$, so there is a $G$-map $q:M(G)\to X$. For $z\in M(G)$,
 the compact subgroup $L=G_z\cap K_m$ fixes $\pi_m(q(z))$.
@@ -1522,7 +1522,7 @@ gives $h_n\to u$ in trace norm.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-ind-trace-intro`.* The estimate is {prf:ref}`thm-ind-variance`. For either
+*Proof of {prf:ref}`thm-ind-trace-intro`.* The estimate is {prf:ref}`thm-ind-variance`. For either
 $\Gamma=G_{\mathrm{tr}}$ or $\Gamma=\operatorname{SU}_1$, restrict any finite
 family of bounded Lipschitz functions on $\Gamma$ to $\operatorname{SU}(N)$.
 For each fixed $m$, inequality {eq}`eq-ind-finite-variance` tends to
@@ -1588,41 +1588,41 @@ obstruction is {prf:ref}`prop-ind-obstructing-observables`.
 ## Proofs of the statements in [](#sec-inductive-limits)
 
 :::{prf:proof}
-*Proof of prf:ref`cor-ind-classical-intro`.* {prf:ref}`cor-ind-semisimple-classical` covers $\varinjlim\operatorname{SU}(n)$,
+*Proof of {prf:ref}`cor-ind-classical-intro`.* {prf:ref}`cor-ind-semisimple-classical` covers $\varinjlim\operatorname{SU}(n)$,
 $\varinjlim\operatorname{SO}(n)$ and $\varinjlim\operatorname{Sp}(n)$, and
 {prf:ref}`prop-ind-determinants` covers $\varinjlim\operatorname{U}(n)$ and
 $\varinjlim\operatorname{O}(n)$.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-ind-dynamics-intro`.* Together, {prf:ref}`prop-ind-bohr-classical` and
+*Proof of {prf:ref}`thm-ind-dynamics-intro`.* Together, {prf:ref}`prop-ind-bohr-classical` and
 {prf:ref}`thm-ind-classical-umf` prove the theorem.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-ind-free-intro`.* Together, {prf:ref}`prop-ind-involution-fixed` and
+*Proof of {prf:ref}`thm-ind-free-intro`.* Together, {prf:ref}`prop-ind-involution-fixed` and
 {prf:ref}`thm-ind-classical-free-locus` prove the theorem.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-inductive`.* This is {prf:ref}`thm-ind-main`. The two forms of the hypothesis agree: as
+*Proof of {prf:ref}`thm-lupini-inductive`.* This is {prf:ref}`thm-ind-main`. The two forms of the hypothesis agree: as
 noted after {eq}`eq-ind-family`, a compact Lie group $H$ is solvable if and
 only if $H^0$ is a torus and $H/H^0$ is solvable, and a compact connected Lie
 group is abelian exactly when it is a torus.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`cor-lupini-inductive`.* This is {prf:ref}`cor-ind-classical-intro`, with
+*Proof of {prf:ref}`cor-lupini-inductive`.* This is {prf:ref}`cor-ind-classical-intro`, with
 $\operatorname{SU}(\infty)=\varinjlim\operatorname{SU}(n)$ and so on, as in
 [](#sec-ind-main-results).
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-inductive-umf`.* This is {prf:ref}`thm-ind-dynamics-intro`.
+*Proof of {prf:ref}`thm-lupini-inductive-umf`.* This is {prf:ref}`thm-ind-dynamics-intro`.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-inductive-free`.* By {prf:ref}`prop-ind-involution-fixed`, every action of $G$ on a nonempty
+*Proof of {prf:ref}`thm-lupini-inductive-free`.* By {prf:ref}`prop-ind-involution-fixed`, every action of $G$ on a nonempty
 compact Hausdorff space has a point fixed by an element of order two; so no
 such action is free, and in particular the action on $M(G)$ is not free. The
 assertions about the points with trivial stabiliser, and the existence of
@@ -1631,7 +1631,7 @@ invariant Radon probability measures on $M(G)$, are
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-trace-class`.* This is the first assertion of {prf:ref}`thm-ind-trace-intro`: the group
+*Proof of {prf:ref}`thm-lupini-trace-class`.* This is the first assertion of {prf:ref}`thm-ind-trace-intro`: the group
 $G_{\mathrm{tr}}$ is $\bigcup_n\operatorname{SU}(n)$ with the trace-norm metric,
 and $\operatorname{SU}_1$ is its completion {eq}`eq-ind-suone`.
 :::
