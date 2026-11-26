@@ -221,7 +221,7 @@ details{margin-top:12px}summary{cursor:pointer;font:500 14px system-ui,sans-seri
 <aside id="panel" aria-live="polite"></aside></main>
 <section class="below" id="below"></section>
 <script>
-window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],processEnvironments:true},svg:{fontCache:'global'},startup:{typeset:false},options:{enableMenu:false}};
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],processEnvironments:true},svg:{fontCache:'global'},startup:{typeset:false,pageReady(){return MathJax.startup.defaultPageReady().then(()=>{const el=document.getElementById('panel');if(el)return MathJax.typesetPromise([el])})}},options:{enableMenu:false}};
 </script>
 <script id="pt-data" type="application/json">__DATA__</script>
 <script>{
