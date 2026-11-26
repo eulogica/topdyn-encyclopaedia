@@ -644,7 +644,7 @@ because the parametrization is norm continuous.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`thm-cu-finite-main`.* We transfer {prf:ref}`prop-cu-haar-law` twice. First fix a finite
+*Proof of {prf:ref}`thm-cu-finite-main`.* We transfer {prf:ref}`prop-cu-haar-law` twice. First fix a finite
 unitary tuple in a corner $fDf\cong\mathcal{O}_2$. Choose a unital embedding
 $\mathcal{E}\hookrightarrow fDf$, and compose it with $j:\mathcal{O}_2\hookrightarrow\mathcal{E}$ from {eq}`eq-cu-cuntz-boundary`. This composite
 embedding and an isomorphism $\mathcal{O}_2\to fDf$ are approximately
@@ -1345,7 +1345,7 @@ form one orbit.
 :::
 
 :::{prf:proof}
-*Completion of prf:ref`thm-cu-main`.* {prf:ref}`thm-cu-w-ea`, {prf:ref}`cor-cu-h-ea`, and {prf:ref}`cor-cu-scalar-umf` prove the first, second, and fourth assertions. For the
+*Completion of {prf:ref}`thm-cu-main`.* {prf:ref}`thm-cu-w-ea`, {prf:ref}`cor-cu-h-ea`, and {prf:ref}`cor-cu-scalar-umf` prove the first, second, and fourth assertions. For the
 third, apply {prf:ref}`lem-cu-completion-criterion`. Its hypotheses are
 precisely {prf:ref}`cor-cu-h-ea` and {prf:ref}`prop-cu-completion`
 and {prf:ref}`prop-cu-minimal`.
@@ -1763,11 +1763,11 @@ as a translation flow. For $d=1$ this is $\mathbb{Z}_p^\times$.
 ## Proofs of statements in [](#sec-operator-algebras)
 
 :::{prf:proof}
-*Proof of prf:ref`thm-lupini-cuntz`.* This is {prf:ref}`thm-cu-main`.
+*Proof of {prf:ref}`thm-lupini-cuntz`.* This is {prf:ref}`thm-cu-main`.
 :::
 
 :::{prf:proof}
-*Proof of prf:ref`ex-lupini-stable-cuntz`.* By {prf:ref}`cor-cu-k1zero` the quotient is $\mathrm{Aut}(K_0(A))$ when
+*Proof of {prf:ref}`ex-lupini-stable-cuntz`.* By {prf:ref}`cor-cu-k1zero` the quotient is $\mathrm{Aut}(K_0(A))$ when
 $K_1(A)=0$, and {prf:ref}`cor-cu-cuntz-stable` computes the universal
 minimal flows: $(\mathbb{Z}/(n-1))^\times$ for $2\leq n<\infty$, and
 $\{1,-1\}$ for $\mathcal{O}_\infty\otimes\mathcal{K}$. For $n=2$ and $n=3$ the
