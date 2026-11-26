@@ -16,6 +16,12 @@ for every statement, a dependency graph and a PDF.
 are left actions. Conventions on left and right uniform structures differ
 across the literature; the ones used here are fixed in {prf:ref}`def-ruc`.
 
+**Sources and contributing.** The encyclopaedia is built from the public
+repository <https://github.com/eulogica/topdyn-encyclopaedia>. Every page links
+to its source files there, with their history. Corrections and new entries are
+proposed by pull request and reviewed by the editor, as explained in
+[CONTRIBUTING.md](https://github.com/eulogica/topdyn-encyclopaedia/blob/main/CONTRIBUTING.md).
+
 **Status of the seed entries.** The first entries were drafted with the help
 of an AI assistant from the cited literature. Statements and attributions were
 checked against the original papers' abstracts and statements and against

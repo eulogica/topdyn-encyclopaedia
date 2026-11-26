@@ -52,6 +52,7 @@ jobs:
         working-directory: myst
         run: |
           npm install -g mystmd
+          python3 tools/source_links.py
           myst build --html
           mkdir -p "$GITHUB_WORKSPACE/_site"
           cp -r _build/html/. "$GITHUB_WORKSPACE/_site/"
