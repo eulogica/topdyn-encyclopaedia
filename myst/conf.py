@@ -34,6 +34,12 @@ html_title = "Topological dynamics of topological groups"
 html_theme_options = {
     "show_toc_level": 1,
     "home_page_in_toc": True,
+    "repository_url": "https://github.com/eulogica/topdyn-encyclopaedia",
+    "repository_branch": "main",
+    "path_to_docs": "myst",
+    "use_repository_button": True,
+    "use_edit_page_button": True,
+    "use_source_button": True,
 }
 html_static_path = []
 exclude_patterns = ["_build", "build.sh"]

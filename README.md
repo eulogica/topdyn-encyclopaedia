@@ -1,7 +1,8 @@
 # Topological dynamics of topological groups
 
 **Website: <https://topologicaldynamics.org>** (MyST version; the LaTeX version
-is at <https://topologicaldynamics.org/latex/>).
+is at <https://topologicaldynamics.org/latex/>). Every page links to its source
+file in this repository. To propose a change, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 A living, hypertextual encyclopaedia of the topological dynamics of
 topological groups, with an emphasis on universal minimal flows.
@@ -23,10 +24,8 @@ Both share `references.bib`.
 
 ## Entries
 
-Flows · Minimal flows · The greatest ambit · The universal minimal flow ·
-Extreme amenability · Veech's theorem · The Gromov–Milman theorem · Pestov's
-theorems · The universal minimal flow of S∞ · The Kechris–Pestov–Todorcevic
-correspondence · Metrizable universal minimal flows.
+One file per entry in `latex/entries/` and `myst/entries/`, with the same file
+name in both; the list of entries is the table of contents of the website.
 
 ## Building locally
 
@@ -55,6 +54,8 @@ build at the root and the LaTeX build under `/latex/`.
 
 ## Contributing
 
-Read [AGENTS.md](AGENTS.md) first. It gives the rules for content (no
-unverified attributions), labels, dependencies, permanent tags and
+Changes are proposed by pull request and reviewed by the editor; see
+[CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and for how to compare
+revisions. Read [AGENTS.md](AGENTS.md) first. It gives the rules for content
+(no unverified attributions), labels, dependencies, permanent tags and
 bibliography, for human and AI contributors alike.

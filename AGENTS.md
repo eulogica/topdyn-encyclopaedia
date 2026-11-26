@@ -82,6 +82,13 @@ this table.
 
 ## Workflow
 
+* The contributor workflow, for people, is in [CONTRIBUTING.md](CONTRIBUTING.md).
+* Every published page links to its source files on GitHub. On the LaTeX site
+  `latex/tools/postprocess.py` adds these links; on the mystmd site the
+  `github:` field of `myst/myst.yml` adds an edit link and
+  `myst/tools/source_links.py`, run by the workflow before `myst build`, adds
+  a footer. Neither needs maintaining by hand, provided the two versions of an
+  entry keep the same file name.
 * **Every push to `main` is published** at <https://topologicaldynamics.org>
   (mystmd build at the root, LaTeX build at `/latex/`). Work on a branch and
   open a pull request; the build workflow in `.github/workflows/build.yml` must

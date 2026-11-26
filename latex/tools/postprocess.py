@@ -8,6 +8,8 @@ Adds, on top of plasTeX + plastexdepgraph:
   * tags.html, an index of all tags with a lookup box;
   * graph.html, a static dependency graph (SVG drawn by Graphviz at build
     time, so it needs no WebAssembly in the browser);
+  * links from every section page and tag page to its source files on GitHub
+    (LaTeX and MyST twins), their history and the GitHub editor;
   * extra navigation links and a small stylesheet.
 
 Usage: python3 tools/postprocess.py SITE_DIR
@@ -22,6 +24,9 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parent.parent
+REPO = "https://github.com/eulogica/topdyn-encyclopaedia"
+BRANCH = "main"
+LABEL_RE = re.compile(r"\\label\{([^}]+)\}")
 TITLE = "Topological dynamics of topological groups"
 SITE = Path(sys.argv[1])
 SKIP = {"dep_graph_document.html", "graph.html", "tags.html"}
@@ -52,6 +57,8 @@ div.content-wrapper.wide{max-width:none}
 .graph-legend span{display:inline-block;margin-right:1.2em}
 .graph-legend i{display:inline-block;width:1em;height:1em;border:1px solid #888;vertical-align:-.15em;margin-right:.3em}
 nav.toc ul.extra-nav{margin-top:1.2em;padding-top:.8em;border-top:1px solid rgba(0,0,0,.12)}
+.source-links{font-size:.85em;color:#666;margin:.3em 0 1.2em}
+.source-links a{color:#2e4a6b}
 """
 
 
@@ -137,8 +144,41 @@ def add_chrome(soup, depth):
             f'<li><a href="{p}tags.html"><span class="toc_entry">All tags</span></a></li>'
             f'<li><a href="{p}encyclopaedia.pdf"><span class="toc_entry">PDF version</span></a></li>'
             f'<li><a href="https://topologicaldynamics.org/"><span class="toc_entry">MyST version</span></a></li>'
+            f'<li><a href="{REPO}"><span class="toc_entry">Source on GitHub</span></a></li>'
+            f'<li><a href="{REPO}/blob/{BRANCH}/CONTRIBUTING.md"><span class="toc_entry">How to contribute</span></a></li>'
             f'</ul>', "html.parser")
         toc.append(extra)
+
+
+def source_locations():
+    """Map every LaTeX label to (path in the repository, line number)."""
+    locs = {}
+    for path in sorted((ROOT / "entries").glob("*.tex")):
+        for i, line in enumerate(path.read_text().splitlines(), 1):
+            for m in LABEL_RE.finditer(line):
+                locs[m.group(1)] = (f"latex/entries/{path.name}", i)
+    return locs
+
+
+def myst_twin(tex_path):
+    """The MyST file with the same content as a LaTeX entry file."""
+    stem = Path(tex_path).stem
+    return "myst/index.md" if stem == "00-about" else f"myst/entries/{stem}.md"
+
+
+def file_links(path, line=None):
+    anchor = f"#L{line}" if line else ""
+    return (f'<a href="{REPO}/blob/{BRANCH}/{path}{anchor}">{html.escape(path)}</a> '
+            f'(<a href="{REPO}/commits/{BRANCH}/{path}">history</a>, '
+            f'<a href="{REPO}/edit/{BRANCH}/{path}">edit</a>)')
+
+
+def section_source_note(tex_path):
+    twin = myst_twin(tex_path)
+    twin_part = (f" and {file_links(twin)}" if (ROOT.parent / twin).exists() else "")
+    return frag(f'<p class="source-links">Source of this section: {file_links(tex_path)}'
+                f'{twin_part}. To propose a change, see '
+                f'<a href="{REPO}/blob/{BRANCH}/CONTRIBUTING.md">how to contribute</a>.</p>')
 
 
 def extract_dot():
@@ -151,6 +191,7 @@ def main():
     pairs = read_tags()
     tag_of = {label: tag for tag, label in pairs}
     pages = load_pages()
+    locs = source_locations()
 
     # Locate every tagged item.
     items = {}  # label -> dict
@@ -211,6 +252,9 @@ def main():
                   if it["kind"] != "Section" else "."))
         nodes = frag(f'<h1>Tag {it["tag"]}</h1><p class="context">{ctx}</p>')
         nodes.append(block)
+        if label in locs:
+            path, line = locs[label]
+            nodes += frag(f'<p class="source-links">Source: {file_links(path, line)}, line {line}.</p>')
         def listing(labels, heading):
             if not labels:
                 return f"<h2>{heading}</h2><p>Nothing yet.</p>"
@@ -300,6 +344,22 @@ def main():
         soup = BeautifulSoup(dg.read_text(), "html.parser")
         add_chrome(soup, 0)
         dg.write_text(str(soup))
+
+    # Links from each section page to its source files.
+    for label, it in items.items():
+        if it["kind"] != "Section" or label not in locs:
+            continue
+        main_text = pages[it["page"]].find("div", class_="main-text")
+        if not main_text or main_text.find("p", class_="source-links"):
+            continue
+        heading = main_text.find(["h1", "h2"])
+        note = section_source_note(locs[label][0])
+        if heading:
+            for node in reversed(note):
+                heading.insert_after(node)
+        else:
+            for node in reversed(note):
+                main_text.insert(0, node)
 
     (SITE / "styles" / "encyclopaedia.css").write_text(CSS)
     for name, soup in pages.items():

@@ -8,6 +8,8 @@ project:
   subtitle: A living, hypertextual encyclopaedia (prototype)
   authors:
     - name: Martino Lupini
+  # The repository adds an "Edit this page" link to the GitHub source of every page.
+  github: https://github.com/eulogica/topdyn-encyclopaedia
   bibliography:
     - ../references.bib
   numbering:
