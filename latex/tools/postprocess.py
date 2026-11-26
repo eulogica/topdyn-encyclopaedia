@@ -300,6 +300,28 @@ def dot_text(s):
     return "\\n".join(x.replace("\\", "").replace('"', "'") for x in lines)
 
 
+def transitive_reduction(edges):
+    """The edges (u, v) of a small graph through which v is not reached from u another way."""
+    succ = {}
+    for u, v in edges:
+        succ.setdefault(u, set()).add(v)
+
+    def reaches(start, goal, skip):
+        seen, stack = set(), [start]
+        while stack:
+            x = stack.pop()
+            for y in succ.get(x, ()):
+                if (x, y) == skip or y in seen:
+                    continue
+                if y == goal:
+                    return True
+                seen.add(y)
+                stack.append(y)
+        return False
+
+    return {(u, v) for u, v in edges if not reaches(u, v, (u, v))}
+
+
 def proof_tree_svg(root, items, uses, cites, bib, name_of):
     """SVG of what the statement `root` rests on, or None if it rests on nothing."""
     order = {label: i for i, label in enumerate(items)}
@@ -334,20 +356,16 @@ def proof_tree_svg(root, items, uses, cites, bib, name_of):
         lines.append(f'"{label}" [label="{text}", shape={shape}, style=filled, '
                      f'fillcolor="{KIND_FILL.get(it["kind"], "#ffffff")}", URL="{it["tag"]}.html", '
                      f'target="_top", tooltip="{tip} - Tag {it["tag"]}"{extra}];')
-    for v in nodes:
-        for u in uses.get(v, ()):
-            if u in seen:
-                lines.append(f'"{u}" -> "{v}";')
-    for cid, key, loc, v in cited:
+    edges = {(u, v) for v in nodes for u in uses.get(v, ()) if u in seen}
+    edges |= {(cid, v) for cid, _, _, v in cited}
+    for cid, key, loc in dict.fromkeys(c[:3] for c in cited):
         href, num = bib[key]
         lines.append(f'"{cid}" [label="[{num}, {loc}]", shape=box, style="dashed", '
                      f'URL="../{href}", target="_top", tooltip="Cited result: [{num}, {loc}]"];')
-        lines.append(f'"{cid}" -> "{v}" [style=dashed];')
+    for u, v in sorted(transitive_reduction(edges)):
+        lines.append(f'"{u}" -> "{v}"{" [style=dashed]" if u.startswith("cite:") else ""};')
     lines.append("}")
     dot = "\n".join(lines)
-    reduced = subprocess.run(["tred"], input=dot, capture_output=True, text=True)
-    if reduced.returncode == 0 and reduced.stdout.strip():
-        dot = reduced.stdout
     drawn = subprocess.run(["dot", "-Tsvg"], input=dot, capture_output=True, text=True)
     if drawn.returncode != 0:
         print(f"warning: no proof tree for {root}: {drawn.stderr.strip()}", file=sys.stderr)
