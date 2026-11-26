@@ -18,6 +18,7 @@ used throughout; see \cite[Example~6.1.8 and Theorem~6.2.9]{Pestov2006} and
 singleton.
 
 \begin{lemma}\label{lem:pw-umf-principles}
+\uses{def:ea, thm:ellis}
 Let \(G\) be a Hausdorff topological group.
 \begin{enumerate}
 \item If \(\iota:G\to Q\) is a continuous homomorphism with dense image in a
@@ -720,6 +721,7 @@ in the strong operator topology of \(L^p(Y,\mu)\), for one (and hence every)
 be used below for vector-valued quasi-regular representations.
 
 \begin{theorem}\label{thm:pw-measure-aut-umf}
+\uses{def:lo}
 There are natural isomorphisms of flows
 \begin{align}
 M(\operatorname{Aut}(Y,\mu)_{\mathrm w})
@@ -781,6 +783,7 @@ For a compact metrizable group \(K\), form the measurable wreath products
 \end{align*}
 
 \begin{theorem}\label{thm:pw-measurable-wreath-umf}
+\uses{def:lo}
 There are natural isomorphisms of flows
 \begin{align}
  M(W_\mu(K))
@@ -843,6 +846,7 @@ The compact fibre in the preceding theorem can be replaced by a much larger
 class without changing the form of the answer.
 
 \begin{definition}\label{def:pw-ea-by-compact}
+\uses{def:ea}
 A Polish group \(F\) is \emph{extremely-amenable-by-compact} if it has a closed
 extremely amenable normal subgroup \(F_0\) such that
 
@@ -854,7 +858,7 @@ is compact.
 \end{definition}
 
 \begin{theorem}\label{thm:pw-ea-compact-measurable-wreath}
-\uses{thm:pw-measurable-wreath-umf}
+\uses{thm:pw-measurable-wreath-umf, def:pw-ea-by-compact}
 Let \(F\) be extremely-amenable-by-compact and give \(L^0(Y,\mu;F)\)
 the topology of convergence in measure. Then
 \begin{align}
@@ -907,6 +911,7 @@ The same compact-extension argument gives a general supply of examples over
 countable structures.
 
 \begin{corollary}\label{cor:pw-nonarch-wreath-umf}
+\uses{def:lo, thm:ellis}
 Let \(\Omega\) be countable, let
 \(H\leq\operatorname{Sym}(\Omega)\) be closed in the topology of pointwise
 convergence, and let \(K\) be compact metrizable. Then
@@ -952,6 +957,7 @@ standard co-precompact stabiliser construction; it does not require an ordered
 relational presentation of the fibre group.
 
 \begin{theorem}\label{thm:pw-metrizable-fibre-wreath-umf}
+\uses{def:lo, thm:ellis}
 Let \(F\) be a Polish group whose universal minimal flow \(X=M(F)\) is
 metrizable, and let \(\Omega\) be countable.  Give \(F^\Omega\) the product
 topology and \(\operatorname{Sym}(\Omega)\) the pointwise topology.  Then
@@ -1098,6 +1104,7 @@ be the countable family of \(\mathcal R\)-classes contained in the atomic
 part. We regard \(\operatorname{LO}(C)\) as a singleton when \(|C|\leq1\).
 
 \begin{theorem}\label{thm:pw-full-group-atomic-umf}
+\uses{def:lo}
 Assume that \([\mathcal R_{\mathrm c}]\), with the uniform topology, is
 extremely amenable. Then
 \[
@@ -1516,7 +1523,7 @@ flow under two-sided completion \cite[Fact~2.3]{BassoZucker2021}, proves the for
 \end{proof}
 
 \begin{corollary}\label{cor:pw-projective-nuclear-weak-examples}
-\uses{prop:pw-nccw-umf}
+\uses{prop:pw-nccw-umf, cor:pw-nuclear-weak-examples, thm:pw-projective-nuclear-weak-umf}
 Let \(X\) be compact metrizable.
 \begin{enumerate}
 \item

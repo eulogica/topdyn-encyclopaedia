@@ -12,6 +12,7 @@ of Section~\ref{sec:operator-algebras} from those of the preprint.
 \subsection{Main results of the preprint}\label{sec:cu-main-results}
 
 \begin{theorem}\label{thm:cu-main}
+\uses{def:ea, thm:ellis}
  Put $D=\mathcal{O}_2\otimes\mathcal{K}$.
 
 \begin{enumerate}
@@ -81,6 +82,7 @@ measure-theoretic whirliness of Glasner--Tsirelson--Weiss \cite{GlasnerTsirelson
 measure-preserving actions.
 
 \begin{lemma}\label{lem:cu-permanence}
+\uses{def:cu-definition-1, def:ea}
  Extreme amenability passes through continuous
 homomorphisms with dense image, through finite products, and through groups
 with a dense directed union of extremely amenable subgroups. Whirliness
@@ -99,6 +101,7 @@ closure.
 \end{proof}
 
 \begin{lemma}\label{lem:cu-kernel}
+\uses{def:ea, thm:ellis}
  Let $q:G\to Q$ be a continuous open surjective
 homomorphism with extremely amenable kernel. Then $M(G)\cong q^*M(Q)$. For a
 compact group $C$ and any topological group $L$, 
@@ -119,6 +122,7 @@ independent actions.
 \end{proof}
 
 \begin{lemma}[Homogeneous completion]\label{lem:cu-completion-criterion}
+\uses{def:coprecompact, def:ea, thm:ellis}
  Let $G$ be a topological group and $H\leq G$
 a closed, extremely amenable, co-precompact subgroup. Let $\widehat{G/H}$ be
 the completion of $G/H$ in the quotient right uniformity. If $\widehat{G/H}$
@@ -510,7 +514,7 @@ translations tend to zero.
 \end{proposition}
 
 \begin{proof}
-\uses{lem:cu-polar}
+\uses{lem:cu-polar, lem:cu-kp, lem:cu-repair}
 Let $K_n=U(F_n)$, with Haar probability. For $P\in K_n$, put 
 \begin{equation*}
 \Theta_P=p+\pi_n(P)^*,\qquad w_P=PV_n\Theta_P.
@@ -590,6 +594,7 @@ finite-corner witnesses.
 \end{corollary}
 
 \begin{proof}
+\uses{thm:cu-finite-main}
 Write every $g\in E$ as $g=\zeta_g u_g$, where $\zeta_g\in\mathbb{T}$ and $u_g\in U_1(D)$. Apply Theorem~\ref{thm:cu-finite-main} to the finite tuple $(u_g^*)_{g\in E}$, with tolerance $\eta/2$. Thus there are $w_1,\ldots,w_l$,
 supported on one finite corner, and permutations $\sigma_g$ such that 
 \begin{equation*}
@@ -637,7 +642,7 @@ is amenable.
 \end{corollary}
 
 \begin{proof}
-\uses{lem:cu-transport}
+\uses{lem:cu-transport, thm:cu-finite-main}
 Apply the transport criterion in Lemma~\ref{lem:cu-transport} to Theorem~\ref{thm:cu-finite-main}.
 \end{proof}
 
@@ -1066,6 +1071,7 @@ Scaling handles finite sets outside the unit ball.
 \subsubsection{Completion and minimality}
 
 \begin{proposition}\label{prop:cu-completion}
+\uses{def:coprecompact}
  Let $A$ be simple, separable, unital, infinite
 dimensional and nuclear, let $\varphi$ be a pure state, and put $G=\mathrm{Aut}(A)$ and $H=H_\varphi=\mathrm{Aut}(A,\varphi)$. The orbit map 
 \begin{equation*}
@@ -1148,6 +1154,7 @@ and~\ref{prop:cu-minimal}.
 \end{proof}
 
 \begin{corollary}\label{cor:cu-furstenberg}
+\uses{def:proximal}
  The state-space action is the universal minimal
 strongly proximal flow, or Furstenberg boundary, of $\mathrm{Aut}(\mathcal{O}_2)$. Every minimal compact $\mathrm{Aut}(\mathcal{O}_2)$-flow is metrizable
 and strongly proximal; in particular, $S(\mathcal{O}_2)$ is also the
@@ -1155,7 +1162,7 @@ universal minimal proximal flow.
 \end{corollary}
 
 \begin{proof}
-\uses{prop:cu-minimal}
+\uses{prop:cu-minimal, thm:cu-main}
 Theorem~\ref{thm:cu-main} identifies the universal minimal flow with $S(\mathcal{O}_2)$, and Proposition~\ref{prop:cu-minimal} makes this flow strongly
 proximal. Every minimal flow is a factor of the universal minimal flow;
 metrizability and strong proximality pass to factors.
@@ -1314,6 +1321,7 @@ the formula remains a pullback of $M(Q_B)$.
 \end{proof}
 
 \begin{lemma}[Strict multiplier unitaries]\label{lem:cu-strict-ea}
+\uses{def:ea}
  Let $A$ be a unital separable simple nuclear C*-algebra and put $B=A\otimes\mathcal{K}$. The group $U(M(B))$, equipped with
 the strict topology, is extremely amenable. In particular this applies when $B$ is a stable Kirchberg algebra.
 \end{lemma}
@@ -1386,6 +1394,7 @@ Quotienting by pure extensions gives the total-$K$-theory ring \cite{RosenbergSc
 Equation \eqref{eq:cu-total-extension} is used algebraically; the topology on $Q_B$ remains pointwise convergence.
 
 \begin{corollary}\label{cor:cu-k1zero}
+\uses{thm:ellis}
  If $K_1(B)=0$, then, topologically, 
 \begin{equation*}
 Q_B\cong\mathrm{Aut}(K_0(B)),\qquad M(\mathrm{Aut}(B))\cong M(\mathrm{Aut}(K_0(B))).
@@ -1400,6 +1409,7 @@ bijection of Polish groups and hence a topological isomorphism.
 \end{proof}
 
 \begin{corollary}\label{cor:cu-cuntz-stable}
+\uses{thm:ellis}
  For $2\leq n<\infty$, 
 \begin{equation*}
 M(\mathrm{Aut}(\mathcal{O}_n\otimes\mathcal{K})) \cong(\mathbb{Z}/(n-1)\mathbb{Z})^\times.
@@ -1451,6 +1461,7 @@ give a wrong answer.
 \end{example}
 
 \begin{proposition}\label{prop:cu-finite-k}
+\uses{thm:ellis}
  Suppose $G_0,G_1$ are finitely generated. Then $Q_B$
 is countable discrete, and finite exactly when both free ranks are at most
 one. In the finite case, 

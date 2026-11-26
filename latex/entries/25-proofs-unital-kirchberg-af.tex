@@ -12,6 +12,7 @@ of Section~\ref{sec:operator-algebras} from those of the preprint.
 \subsection{Main results of the preprint}\label{sec:un-main-results}
 
 \begin{theorem}[Unital Kirchberg automorphisms]\label{thm:un-main-kirchberg}
+\uses{thm:ellis}
 For every unital Kirchberg algebra \(A\),
 \begin{equation}\label{eq:un-main-kirchberg}
  M(\operatorname{Aut}(A))\cong S(A)\times M(Q_A^0),
@@ -31,6 +32,7 @@ with pointwise convergence on the countable discrete group \(K_0(A)\).
 \end{theorem}
 
 \begin{theorem}[Unital AF automorphisms]\label{thm:un-main-af}
+\uses{def:cu-definition-1, thm:ellis}
 Suppose that \(A\) is separable, unital and AF, and has no nonzero
 finite-dimensional representations. Then \(U(A)\) is whirly amenable
 in norm, \(\overline{\operatorname{Inn}(A)}\) is whirly amenable in the point-norm
@@ -55,6 +57,7 @@ in \cite[Section~2]{LupiniCuntz2026} and
 \cite[Section~2]{LupiniStable2026}; they are recalled as inputs.
 
 \begin{proposition}[Permanence and quotient principles]\label{prop:un-dynamical-inputs}
+\uses{def:cu-definition-1, def:ea, thm:ellis}
 \begin{enumerate}
 \item\label{item:un-dense-permanence} Continuous homomorphisms with dense image preserve extreme and
 whirly amenability. Products with the product topology preserve these
@@ -90,6 +93,7 @@ Polish L\'evy group is whirly amenable: the Haar measures of its increasing
 compact subgroups concentrate and UEB-converge to invariance.
 
 \begin{lemma}[Samuel-space criterion]\label{lem:un-samuel}
+\uses{def:ea, thm:ellis}
 Let \(H\leq G\) be extremely amenable. Every minimal subflow of
 \(\operatorname{Samuel}(G/H)\) is a model of \(M(G)\).
 In particular, if the right-uniform completion of \(G/H\) is compact
@@ -344,7 +348,7 @@ Lemma~\ref{lem:un-state-minimal}, and Lemma~\ref{lem:un-samuel}.
 
 \begin{proof}[Proof of Theorem~\ref{thm:un-main-kirchberg}]
 \proves{thm:un-main-kirchberg}
-\uses{lem:un-samuel, prop:un-dynamical-inputs, thm:un-marked-whirly, thm:un-uct}
+\uses{lem:un-samuel, prop:un-dynamical-inputs, thm:un-marked-whirly, thm:un-uct, prop:un-state-completion}
 The preceding proposition gives \(M(N^0)=S(A)\).
 Since this flow is strongly proximal, it is also the Furstenberg
 boundary of \(N^0\).
@@ -423,7 +427,7 @@ and \(K_1(A)=0\), this is equivalent to
 \(\operatorname{Aut}(K_0(A),[1_A])=1\).
 \end{corollary}
 \begin{proof}
-\uses{prop:un-dynamical-inputs, thm:un-marked-whirly}
+\uses{prop:un-dynamical-inputs, thm:un-marked-whirly, thm:un-main-kirchberg}
 The preceding proof shows that \(q_A^0|_H\) is an open surjection
 with kernel \(H^0\). Apply Theorem~\ref{thm:un-marked-whirly} and
 Proposition~\ref{prop:un-dynamical-inputs}\ref{item:un-kernel-principle}.
@@ -432,6 +436,7 @@ quotient identification in Theorem~\ref{thm:un-main-kirchberg}.
 \end{proof}
 
 \begin{corollary}\label{cor:un-kirchberg-dynamics}
+\uses{thm:ellis}
 For a unital Kirchberg algebra \(A\):
 \begin{enumerate}
 \item \(\operatorname{Aut}(A)\) and \(N_A^0\) are not amenable.
@@ -603,7 +608,7 @@ In this case
 The order formula is not a description of the multiplication in \(Q_A^0\).
 \end{proposition}
 \begin{proof}
-\uses{thm:un-uct}
+\uses{thm:un-uct, thm:un-main-kirchberg}
 The even UCT kernel is the square-zero ideal
 \[
  E=\operatorname{Ext}^1(G_0,G_1)\oplus\operatorname{Ext}^1(G_1,G_0).
@@ -726,6 +731,7 @@ always be restricted to its support and regarded as unital.
 \end{proof}
 
 \begin{theorem}\label{thm:un-af-unitary}
+\uses{def:cu-definition-1, def:ea}
 For a separable unital AF algebra \(A\), the following are equivalent:
 \begin{enumerate}
 \item \(A\) has no nonzero finite-dimensional representations;
@@ -892,7 +898,7 @@ Thus \(M(\operatorname{Aut}(A))=q^*M(R_A)\).
 If all the \(R_t\) are compact, the answer is \(R_A\) itself.
 \end{proposition}
 \begin{proof}
-\uses{lem:un-finite-af, prop:un-dynamical-inputs}
+\uses{lem:un-finite-af, prop:un-dynamical-inputs, thm:un-main-af}
 Permuting isomorphic simple summands identifies
 \(\operatorname{Aut}(A)=\prod_t(\operatorname{Aut}(B_t)^{m_t}\rtimes\operatorname{Sym}(m_t))\).
 For an infinite-dimensional \(B_t\), take the dimension-group
@@ -918,6 +924,7 @@ matrix algebras retain nontrivial compact inner groups.
 In general these behaviours occur over a nontrivial space of ideals.
 
 \begin{proposition}[A finite-dimensional obstruction in the kernel]\label{prop:un-fd-obstruction}
+\uses{def:ea}
 If a unital AF algebra \(A\) has an irreducible representation
 \(\pi:A\to M_d\) with \(d\geq2\), then \(N_A=\overline{\operatorname{Inn}(A)}\)
 has a continuous surjection onto \(\operatorname{PU}(d)\).
