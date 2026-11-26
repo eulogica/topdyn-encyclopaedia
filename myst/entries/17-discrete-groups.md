@@ -11,7 +11,9 @@ nevertheless determined up to one cardinal parameter.
 
 If $G$ is locally compact and not compact, then $M(G)$ is not metrizable
 {cite}`GlasnerWeiss2003,GiordanoPestov2007`; compare
-{prf:ref}`rem-lc-metrizable`. By {prf:ref}`thm-veech`, $G$ acts freely
+{prf:ref}`rem-lc-metrizable`. For infinite discrete groups this is due to
+Ellis, and Kechris, Pestov and Todorcevic extended it to locally compact
+groups that are not compact {cite}`GlasnerGutman2012`. By {prf:ref}`thm-veech`, $G$ acts freely
 on it.
 :::
 
