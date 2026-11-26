@@ -38,7 +38,7 @@ Let $X$ be a compact space.
    contains $X$, and it has a least element, which is a singleton
    $\{r(c)\}$. The point $r(c)$ is the *root* of $c$.
 2. $\Phi(X)$ is a closed subset of $\mathrm{Exp}(\mathrm{Exp}(X))$, hence
-   compact {cite}`Uspenskij2000`.
+   compact (Proposition 2.1 of {cite}`Uspenskij2000`).
 3. If $X$ is a $G$-flow, then $\Phi(X)$ is a subflow of
    $\mathrm{Exp}(\mathrm{Exp}(X))$, and the root map $r\colon\Phi(X)\to X$ is a
    surjective $G$-map.
@@ -96,13 +96,28 @@ contains a minimal subflow, and $M(G)$ maps onto it, which contradicts
 {prf:ref}`thm-uspenskij-chains` if the action is $3$-transitive.
 :::
 
+:::{prf:remark} Uspenskij's formulation
+:label: rem-uspenskij-proof
+
+Uspenskij proves {prf:ref}`cor-not-3-transitive`, which is Theorem 1.1
+of {cite}`Uspenskij2000`, by the argument above, phrased with the stabiliser
+$H$ of a point $p\in M(G)$: every $G$-flow receives a $G$-map from $M(G)$, so
+it has an $H$-fixed point, and in particular some maximal chain in $M(G)$ is
+fixed by $H$ (Proposition 2.2 of {cite}`Uspenskij2000`).
+{prf:ref}`thm-uspenskij-chains` is the formulation of the argument in
+{cite}`GutmanTsankovZucker2021`. The corollary cannot be improved to
+$2$-transitivity: $\mathrm{Homeo}_+(\mathbb{S}^1)$ acts $2$-transitively on
+its universal minimal flow $\mathbb{S}^1$, and the stabiliser of a point fixes
+exactly two maximal chains (Example 2.3 of {cite}`Uspenskij2000`).
+:::
+
 :::{prf:remark}
 :label: rem-not-natural-action
 
 Consequently, if $X$ is a compact manifold of dimension greater than one, the
 Hilbert cube or the Cantor set, the universal minimal flow of
 $\mathrm{Homeo}(X)$ is not the natural action on $X$
-{cite}`GlasnerWeiss2003`. This is the result recalled in
+{cite}`Uspenskij2000,GlasnerWeiss2003`. This is the result recalled in
 {prf:ref}`rem-uspenskij`.
 :::
 

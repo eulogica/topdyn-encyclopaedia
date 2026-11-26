@@ -14,7 +14,8 @@ left topological rather than right topological.
 A *compact right topological semigroup* is a semigroup $S$ with a compact
 topology in which, for every $q\in S$, the map $p\mapsto pq$ is continuous. An
 element $u\in S$ is an *idempotent* if $uu=u$. A *left ideal* is a
-nonempty set $I\subseteq S$ with $SI\subseteq I$.
+nonempty set $I\subseteq S$ with $SI\subseteq I$. Terminology varies: such
+semigroups are called left topological in {cite}`Uspenskij2000`.
 :::
 
 :::{prf:proposition}
@@ -23,7 +24,8 @@ nonempty set $I\subseteq S$ with $SI\subseteq I$.
 For $x\in S(G)$, let $\rho_x\colon(S(G),1)\to(\overline{Gx},x)$ be the morphism
 of ambits given by {prf:ref}`prop-greatest-ambit`, and put
 $yx=\rho_x(y)$. This makes $S(G)$ a compact right topological semigroup with
-identity $1$, in which left multiplication by $g\in G$ is the action of $g$.
+identity $1$, in which left multiplication by $g\in G$ is the action of $g$
+(Theorem 3.1 of {cite}`Uspenskij2000`).
 :::
 
 :::{prf:proof}
@@ -57,7 +59,7 @@ closed and are the minimal subflows. They are isomorphic to $M(G)$ by
 
 (2) A minimal left ideal $M$ is a closed subsemigroup, and every compact right
 topological semigroup contains an idempotent, by a theorem of Ellis; see
-{cite}`BartosovaZucker2019`. Let $u\in M$ be an idempotent. Then
+Theorem 3.2 of {cite}`Uspenskij2000` for a short proof. Let $u\in M$ be an idempotent. Then
 $S(G)u$ is a left ideal contained in $M$, so $M=S(G)u$, and $pu=p$ for every
 $p=qu\in M$. The map $p\mapsto pu$ is continuous, and it is a $G$-map by
 associativity.

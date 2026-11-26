@@ -83,6 +83,7 @@ to $\Phi(X)$.
 For metrizable $X$ this is {prf:ref}`thm-gw-cantor`; as in that case, the
 main combinatorial tool is the dual Ramsey theorem, a consequence of the
 Graham–Rothschild theorem on $n$-parameter sets {cite}`GlasnerWeiss2003`.
-Non-metrizable h-homogeneous spaces give many new examples
-{cite}`GlasnerGutman2012`.
+Non-metrizable h-homogeneous spaces give many new examples, among them the
+generalised Cantor cubes $\{0,1\}^\kappa$ for uncountable $\kappa$ and the
+corona $\beta\omega\setminus\omega$ {cite}`GlasnerGutman2012`.
 :::

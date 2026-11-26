@@ -44,11 +44,21 @@ $\overline{V}$ is open in $\beta G$.
 :::{prf:theorem} {cite:t}`BalcarBlaszczyk1990`
 :label: thm-balcar-blaszczyk
 
-Let $B$ be an infinite complete Boolean algebra which admits a countable family
-$H$ of automorphisms such that the dynamical system $(B,H)$ is minimal. Then
-$B$ is isomorphic to the completion of the free Boolean algebra on $\pi(B)$
-generators, where $\pi(B)$ is the least cardinality of a dense subset of
-$B\setminus\{0\}$.
+Let $B$ be an infinite Boolean algebra and $H$ a countable group of
+automorphisms of $B$ such that $(B,H)$ is *minimal*: for every nonzero
+$u\in B$ there are $h_1,\dots,h_n\in H$ with $h_1(u)\vee\dots\vee h_n(u)=1$.
+Then the completion of $B$ is isomorphic to the completion of the free Boolean
+algebra on $\pi(B)$ generators, where $\pi(B)$ is the least cardinality of an
+order-dense subset of $B\setminus\{0\}$.
+:::
+
+:::{prf:remark}
+:label: rem-balcar-blaszczyk
+
+Minimality of $(B,H)$ means that the dual action of $H$ on the Stone space of
+$B$ is minimal. The countability of $H$ cannot be dropped: a homogeneous
+Boolean algebra with all its automorphisms is a minimal system
+{cite}`BalcarBlaszczyk1990`.
 :::
 
 :::{prf:corollary}
@@ -65,8 +75,8 @@ form a complete Boolean algebra $B$, whose Stone space is $M(G)$. It is
 infinite, because $G$ is infinite and acts freely on $M(G)$
 ({prf:ref}`thm-veech`). The group $G$ acts on $B$ by automorphisms, and
 minimality of $M(G)$ says that for every nonzero $b\in B$ finitely many
-translates of $b$ cover $M(G)$, which is minimality of $(B,G)$ in the sense of
-Balcar and Błaszczyk. {prf:ref}`thm-balcar-blaszczyk` applies. The
+translates of $b$ cover $M(G)$, which is minimality of $(B,G)$. Since $B$ is
+complete, {prf:ref}`thm-balcar-blaszczyk` applies to $B$ itself. The
 completion of the free Boolean algebra on $\kappa$ generators is the algebra
 of regular open subsets of $\{0,1\}^\kappa$, whose Stone space is the Gleason
 cover of $\{0,1\}^\kappa$.
@@ -75,8 +85,10 @@ cover of $\{0,1\}^\kappa$.
 :::{prf:example} The integers
 :label: ex-umf-integers
 
-For $G=\mathbb{Z}$, the cardinal is the continuum: $M(\mathbb{Z})$ is the
-Gleason cover of $\{0,1\}^{\mathfrak{c}}$, that is, the Stone space of the
-Boolean algebra of regular open subsets of $\{0,1\}^{\mathfrak{c}}$
-{cite}`BartosovaKwiatkowska2019`.
+For $G=\mathbb{Z}$, the cardinal is the continuum. Balcar and Błaszczyk show
+that every minimal subflow of $\beta\mathbb{Z}$, with the action extending
+the shift, is homeomorphic to the Gleason cover of $\{0,1\}^{\mathfrak{c}}$
+{cite}`BalcarBlaszczyk1990`. By {prf:ref}`prop-minimal-ideals`, so is
+$M(\mathbb{Z})$: it is the Stone space of the Boolean algebra of regular open
+subsets of $\{0,1\}^{\mathfrak{c}}$; see also {cite}`BartosovaKwiatkowska2019`.
 :::
