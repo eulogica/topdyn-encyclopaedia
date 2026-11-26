@@ -1,0 +1,66 @@
+\section{A catalogue of extremely amenable groups}\label{sec:ea-catalogue}
+
+Extremely amenable groups arise from concentration of measure, from structural
+Ramsey theory, and as stabilisers inside groups whose universal minimal flow
+is metrizable. This section collects the main examples; groups and
+topologies are as in the cited sources.
+
+\begin{theorem}[Pestov \cite{Pestov2002}]\label{thm:pestov-urysohn}
+\uses{def:ea}
+The isometry group $\mathrm{Iso}(\mathbb{U})$ of the Urysohn universal
+complete separable metric space $\mathbb{U}$, with the compact-open topology, is
+extremely amenable. The same holds for sufficiently homogeneous generalised
+Urysohn metric spaces, and together with a theorem of Uspenskij this shows that
+every topological group embeds into an extremely amenable group.
+\end{theorem}
+
+\begin{theorem}[Giordano--Pestov \cite{GiordanoPestov2007}]\label{thm:giordano-pestov}
+\uses{def:ea, thm:gromov-milman}
+\begin{enumerate}
+\item The group of measure-preserving automorphisms of a standard Lebesgue
+  space with a non-atomic measure, with the weak topology, is extremely
+  amenable.
+\item The isometry groups of the spaces $L^p(0,1)$, $1\leq p<\infty$, are
+  extremely amenable. This extends the case $p=2$ of
+  Theorem~\ref{thm:gromov-milman}.
+\item A measure class preserving equivalence relation $R$ on a standard Borel
+  space is amenable if and only if its full group $[R]$, with the uniform
+  topology, is extremely amenable.
+\item A von Neumann algebra is approximately finite-dimensional if and only if
+  its unitary group, with the strong topology, is the product of an extremely
+  amenable group and a compact group.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[Groups of measurable maps]\label{rem:l0}
+\uses{def:ea, thm:glasner-monothetic}
+The group $L^0(I,U(1))$ of measurable maps from the unit interval to the circle
+group, with the topology of convergence in measure, is extremely amenable. This
+was proved by Glasner and, independently and unpublished, by Furstenberg and
+Weiss; see \cite{GiordanoPestov2007}. Glasner also constructed an
+infinite monothetic extremely amenable Polish group
+(Theorem~\ref{thm:glasner-monothetic}).
+\end{remark}
+
+\begin{remark}[Summary of the examples in this encyclopaedia]\label{rem:ea-summary}
+\uses{rem:herer-christensen, thm:gromov-milman, rem:levy, thm:pestov-ea, thm:kpt, ex:kpt-computations, ex:standard-chain, rem:lelek-method, cor:lc-not-ea}
+\begin{enumerate}
+\item The groups of Herer and Christensen (Remark~\ref{rem:herer-christensen}),
+  historically the first examples.
+\item The unitary group of $\ell^2$ with the strong operator topology
+  (Theorem~\ref{thm:gromov-milman}), and more generally Lévy groups
+  (Remark~\ref{rem:levy}).
+\item $\mathrm{Aut}(\mathbb{Q},<)$ and $\mathrm{Homeo}_+[0,1]$
+  (Theorem~\ref{thm:pestov-ea}).
+\item Automorphism groups of Fraïssé limits of Fraïssé order classes with the
+  Ramsey property (Theorem~\ref{thm:kpt}), such as the order expansions in
+  Example~\ref{ex:kpt-computations}.
+\item The stabiliser of the standard chain in $\mathrm{Homeo}(E)$, for $E$ the
+  Cantor set (Example~\ref{ex:standard-chain}), and the stabiliser of a
+  generic connected chain in the homeomorphism group of the Lelek fan
+  (Remark~\ref{rem:lelek-method}).
+\end{enumerate}
+By Corollary~\ref{cor:lc-not-ea}, none of these groups is locally compact;
+according to \cite{GiordanoPestov2007}, this was first shown by Granirer and
+Lau.
+\end{remark}

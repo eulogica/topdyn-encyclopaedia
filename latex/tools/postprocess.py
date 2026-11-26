@@ -27,10 +27,10 @@ SITE = Path(sys.argv[1])
 SKIP = {"dep_graph_document.html", "graph.html", "tags.html"}
 KIND_ABBR = {"Definition": "Def.", "Theorem": "Thm.", "Proposition": "Prop.",
              "Corollary": "Cor.", "Lemma": "Lem.", "Remark": "Rem.",
-             "Example": "Ex."}
+             "Example": "Ex.", "Conjecture": "Conj."}
 KIND_FILL = {"Definition": "#e8f0e3", "Theorem": "#f6e3d3",
              "Proposition": "#e4ebf4", "Corollary": "#efe6f2",
-             "Lemma": "#e4ebf4"}
+             "Lemma": "#e4ebf4", "Conjecture": "#f4f0d8"}
 
 CSS = """
 .tag-badge{display:inline-block;margin-left:.6em;padding:0 .45em;border:1px solid #8a9bb0;

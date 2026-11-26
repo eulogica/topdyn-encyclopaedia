@@ -21,7 +21,15 @@ of an AI assistant from the cited literature. Statements and attributions were
 checked against the original papers' abstracts and statements and against
 standard secondary sources, and every bibliographic record was checked against
 the publisher or arXiv. They have not yet been reviewed by the editor or by
-experts.
+experts. The entries from [](#sec-kpt-umf) to [](#sec-ea-catalogue) were added
+later in the same way, from the full texts of the cited papers where available
+and otherwise from their abstracts, and have not been reviewed either. The
+entries from [](#sec-maps-transformations) to [](#sec-inductive-limits)
+report results from the editor's own preprints posted on Zenodo, which have
+not been refereed. The entries from [](#sec-proofs-maps-transformations) to
+[](#sec-proofs-inductive-limits) reproduce the proofs from those preprints, in
+the versions cited in the bibliography; the bibliographic data of the works
+they cite were checked against Crossref, zbMATH or arXiv.
 
 ```{toctree}
 :maxdepth: 1
@@ -38,5 +46,20 @@ entries/08-pestov
 entries/09-glasner-weiss
 entries/10-kpt
 entries/11-metrizable-umf
+entries/12-kpt-umf
+entries/13-maximal-chains
+entries/14-zero-dimensional
+entries/15-continua
+entries/16-semigroup
+entries/17-discrete-groups
+entries/18-ea-catalogue
+entries/19-maps-and-transformations
+entries/20-operator-algebras
+entries/21-inductive-limits
+entries/22-proofs-maps-and-transformations
+entries/23-proofs-cuntz
+entries/24-proofs-stable-kirchberg
+entries/25-proofs-unital-kirchberg-af
+entries/26-proofs-inductive-limits
 bibliography
 ```

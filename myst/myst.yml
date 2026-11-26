@@ -25,6 +25,21 @@ project:
     - file: entries/09-glasner-weiss.md
     - file: entries/10-kpt.md
     - file: entries/11-metrizable-umf.md
+    - file: entries/12-kpt-umf.md
+    - file: entries/13-maximal-chains.md
+    - file: entries/14-zero-dimensional.md
+    - file: entries/15-continua.md
+    - file: entries/16-semigroup.md
+    - file: entries/17-discrete-groups.md
+    - file: entries/18-ea-catalogue.md
+    - file: entries/19-maps-and-transformations.md
+    - file: entries/20-operator-algebras.md
+    - file: entries/21-inductive-limits.md
+    - file: entries/22-proofs-maps-and-transformations.md
+    - file: entries/23-proofs-cuntz.md
+    - file: entries/24-proofs-stable-kirchberg.md
+    - file: entries/25-proofs-unital-kirchberg-af.md
+    - file: entries/26-proofs-inductive-limits.md
   exclude:
     - bibliography.md
 site:

@@ -1,0 +1,141 @@
+(sec-semigroup)=
+# The semigroup structure of the greatest ambit
+
+The universal property of the greatest ambit turns it into a compact
+semigroup. Minimal flows inside it are minimal ideals, and comparing it with
+the enveloping semigroup of the universal minimal flow leads to Ellis's
+problem and to a conjecture of Pestov. Some sources, such as
+{cite}`BartosovaZucker2019`, work with right actions; their semigroups are then
+left topological rather than right topological.
+
+:::{prf:definition} Right topological semigroups
+:label: def-rt-semigroup
+
+A *compact right topological semigroup* is a semigroup $S$ with a compact
+topology in which, for every $q\in S$, the map $p\mapsto pq$ is continuous. An
+element $u\in S$ is an *idempotent* if $uu=u$. A *left ideal* is a
+nonempty set $I\subseteq S$ with $SI\subseteq I$. Terminology varies: such
+semigroups are called left topological in {cite}`Uspenskij2000`.
+:::
+
+:::{prf:proposition}
+:label: prop-ambit-semigroup
+
+For $x\in S(G)$, let $\rho_x\colon(S(G),1)\to(\overline{Gx},x)$ be the morphism
+of ambits given by {prf:ref}`prop-greatest-ambit`, and put
+$yx=\rho_x(y)$. This makes $S(G)$ a compact right topological semigroup with
+identity $1$, in which left multiplication by $g\in G$ is the action of $g$
+(Theorem 3.1 of {cite}`Uspenskij2000`).
+:::
+
+:::{prf:proof}
+Right multiplication by $x$ is $\rho_x$, which is continuous. Since $\rho_x$ is
+a $G$-map with $\rho_x(1)=x$, we get $gx=\rho_x(g)$ for $g\in G$; also
+$\rho_1$ is the identity, so $y1=y$. For associativity, $\rho_z\circ\rho_x$ is
+a $G$-map sending $1$ to $xz$, hence a morphism of ambits
+$(S(G),1)\to(\overline{Gxz},xz)$, so it equals $\rho_{xz}$ by uniqueness;
+that is, $(yx)z=y(xz)$.
+:::
+
+:::{prf:proposition}
+:label: prop-minimal-ideals
+
+1. The subflows of $S(G)$ are exactly its closed left ideals, and its
+   minimal subflows are exactly its minimal left ideals. Each of them is
+   isomorphic to $M(G)$.
+2. Every minimal left ideal $M$ contains an idempotent $u$, and
+   $p\mapsto pu$ is a $G$-map $S(G)\to M$ that restricts to the identity on
+   $M$. In particular $M(G)$ is a retract of $S(G)$.
+
+:::
+
+:::{prf:proof}
+(1) A left ideal is invariant under left multiplication by $G$. Conversely, if
+$Y$ is a subflow, $x\in Y$ and $y=\lim g_i$ with $g_i\in G$, then
+$yx=\lim g_ix\in Y$, by continuity of $\rho_x$. Every left ideal contains a
+left ideal $S(G)x=\rho_x(S(G))$, which is closed, so minimal left ideals are
+closed and are the minimal subflows. They are isomorphic to $M(G)$ by
+{prf:ref}`cor-umf-in-ambit`.
+
+(2) A minimal left ideal $M$ is a closed subsemigroup, and every compact right
+topological semigroup contains an idempotent, by a theorem of Ellis; see
+Theorem 3.2 of {cite}`Uspenskij2000` for a short proof. Let $u\in M$ be an idempotent. Then
+$S(G)u$ is a left ideal contained in $M$, so $M=S(G)u$, and $pu=p$ for every
+$p=qu\in M$. The map $p\mapsto pu$ is continuous, and it is a $G$-map by
+associativity.
+:::
+
+:::{prf:definition} Enveloping semigroup
+:label: def-enveloping
+
+The *enveloping semigroup* $E(X)$ of a $G$-flow $X$ is the closure, in
+the product space $X^X$, of the set of maps $x\mapsto gx$ for $g\in G$. It is a
+compact right topological semigroup under composition, and $G$ acts on it by
+$(gp)(x)=g\,p(x)$; with the identity map as base point, it is a $G$-ambit. By
+{prf:ref}`prop-greatest-ambit` there is a canonical morphism of ambits
+$S(G)\to E(M(G))$.
+:::
+
+:::{prf:remark}
+:label: rem-ellis-question-semigroup
+
+Ellis's problem ({prf:ref}`rem-ellis-problem`) asks whether the canonical
+map $S(G)\to E(M(G))$ is always an isomorphism. For a nontrivial extremely
+amenable group it is not, since $E(M(G))$ is a point while $S(G)$ is not
+{cite}`Pestov1998`.
+:::
+
+:::{prf:theorem} {cite:t}`Glasner1998`
+:label: thm-glasner-monothetic
+
+1. There is an infinite monothetic Polish group (one with a dense cyclic
+   subgroup) that is extremely amenable. This answers a question of Mitchell.
+2. For $\mathbb{Z}$ with the discrete topology, the greatest ambit
+   $\beta\mathbb{Z}$ is not isomorphic to $E(M(\mathbb{Z}))$.
+
+:::
+
+:::{prf:conjecture} Pestov
+:label: conj-pestov
+
+For a topological group $G$, the canonical map $S(G)\to E(M(G))$ is an
+isomorphism if and only if $G$ is precompact, that is, isomorphic to a
+subgroup of a compact group (page 4163 of {cite}`Pestov1998`).
+:::
+
+:::{prf:remark}
+:label: rem-pestov-conjecture
+
+If $G$ is precompact, $S(G)$, $M(G)$ and $E(M(G))$ are all isomorphic to the
+completion of $G$, which is a compact group {cite}`BartosovaZucker2019`; compare
+{prf:ref}`ex-umf-compact`. So the conjecture concerns non-precompact
+groups. Pestov showed that the canonical map is an isomorphism if and only if
+the retractions of $S(G)$ onto a fixed minimal subflow, as in
+{prf:ref}`prop-minimal-ideals`, separate the points of $S(G)$
+{cite}`BartosovaZucker2019`.
+:::
+
+:::{prf:theorem} {cite:t}`GTWZ2021`
+:label: thm-gtwz
+
+Pestov's conjecture holds for discrete groups: if $G$ is an infinite discrete
+group, then $\beta G$ is not isomorphic to $E(M(G))$.
+:::
+
+:::{prf:theorem} {cite:t}`BartosovaZucker2019`
+:label: thm-bartosova-zucker
+
+Let $G$ be $S_\infty$, the automorphism group of a random $K_n$-free graph, or
+the automorphism group of a random $r$-uniform hypergraph. Then $S(G)$ is not
+isomorphic to $E(M(G))$.
+:::
+
+:::{prf:remark}
+:label: rem-bartosova-zucker
+
+The proof uses the explicit universal minimal flows of
+[](#sec-kpt-umf) and only works when $M(G)$ is metrizable. The
+methods of {cite}`GTWZ2021` are of a different kind: they rely on a
+disjointness property that groups with metrizable universal minimal flow
+never have {cite}`BartosovaZucker2019`.
+:::

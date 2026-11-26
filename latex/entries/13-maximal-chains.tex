@@ -1,0 +1,124 @@
+\section{The flow of maximal chains}\label{sec:maximal-chains}
+
+Uspenskij attached to every flow a second flow: the space of maximal chains of
+closed sets. It shows that the action of a group on its universal minimal flow
+is never highly transitive, and for several homeomorphism groups it is the
+universal minimal flow itself.
+
+\begin{definition}[Hyperspace]\label{def:hyperspace}
+\uses{def:flow}
+For a compact space $X$, let $\mathrm{Exp}(X)$ be the set of nonempty closed
+subsets of $X$ with the \emph{Vietoris topology}. Its basic open sets are
+the sets $\langle U_1,\dots,U_k\rangle$, for $U_1,\dots,U_k$ open in $X$,
+consisting of all $F\in\mathrm{Exp}(X)$ such that
+$F\subseteq U_1\cup\dots\cup U_k$ and $F$ meets every $U_j$. It is a compact
+space, metrizable if $X$ is.
+If $X$ is a $G$-flow, then $gF=\{gx : x\in F\}$ makes $\mathrm{Exp}(X)$ a
+$G$-flow.
+\end{definition}
+
+\begin{definition}[Maximal chains]\label{def:maximal-chain}
+\uses{def:hyperspace}
+A \emph{chain} in a compact space $X$ is a family $c\subseteq\mathrm{Exp}(X)$
+that is linearly ordered by inclusion. It is \emph{maximal} if it is not
+properly contained in another chain. The set of maximal chains in $X$ is
+denoted $\Phi(X)$. A maximal chain is \emph{connected} if all its members are
+connected.
+\end{definition}
+
+\begin{proposition}\label{prop:maximal-chains}
+\uses{def:maximal-chain}
+Let $X$ be a compact space.
+\begin{enumerate}
+\item Every maximal chain $c$ is a closed subset of $\mathrm{Exp}(X)$. It
+  contains $X$, and it has a least element, which is a singleton
+  $\{r(c)\}$. The point $r(c)$ is the \emph{root} of $c$.
+\item $\Phi(X)$ is a closed subset of $\mathrm{Exp}(\mathrm{Exp}(X))$, hence
+  compact \cite[Proposition~2.1]{Uspenskij2000}.
+\item If $X$ is a $G$-flow, then $\Phi(X)$ is a subflow of
+  $\mathrm{Exp}(\mathrm{Exp}(X))$, and the root map $r\colon\Phi(X)\to X$ is a
+  surjective $G$-map.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) The relation $A\subseteq B$ is closed in
+$\mathrm{Exp}(X)\times\mathrm{Exp}(X)$, so the closure of a chain is a chain,
+and a maximal chain is closed. The set $X$ is comparable with every member of
+$c$, so $X\in c$. The intersection $F_0$ of all members of $c$ is nonempty by
+compactness and comparable with every member, so $F_0\in c$. If $x\in F_0$,
+then $\{x\}$ is contained in every member of $c$, so $\{x\}\in c$ and
+$F_0=\{x\}$. Statement (2) is due to Uspenskij; see also
+\cite[Section~1]{GlasnerWeiss2003}.
+
+(3) Homeomorphisms of $X$ preserve inclusion, so $\Phi(X)$ is invariant, and
+$r(gc)=gr(c)$. If $c_i\to c$ and $U$ is a neighbourhood of $r(c)$, then
+eventually some member $F_i$ of $c_i$ is contained in $U$, because
+$\{r(c)\}\in c$; hence $r(c_i)\in F_i\subseteq U$, and $r$ is continuous. For
+$x\in X$, Zorn's lemma extends the chain $\{\{x\},X\}$ to a maximal chain,
+whose root is $x$.
+\end{proof}
+
+\begin{theorem}[Uspenskij \cite{Uspenskij2000}]\label{thm:uspenskij-chains}
+\uses{prop:maximal-chains}
+Let $X$ be a $G$-flow with at least three points on which $G$ acts
+$3$-transitively, that is, transitively on triples of distinct points. Then
+there is no $G$-map $X\to\Phi(X)$.
+\end{theorem}
+
+\begin{proof}
+Suppose $f\colon X\to\Phi(X)$ is a $G$-map and fix $x\in X$. The stabiliser
+$G_x$ fixes $f(x)$, hence the root of $f(x)$. By $3$-transitivity, $G_x$ acts
+transitively on $X\setminus\{x\}$, which has at least two points, so the root
+of $f(x)$ is $x$. The chain $\{\{x\},X\}$ is not maximal, since a set
+$\{x,y\}$ with $y\neq x$ can be added to it; so $f(x)$ has a member $F$ with
+$\{x\}\subsetneq F\subsetneq X$. Pick $y\in F\setminus\{x\}$ and
+$z\in X\setminus F$, and $g\in G$ with $g(x)=x$, $g(y)=z$ and $g(z)=y$. Then
+$gF\in gf(x)=f(x)$, but $z\in gF\setminus F$ and $y\in F\setminus gF$, so $F$
+and $gF$ are not comparable, a contradiction.
+\end{proof}
+
+\begin{corollary}[Uspenskij \cite{Uspenskij2000}]\label{cor:not-3-transitive}
+\uses{thm:uspenskij-chains, def:umf, prop:minimal-subflow}
+If $M(G)$ has at least three points, then $G$ does not act $3$-transitively on
+$M(G)$.
+\end{corollary}
+
+\begin{proof}
+By Proposition~\ref{prop:maximal-chains}, $\Phi(M(G))$ is a $G$-flow. It
+contains a minimal subflow, and $M(G)$ maps onto it, which contradicts
+Theorem~\ref{thm:uspenskij-chains} if the action is $3$-transitive.
+\end{proof}
+
+\begin{remark}[Uspenskij's formulation]\label{rem:uspenskij-proof}
+\uses{thm:uspenskij-chains, cor:not-3-transitive, thm:pestov-circle}
+Uspenskij proves Corollary~\ref{cor:not-3-transitive}, which is Theorem~1.1
+of \cite{Uspenskij2000}, by the argument above, phrased with the stabiliser
+$H$ of a point $p\in M(G)$: every $G$-flow receives a $G$-map from $M(G)$, so
+it has an $H$-fixed point, and in particular some maximal chain in $M(G)$ is
+fixed by $H$ \cite[Proposition~2.2]{Uspenskij2000}.
+Theorem~\ref{thm:uspenskij-chains} is the formulation of the argument in
+\cite{GutmanTsankovZucker2021}. The corollary cannot be improved to
+$2$-transitivity: $\mathrm{Homeo}_+(\mathbb{S}^1)$ acts $2$-transitively on
+its universal minimal flow $\mathbb{S}^1$, and the stabiliser of a point fixes
+exactly two maximal chains \cite[Example~2.3]{Uspenskij2000}.
+\end{remark}
+
+\begin{remark}\label{rem:not-natural-action}
+\uses{cor:not-3-transitive, rem:uspenskij}
+Consequently, if $X$ is a compact manifold of dimension greater than one, the
+Hilbert cube or the Cantor set, the universal minimal flow of
+$\mathrm{Homeo}(X)$ is not the natural action on $X$
+\cite{Uspenskij2000,GlasnerWeiss2003}. This is the result recalled in
+Remark~\ref{rem:uspenskij}.
+\end{remark}
+
+\begin{remark}[Connected chains]\label{rem:connected-chains}
+\uses{prop:maximal-chains}
+If $X$ is connected, the connected maximal chains form a nonempty, closed,
+invariant subset of $\Phi(X)$, so $\Phi(X)$ is not minimal. For the interval,
+the circle and the Lelek fan, the universal minimal flow of the homeomorphism
+group can be realised inside this subspace \cite{GutmanTsankovZucker2021}; see
+Section~\ref{sec:continua}. For zero-dimensional spaces, $\Phi(X)$ itself can
+be the universal minimal flow; see Section~\ref{sec:zero-dim}.
+\end{remark}
