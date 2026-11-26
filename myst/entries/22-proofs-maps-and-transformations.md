@@ -1,0 +1,1791 @@
+(sec-proofs-maps-transformations)=
+# Proofs: groups of maps and of measure-space transformations
+
+This section reproduces, from the preprint of the editor {cite}`LupiniPointwise2026` in its version of 17 October 2026, the
+proofs of the results stated in [](#sec-maps-transformations). The text is that of the
+preprint, with British spelling: its sections appear as subsections, its macros
+are expanded and its labels renamed, and of its introduction only the
+statements of the main results are kept. Citations of the companion preprints
+point to their own proof pages where the cited statement is reproduced there.
+The preprint has not been refereed. The last subsection derives the statements
+of [](#sec-maps-transformations) from those of the preprint.
+
+(sec-pw-umf)=
+## General principles and pointwise completions
+
+We recall the standard completion and extremely-amenable-kernel principles
+used throughout; see {cite}`Pestov2006`, Example 6.1.8 and Theorem 6.2.9 and
+{cite}`PestovRemarks2002`, Lemma 2.3 and Corollary 2.5. Recall that $G$ is *extremely amenable* when $M(G)$ is a
+singleton.
+
+:::{prf:lemma}
+:label: lem-pw-umf-principles
+
+Let $G$ be a Hausdorff topological group.
+
+1. If $\iota:G\to Q$ is a continuous homomorphism with dense image in a
+   compact group $Q$, then left translation through $\iota$ makes $Q$ a
+   minimal $G$-flow. Consequently, there is a factor map
+
+   $$
+M(G)\longrightarrow Q.
+$$
+2. If $\iota$ is a topological embedding, so that $Q$ is the compact
+   group completion of the precompact group $G$, then
+
+   $$
+M(G)\cong Q.
+$$
+3. If $N$ is a closed extremely amenable normal subgroup of $G$, then
+
+   $$
+M(G)\cong M(G/N).
+$$
+
+   In particular, if $G/N$ is compact, then $M(G)\cong G/N$.
+:::
+
+:::{prf:proof}
+For the first assertion, every $G$-orbit in $Q$ is dense because
+$\iota(G)$ is dense. The universal property of $M(G)$ gives the factor
+map.
+
+For the second, every compact $G$-flow extends uniquely to the completion
+$Q$; see {cite}`BassoZucker2021`, Fact 2.3. If $X$ is minimal and $x\in X$, the
+extended orbit map $Q\to X$, $q\mapsto qx$, is onto. Thus the minimal
+$G$-flow $Q$ maps onto every minimal $G$-flow.
+
+Finally, let $X$ be a minimal $G$-flow. Extreme amenability supplies an
+$N$-fixed point. Since $N$ is normal, the fixed-point set $X^N$ is
+nonempty, closed, and $G$-invariant, and hence $X^N=X$. Thus every
+minimal $G$-flow factors through $G/N$, which proves the last assertion.
+:::
+
+### Finite interpolation beyond manifolds
+
+The pointwise-completion argument only needs the ability to realise arbitrary
+finite prescriptions.  This gives a general function-space statement.  We use
+the standard notation $C_p(X,K)$ for the group of continuous maps endowed
+with pointwise convergence. The separation property in
+{cite}`HernandezRodenas2007`, Definition 2.1 and Remark 2.2 supplies finite interpolation;
+{cite}`ShakhmatovSpevak2010`, Definition 2.2(iii), Proposition 2.3(i), and proof of Theorem 3.3,
+equation (10) records the resulting completion. The next statement is
+its universal-minimal-flow consequence, including the relative version.
+
+:::{prf:theorem}
+:label: thm-pw-cp-umf
+
+Let $X$ be a Tychonoff space and let $K$ be a compact path-connected
+topological group. Then
+
+$$
+M(C_p(X,K))\cong K^X.
+$$
+
+More generally, if $A\subseteq X$ is closed and
+
+$$
+C_p(X,A;K)=\{f\in C(X,K):f|_A=e\},
+$$
+
+with its pointwise topology, then
+
+$$
+M(C_p(X,A;K))\cong K^{X\setminus A}.
+$$
+
+In the second formula the omitted coordinates on $A$ are fixed at the
+identity.
+:::
+
+:::{prf:proof}
+Fix distinct points $x_1,\ldots,x_m\in X$ and prescribed values
+$k_1,\ldots,k_m\in K$. Complete regularity supplies continuous functions
+$\psi_i:X\to[0,1]$ such that
+$\psi_i(x_i)=1$ and $\psi_i(x_j)=0$ for $j\ne i$. Choose paths
+$c_i:[0,1]\to K$ from $e$ to $k_i$. Then
+
+$$
+f(x)=\prod_{i=1}^m c_i(\psi_i(x))
+$$
+
+is continuous and satisfies $f(x_i)=k_i$. Thus the evaluation image of
+$C_p(X,K)$ is dense in $K^X$.
+
+For the relative group, take the separating functions $\psi_i$ to vanish on
+the closed set $A$ as well as at the other prescribed points. The same
+construction gives density in the closed subgroup of $K^X$ whose coordinates
+on $A$ are the identity. In both cases this is precisely the compact group
+completion, so {prf:ref}`lem-pw-umf-principles` applies.
+:::
+
+The connectedness assumption can be removed if one records the Boolean
+information carried by the components. For a Tychonoff space $X$, write
+$x\sim_{\mathrm{clop}}y$ when every clopen subset of $X$ contains either
+both $x,y$ or neither of them. Thus the equivalence classes are the
+quasi-components of $X$. If $A\subseteq X$, put
+
+$$
+\operatorname{bcl}_X(A)
+ =\bigcap\{U\subseteq X:U\text{ is clopen and }A\subseteq U\},
+$$
+
+with $\operatorname{bcl}_X(\varnothing)=\varnothing$. We call this the
+Boolean hull of $A$.
+
+Let $K$ be a compact Lie group, let $q_0:K\to K/K_0$ be the component
+quotient, and define
+
+$$
+\begin{aligned}
+\mathcal B_X(K)
+ &=\{u\in K^X:q_0(u(x))=q_0(u(y))
+          \text{ whenever }x\sim_{\mathrm{clop}}y\},\\
+ \mathcal B_{X,A}(K)
+ &=\{u\in\mathcal B_X(K):u|_A=e,\quad
+       q_0(u(x))=K_0\text{ for }x\in\operatorname{bcl}_X(A)\}.
+\end{aligned}
+$$
+
+:::{prf:theorem}
+:label: thm-pw-cp-disconnected-umf
+
+Let $X$ be Tychonoff and let $K$ be a compact Lie group, not necessarily
+connected. Then
+
+$$
+M(C_p(X,K))\cong\mathcal B_X(K).
+$$
+
+If $A\subseteq X$ is closed, then
+
+$$
+M(C_p(X,A;K))\cong\mathcal B_{X,A}(K).
+$$
+
+In particular, the completion is $K^X$ whenever the quasi-components of
+$X$ are singletons, and it is the subgroup of $K^X$ with globally
+constant component coordinate whenever $X$ is connected.
+:::
+
+:::{prf:proof}
+Every continuous map from $X$ to the finite discrete group $K/K_0$ is
+locally constant. Its pointwise closure consists exactly of the functions
+$c:X\to K/K_0$ which are constant on the
+$\sim_{\mathrm{clop}}$-classes.
+Indeed, finitely many distinct classes can be separated by a finite clopen
+partition. In the relative case the locally constant maps which equal $K_0$
+on $A$ have as their pointwise closure the functions which, in addition,
+equal $K_0$ on $\operatorname{bcl}_X(A)$. To see the converse, separate
+each of the finitely many points outside the Boolean hull from $A$ by a
+clopen set, and refine these sets together with the pairwise separating
+clopen sets to a finite clopen partition.
+
+It remains to interpolate inside the components. Fix finitely many points
+$x_1,\ldots,x_m$ and target values prescribed by an element of the displayed
+compact group. Choose a locally constant component map with the required
+values and, in the relative case, equal to $K_0$ on $A$. Choose one
+representative of every component of $K$, taking the representative of
+$K_0$ to be $e$; composition gives a continuous preliminary map
+$f_0:X\to K$. For each $x_i\notin A$, the correction
+$f_0(x_i)^{-1}u(x_i)$ lies in the connected compact Lie group $K_0$.
+Choose a path in $K_0$ from $e$ to this correction and a continuous scalar
+function which is one at $x_i$ and zero on $A$ and at the other prescribed
+points. Multiplying the resulting corrections into $f_0$ gives a continuous
+map, equal to $e$ on $A$ in the relative case, with all the prescribed
+values. Thus the evaluation images are dense in the stated compact groups,
+which are their compact group completions. Apply
+{prf:ref}`lem-pw-umf-principles`.
+:::
+
+There is also a projective version. If $Z\leq K$ is closed and central,
+write $\Delta Z$ for the compact subgroup of constant $Z$-valued maps.
+
+:::{prf:corollary}
+:label: cor-pw-projective-cp-umf
+
+With the quotient of the pointwise topology,
+
+$$
+M\bigl(C_p(X,K)/\Delta Z\bigr)
+ \cong \mathcal B_X(K)/\Delta Z.
+$$
+
+For connected $K$, this reduces to $K^X/\Delta Z$.
+:::
+
+:::{prf:proof}
+The completion of the quotient by the compact subgroup $\Delta Z$ is the
+quotient of the compact completion by $\Delta Z$. The result follows from
+{prf:ref}`thm-pw-cp-disconnected-umf` and
+{prf:ref}`lem-pw-umf-principles`.
+:::
+
+There is a bundle version. Let $\mathcal H\to X$ be a locally trivial bundle
+of topological groups with typical fibre $K$, and let
+$\Gamma_p(X,\mathcal H)$ be its continuous-section group with pointwise
+convergence.
+
+:::{prf:corollary}
+:label: cor-pw-topological-section-umf
+
+Let $X$ be paracompact Hausdorff and let $\mathcal H\to X$ be a locally
+trivial bundle of compact path-connected groups. Then
+
+$$
+M(\Gamma_p(X,\mathcal H))
+ \cong\prod_{x\in X}\mathcal H_x.
+$$
+
+If $A\subseteq X$ is closed, the section group fixed at the identity on
+$A$ has universal minimal flow
+
+$$
+\prod_{x\in X\setminus A}\mathcal H_x.
+$$
+:::
+
+:::{prf:proof}
+Given finitely many base points, choose pairwise disjoint trivializing
+neighbourhoods. In each neighbourhood, a scalar function which is one at the
+chosen point and zero off the neighbourhood, composed with a path in the fibre
+from the identity to the prescribed value, gives a local section which patches
+with the identity section. Multiplying the finitely many local sections proves
+density in the displayed fibre product. If the section must be the identity on
+$A$, choose the scalar functions to vanish on $A$. Apply
+{prf:ref}`lem-pw-umf-principles`.
+:::
+
+The finite-interpolation principle also applies to a regularity class which
+does not contain the smooth maps.
+
+:::{prf:corollary}
+:label: cor-pw-analytic-mapping-umf
+
+Let $X$ be a compact real-analytic manifold and let $K$ be a connected
+compact Lie group. With the topology of pointwise convergence,
+
+$$
+M(C^\omega(X,K))\cong K^X.
+$$
+:::
+
+:::{prf:proof}
+By the real-analytic embedding theorem {cite}`Grauert1958`, choose a real-analytic
+embedding $j:X\to\mathbb R^N$. For distinct
+$x_1,\ldots,x_m$, ordinary polynomial interpolation on the finite subset
+$\{j(x_1),\ldots,j(x_m)\}$ gives polynomials $p_i$ with
+$p_i(j(x_r))=\delta_{ir}$. Given $k_i\in K$, choose
+$A_i\in\mathfrak k$ with $\exp(A_i)=k_i$; the exponential map is
+surjective for connected compact Lie groups. The real-analytic map
+
+$$
+x\longmapsto\prod_{i=1}^m
+ \exp\bigl(p_i(j(x))A_i\bigr)
+$$
+
+takes the prescribed values. Hence $C^\omega(X,K)$ is dense in $K^X$,
+and the conclusion follows from {prf:ref}`lem-pw-umf-principles`.
+:::
+
+The same argument applies to metric regularity classes which permit finite
+scalar interpolation. Fix a compatible bi-invariant Riemannian metric on a
+compact connected Lie group $K$. For a metric space $X$, write
+$\operatorname{Lip}_p(X,K)$ for all Lipschitz maps with pointwise
+convergence, and, for $0<\gamma\leq1$, define
+$C_p^{0,\gamma}(X,K)$ analogously.
+
+:::{prf:corollary}
+:label: cor-pw-lipschitz-mapping-umf
+
+Let $X$ be any metric space and let $K$ be a compact connected Lie group.
+Then
+
+$$
+M(\operatorname{Lip}_p(X,K))\cong K^X,
+ \qquad
+ M(C_p^{0,\gamma}(X,K))\cong K^X
+ \quad(0<\gamma\leq1).
+$$
+:::
+
+:::{prf:proof}
+On a finite subset $\{x_1,\ldots,x_m\}\subseteq X$, choose bounded
+Lipschitz functions $\psi_i:X\to[0,1]$ with
+$\psi_i(x_j)=\delta_{ij}$. Given $k_i\in K$, choose
+$A_i\in\mathfrak k$ with $\exp(A_i)=k_i$. Then
+
+$$
+x\longmapsto\prod_{i=1}^m\exp(\psi_i(x)A_i)
+$$
+
+is Lipschitz and takes the prescribed values. A bounded Lipschitz map is
+$\gamma$-Hölder for every $0<\gamma\leq1$, after changing the constant.
+Thus both evaluation images are dense in $K^X$, and
+{prf:ref}`lem-pw-umf-principles` applies.
+:::
+
+There is also a topological compact-support version, extending the smooth
+manifold statement above.  Write $C_{c,p}(X,K)$ for the group of continuous
+maps $f:X\to K$ that equal the identity outside a compact subset of $X$,
+equipped with the topology of pointwise convergence.
+
+:::{prf:corollary}
+:label: cor-pw-lch-compact-support-umf
+
+Let $X$ be locally compact Hausdorff and let $K$ be a compact
+path-connected topological group. With pointwise convergence,
+
+$$
+M(C_{c,p}(X,K))\cong K^X.
+$$
+:::
+
+:::{prf:proof}
+Given finitely many points, local compactness and complete regularity provide
+scalar separating functions with compact support. Composing them with paths
+in $K$ and multiplying as in {prf:ref}`thm-pw-cp-umf` realises every finite
+prescription. Hence the compact completion is $K^X$.
+:::
+
+Finite interpolation has a holomorphic form as well. If $S$ is a Stein
+manifold and $T$ is a complex Lie group, write
+$\mathcal O_p(S,T)$ for the holomorphic mapping group with pointwise
+convergence.
+
+:::{prf:theorem}
+:label: thm-pw-holomorphic-mapping-umf
+
+Let $S$ be a Stein manifold and let $T$ be a connected compact complex Lie
+group. Then
+
+$$
+M(\mathcal O_p(S,T))\cong T^S.
+$$
+
+If $Z\leq T$ is closed and central, then
+
+$$
+M(\mathcal O_p(S,T)/\Delta Z)\cong T^S/\Delta Z.
+$$
+:::
+
+:::{prf:proof}
+A connected compact complex Lie group $T$ is abelian. Indeed, the
+holomorphic matrix entries of its adjoint representation are constant by
+compactness, so its Lie algebra is abelian; connectedness then gives the
+assertion for $T$. Its exponential map is onto, since its image is an open
+subgroup. Fix distinct $x_1,\ldots,x_m\in S$. Holomorphic separability of
+the Stein manifold supplies functions $h_j$ with
+$h_j(x_i)=\delta_{ij}$: for each $i\ne j$, normalise a separating
+function to be zero at $x_i$ and one at $x_j$, and take the product over
+$i$. Given $t_j\in T$, choose $v_j$ in its Lie algebra with
+$\exp(v_j)=t_j$. Then
+
+$$
+x\longmapsto\exp\!\left(\sum_{j=1}^m h_j(x)v_j\right)
+$$
+
+is a holomorphic interpolant. Thus $\mathcal O_p(S,T)$ is dense in
+$T^S$, and {prf:ref}`lem-pw-umf-principles` and the compact central
+quotient give the two formulas. The Oka interpolation theorem
+{cite}`ForstnericPrezelj2001`, Theorem 1.1 provides a more general route, but is unnecessary
+under the present compact-target hypotheses.
+:::
+
+These regularity examples are applications of finite interpolation and the
+standard precompact-flow calculation. In particular, the continuous case
+uses the explicit earlier completion in {cite}`ShakhmatovSpevak2010`; the other displayed
+completions are derived directly, without a claim of a new interpolation
+principle or historical priority for every formulation.
+
+### One-dimensional NCCW unitary groups
+
+Let $E$ and $F$ be finite-dimensional unital $C^*$-algebras, let
+
+$$
+\phi=(\phi_0,\phi_1):E\longrightarrow F\oplus F
+$$
+
+be a unital $*$-homomorphism, and consider the one-dimensional NCCW algebra
+
+$$
+A=\{(p,u)\in C(I,F)\oplus E:(p(0),p(1))=\phi(u)\}.
+$$
+
+Write
+
+$$
+\phi_{\mathrm U}=\phi|_{\mathrm U(E)}:
+\mathrm U(E)\longrightarrow\mathrm U(F)\times\mathrm U(F),
+$$
+
+and put
+
+$$
+\mathcal B_A=
+\left\{(x,u)\in\mathrm U(F)^I\times\mathrm U(E):
+ (x(0),x(1))=\phi_{\mathrm U}(u)\right\}.
+$$ (eq-pw-nccw-pointwise-completion)
+
+Equip $\mathrm U(A)$ with the pointwise topology induced by the
+$\mathrm U(E)$-coordinate and by all evaluations of the path coordinate.
+
+:::{prf:proposition}
+:label: prop-pw-nccw-umf
+
+The compact group $\mathcal B_A$ is the group completion and universal
+minimal flow of pointwise-topological $\mathrm U(A)$:
+
+$$
+M(\mathrm U(A),\tau_{\mathrm{pw}})\cong\mathcal B_A.
+$$
+
+For the norm topology, $\mathcal B_A$ is a compact minimal
+$\mathrm U(A)$-flow, and hence there is a factor map
+
+$$
+M(\mathrm U(A)_{\|\cdot\|})\longrightarrow\mathcal B_A.
+$$
+
+If the fibre algebra $F$ is nonzero, as in the standard unital
+one-dimensional NCCW convention, then
+$M(\mathrm U(A)_{\|\cdot\|})$ is nonmetrizable.
+:::
+
+:::{prf:proof}
+The space $\mathcal B_A$ is the fibre product of the endpoint homomorphism
+$\mathrm U(F)^I\to\mathrm U(F)\times\mathrm U(F)$ and
+$\phi_{\mathrm U}$, so it is a closed subgroup of the compact group
+$\mathrm U(F)^I\times\mathrm U(E)$.
+
+The finite-dimensional group $\mathrm U(F)$ is a finite product of connected
+unitary groups. Given $(x,u)\in\mathcal B_A$ and finitely many coordinates,
+add $0$ and $1$ to the coordinate set, and join the prescribed values in
+their order by continuous paths in $\mathrm U(F)$, retaining the endpoint
+values prescribed by $\phi_{\mathrm U}(u)$. This gives
+$(p,u)\in\mathrm U(A)$ agreeing with $(x,u)$ at the selected coordinates.
+Hence $\mathrm U(A)$ is dense in $\mathcal B_A$, and
+{prf:ref}`lem-pw-umf-principles` proves both the pointwise calculation and the
+norm-topological factor assertion.
+
+Taking $u=1_E$ and fixing the endpoint coordinates at $1_F$ gives a closed
+copy of $\mathrm U(F)^{(0,1)}$ in $\mathcal B_A$. Since $F$ is a
+nonzero unital finite-dimensional $C^*$-algebra under the stated
+convention, $\mathrm U(F)$ is
+nontrivial, and this product is nonmetrizable. Since a Hausdorff continuous
+image of a compact metrizable space is metrizable, the displayed factor map
+forces $M(\mathrm U(A)_{\|\cdot\|})$ to be nonmetrizable.
+:::
+
+:::{prf:remark}
+:label: rem-pw-nccw-pointwise-coordinate
+
+Including the $\mathrm U(E)$-coordinate in $\tau_{\mathrm{pw}}$ is
+essential. If the topology is induced only by evaluations of the path
+coordinate, then the compact kernel $\ker(\phi_{\mathrm U})$ is not
+separated; the Hausdorff quotient instead completes to
+
+$$
+\{x\in\mathrm U(F)^I:
+  (x(0),x(1))\in\phi_{\mathrm U}(\mathrm U(E))\}.
+$$
+
+{prf:ref}`prop-pw-nccw-umf` identifies $\mathcal B_A$ only as a
+factor in the norm topology, not as the full norm-topological universal
+minimal flow.
+:::
+
+## Convergence in measure and sampled topologies
+
+The opposite extreme from pointwise convergence is provided by measurable
+maps. Let $(Y,\mu)$ be a standard probability space and let
+
+$$
+A_\mu=\{a\in Y:\mu(\{a\})>0\}
+$$
+
+be its at most countable set of atomic points.
+
+:::{prf:proposition}
+:label: prop-pw-l0-umf
+
+For every compact metrizable group $K$, with $L^0(Y,\mu;K)$ carrying
+convergence in measure,
+
+$$
+M(L^0(Y,\mu;K))\cong K^{A_\mu}.
+$$
+
+In particular, $L^0(Y,\mu;K)$ is extremely amenable when $\mu$ is
+atomless.
+:::
+
+:::{prf:proof}
+Let $Y_{\mathrm c}=Y\setminus A_\mu$. Restriction gives a topological group
+isomorphism
+
+$$
+L^0(Y,\mu;K)
+\cong L^0(Y_{\mathrm c},\mu;K)\times K^{A_\mu}.
+$$
+
+Indeed, for a bounded compatible bi-invariant metric $d_K$, the atomic
+factor carries the weighted metric
+
+$$
+\sum_{a\in A_\mu}\mu(\{a\})d_K(k_a,\ell_a),
+$$
+
+which induces the product topology. For the compact target used here, extreme amenability of the atomless
+$L^0$-group is already {cite}`GiordanoPestov2007`, Theorem 2.20; the circle case appears
+in {cite}`Glasner1998`, Theorems 1.2–1.3. Pestov and Schneider prove the more
+general amenable-target theorem {cite}`PestovSchneider2017`, Theorem 1.1. If $\mu(Y_{\mathrm c})>0$, normalise the
+restriction of $\mu$ to $Y_{\mathrm c}$, which does not change the
+convergence-in-measure topology; the resulting standard atomless probability
+space is isomorphic modulo null sets to the standard model. If
+$\mu(Y_{\mathrm c})=0$, the first factor is trivial. The compact group $K$
+is amenable, so {prf:ref}`lem-pw-umf-principles` applies to the projection onto
+$K^{A_\mu}$.
+:::
+
+The same argument permits the compact group to vary measurably.  Say that a
+Borel bundle of compact metrizable groups $\mathcal H\to Y$ is
+*countably trivializable* if there is a countable Borel partition
+$Y=\bigsqcup_jY_j$ and compact metrizable groups $H_j$ such that
+$\mathcal H|_{Y_j}$ is Borel-isomorphic, as a group bundle, to
+$Y_j\times H_j$.
+
+:::{prf:theorem}
+:label: thm-pw-measurable-bundle-umf
+
+Let $(Y,\mu)$ be a standard probability space and let
+$\mathcal H\to Y$ be a countably trivializable Borel bundle of compact
+metrizable groups.  Equip the measurable-section group
+$L^0(Y,\mu;\mathcal H)$ with convergence in measure. Then
+
+$$
+M(L^0(Y,\mu;\mathcal H))
+ \cong\prod_{a\in A_\mu}\mathcal H_a.
+$$
+
+In particular, this measurable-section group is extremely amenable when
+$\mu$ is atomless.
+:::
+
+:::{prf:proof}
+Restriction to the atoms is a continuous surjective homomorphism onto the
+displayed compact product. Its kernel is the measurable-section group over
+$Y\setminus A_\mu$. After applying the countable trivializing partition,
+this kernel is a product of groups of the form
+$L^0(Y_j\setminus A_\mu,\mu;H_j)$. Each nontrivial factor is extremely
+amenable by {cite}`PestovSchneider2017`, Theorem 1.1, and products of extremely amenable
+groups are extremely amenable. Here convergence in measure gives the product
+topology on the partitioned group: after finitely many pieces the remaining
+total measure is arbitrarily small. {prf:ref}`lem-pw-umf-principles` now
+identifies the universal minimal flow with the compact quotient.
+:::
+
+:::{prf:corollary}
+:label: cor-pw-measurable-gauge-umf
+
+Let $Y$ be a compact manifold with a regular Borel probability measure
+$\mu$, let $K$ be a compact Lie group, and let $P\to Y$ be a smooth
+principal $K$-bundle.  Put
+
+$$
+\operatorname{Gau}^0_\mu(P)=L^0(Y,\mu;\operatorname{Ad}P)
+$$
+
+be its measurable gauge group, modulo equality almost everywhere, with
+convergence in measure. Then
+
+$$
+M(\operatorname{Gau}^0_\mu(P))
+\cong\prod_{a\in A_\mu}\operatorname{Ad}(P)_a.
+$$
+
+In particular, the measurable gauge group is extremely amenable when
+$\mu$ is atomless.
+:::
+
+:::{prf:proof}
+A finite or countable Borel partition subordinate to bundle trivializations
+shows that $\operatorname{Ad}(P)$ is countably trivializable. Apply
+{prf:ref}`thm-pw-measurable-bundle-umf`.
+:::
+
+:::{prf:corollary}
+:label: cor-pw-measure-topology-umf
+
+Suppose that $K$ is connected. Equip any path, loop, twisted loop, finite
+endpoint-pullback, or one-dimensional gauge group considered above with the
+coarser topology induced solely by convergence of its map or section
+coordinate in normalised volume measure. If this topology does not separate
+auxiliary coordinates of a pullback, take its Hausdorff quotient. Then the
+resulting group is extremely amenable, and its universal minimal flow is a
+point. The same conclusion holds after imposing finitely many basepoint or
+framing conditions.
+:::
+
+:::{prf:proof}
+The map into the appropriate measurable-map or measurable-section group
+induces precisely the stated topology on its Hausdorff image. That image is
+dense. For maps, approximate a measurable map by a finite-valued simple map,
+approximate its level sets by finite unions of intervals, and join the
+finitely many values across transition intervals of arbitrarily small total
+measure. For gauge groups, cut the one-manifold into finitely many trivializing
+arcs and place the transitions in neighbourhoods of arbitrarily small total
+measure; equivalently, use a finite Borel partition subordinate to bundle
+trivializations to identify the measurable-section group with an
+$L^0$-group. Connectedness of $K$ supplies the joining paths. Endpoint,
+derivative-matching, twisting, and framing conditions can be repaired on
+neighbourhoods whose measures tend to zero. Thus the completion is an
+atomless $L^0$-group, which is extremely amenable by
+{prf:ref}`prop-pw-l0-umf`. Universal minimal flows are unchanged on
+passing to a dense completion by {cite}`BassoZucker2021`, Fact 2.3.
+:::
+
+Only the map or section coordinate enters this corollary. For example, in an
+NCCW pullback a unitary vertex coordinate need not be determined by the path
+almost everywhere. If that coordinate is retained with its compact topology,
+the completion instead retains it: for connected unitary fibres it is
+$L^0(I;\mathrm U(F))\times\mathrm U(E)$, and its universal minimal flow
+is $\mathrm U(E)$. Endpoint conditions can be repaired on intervals of
+arbitrarily small measure, so they impose no relation between these two
+completion coordinates. This is a different topology from the one in the
+corollary.
+
+:::{prf:remark}
+:label: rem-pw-disconnected-measure-umf
+
+For disconnected $K$, the component restriction does not disappear under
+completion. We use the same Hausdorff-quotient convention for auxiliary
+coordinates as in {prf:ref}`cor-pw-measure-topology-umf`. Let $C=K/K_0$, let $\overline L$ be the image of
+$L\leq K\times K$ in $C\times C$, and set
+
+$$
+C_L=\{c\in C:(c,c)\in\overline L\}.
+$$
+
+For a finite endpoint pullback with convergence in Lebesgue measure, the
+completion has an extremely amenable normal $L^0(I,K_0)$-kernel and compact
+quotient $C_L$, and hence its universal minimal flow is $C_L$. By
+{cite}`BassoZucker2021`, Fact 2.3, the original dense endpoint pullback has the same
+universal minimal flow. Thus unbased paths and ordinary loops give $C$,
+based groups give a point, and an $\alpha$-twisted loop group gives
+$\operatorname{Fix}(\pi_0(\alpha))$.
+:::
+
+### Mixed sampling topologies and measure-space symmetries
+
+There is a continuum of useful group topologies between convergence in measure
+and evaluation at every point. Let $X$ be a compact connected smooth
+manifold, let $\mu$ be an atomless regular Borel probability measure of full
+support, let $K$ be a connected compact Lie group, and fix an arbitrary set
+$D\subseteq X$. Define $\tau_{\mu,D}$ to be the topology on
+$C^\infty(X,K)$ induced by
+
+$$
+\jmath_D:C^\infty(X,K)\longrightarrow
+ L^0(X,\mu;K)\times K^D,
+ \qquad f\longmapsto([f],(f(d))_{d\in D}).
+$$
+
+Full support makes this homomorphism injective.
+
+:::{prf:theorem}
+:label: thm-pw-mixed-sampling-umf
+
+For every $D\subseteq X$,
+
+$$
+M(C^\infty(X,K),\tau_{\mu,D})\cong K^D.
+$$
+
+Thus $D=\varnothing$ gives extreme amenability, while for $D=X$ the
+universal minimal flow agrees with the one for the pointwise topology.
+:::
+
+:::{prf:proof}
+Smooth maps are dense in $L^0(X,\mu;K)$. One way to see this is to
+approximate a measurable map by a finite-valued simple map, approximate its
+level sets inside finitely many coordinate charts, and insert smooth transition
+regions of arbitrarily small measure; connectedness of $K$ supplies paths
+between the finitely many values.
+
+This approximation can be made simultaneously with any finite prescription on
+$D$. After first choosing a smooth approximation, multiply it by corrections
+supported in pairwise disjoint coordinate balls around the finitely many sampled
+points. The balls can be chosen with arbitrarily small total measure, so the
+corrections impose the prescribed point values without changing the limit in
+measure. Hence $\jmath_D$ has dense image and the two-sided completion is
+
+$$
+L^0(X,\mu;K)\times K^D.
+$$
+
+The first factor is extremely amenable by {cite}`PestovSchneider2017`, Theorem 1.1; it is a
+closed normal subgroup and the quotient is the compact group $K^D$.
+{prf:ref}`lem-pw-umf-principles` gives the formula.
+:::
+
+The Hausdorff completion underlying the preceding result can be computed for
+arbitrary measurable maps, without connectedness or smoothness assumptions.
+Let $\mathcal M(Y,K)$ be the group of Borel maps $Y\to K$, with no
+almost-everywhere identification. For $D\subseteq Y$, let
+
+$$
+\jmath_{\mu,D}:\mathcal M(Y,K)\longrightarrow
+ L^0(Y,\mu;K)\times K^D,
+ \qquad f\longmapsto([f],f|_D),
+$$
+
+and write $G_{\mu,D}(K)$ for its image with the subspace topology.
+Equivalently, this is the Hausdorff quotient of $\mathcal M(Y,K)$ by maps
+which equal the identity almost everywhere and at every point of $D$.
+
+:::{prf:theorem}
+:label: thm-pw-sampled-measurable-umf
+
+Let $(Y,\mu)$ be a standard probability space, let $K$ be a compact
+metrizable group, and let $D\subseteq Y$ be arbitrary. Then
+
+$$
+M(G_{\mu,D}(K))\cong K^{A_\mu\cup D}.
+$$
+
+More precisely, the two-sided completion of $G_{\mu,D}(K)$ is naturally
+
+$$
+L^0(Y_{\mathrm c},\mu;K)\times K^{A_\mu\cup D},
+$$
+
+where an atomic coordinate occurring also in $D$ is included only once.
+:::
+
+:::{prf:proof}
+An element of $L^0(Y,\mu;K)$ has a well-defined value on every atom. Hence
+the closure of the image of $\jmath_{\mu,D}$ is the closed subgroup
+
+$$
+\{(g,w)\in L^0(Y,\mu;K)\times K^D:
+        w_a=g(a)\text{ for }a\in A_\mu\cap D\}.
+$$
+
+It is isomorphic to the displayed product. To prove density, choose a Borel
+representative of $g$. A basic neighbourhood specifies only finitely many
+coordinates in $D$; changing the representative at the non-atomic points
+among them does not alter its $L^0$-class, while compatibility at the atomic
+points is already part of the definition of the closed subgroup.
+
+By {cite}`PestovSchneider2017`, Theorem 1.1, the first factor is extremely amenable. Projection
+onto $K^{A_\mu\cup D}$ therefore has an extremely amenable kernel and compact
+quotient. {prf:ref}`lem-pw-umf-principles`, together with invariance under
+two-sided completion, proves the formula.
+:::
+
+For an atomless smooth probability space and connected compact Lie target, the
+dense smooth subgroup of $G_{\mu,D}(K)$ is precisely the group in
+{prf:ref}`thm-pw-mixed-sampling-umf`. Thus
+{prf:ref}`thm-pw-sampled-measurable-umf` both explains that result and adds
+arbitrary atoms and arbitrary compact metrizable targets.
+
+We next apply the same extremely-amenable-kernel argument to transformations of
+a measure space. Let $(Y,\mu)$ be a standard probability space, retain the
+notation $A_\mu$ for its set of atomic points, and put
+
+$$
+Y_{\mathrm c}=Y\setminus A_\mu,
+\qquad
+R_\mu=\{\mu(\{a\}):a\in A_\mu\},
+\qquad
+A_r=\{a\in A_\mu:\mu(\{a\})=r\}.
+$$
+
+Every $A_r$ is finite. Write $\operatorname{Aut}(Y,\mu)_{\mathrm w}$ for the
+measure-preserving automorphism group with its weak topology and
+$\operatorname{Aut}^*(Y,\mu)_{\mathrm w}$ for the nonsingular automorphism group with
+the corresponding weak topology. Equivalently, the latter is the topology
+induced by the quasi-regular representation
+
+$$
+U_\tau^{(p)}f=
+ \left(\frac{d(\mu\circ\tau^{-1})}{d\mu}\right)^{1/p}
+ f\circ\tau^{-1}
+$$
+
+in the strong operator topology of $L^p(Y,\mu)$, for one (and hence every)
+$1\leq p<\infty$; see {cite}`GiordanoPestov2007`, Section 6.2. This convention will also
+be used below for vector-valued quasi-regular representations.
+
+:::{prf:theorem}
+:label: thm-pw-measure-aut-umf
+
+There are natural isomorphisms of flows
+
+$$
+M(\operatorname{Aut}(Y,\mu)_{\mathrm w})
+ \cong \prod_{r\in R_\mu}\operatorname{Sym}(A_r),
+$$ (eq-pw-measure-preserving-aut-umf)
+
+$$
+M(\operatorname{Aut}^*(Y,\mu)_{\mathrm w})
+ \cong \operatorname{LO}(A_\mu),
+$$ (eq-pw-nonsingular-aut-umf)
+
+where $\operatorname{LO}(A_\mu)$ is the compact space of all linear orders
+on $A_\mu$, with the natural permutation action. For a finite atomic set this
+flow is the regular translation flow of $\operatorname{Sym}(A_\mu)$, and for
+an empty atomic set it is a point.
+:::
+
+:::{prf:proof}
+A measure-preserving automorphism preserves atom masses, while a nonsingular
+automorphism may permute all atoms. Restriction to the atomic and nonatomic
+parts gives topological direct-product decompositions
+
+$$
+\begin{aligned}
+\operatorname{Aut}(Y,\mu)_{\mathrm w}
+ &\cong \operatorname{Aut}(Y_{\mathrm c},\mu)_{\mathrm w}
+   \times\prod_{r\in R_\mu}\operatorname{Sym}(A_r),\\
+\operatorname{Aut}^*(Y,\mu)_{\mathrm w}
+ &\cong \operatorname{Aut}^*(Y_{\mathrm c},\mu)_{\mathrm w}
+   \times\operatorname{Sym}(A_\mu).
+\end{aligned}
+$$
+
+The product topology on the atomic coordinates is the induced weak topology:
+control of finitely many positive-mass atoms gives a basic coordinate
+condition, and the remaining atomic mass can be made arbitrarily small.
+
+Giordano and Pestov prove that both nonatomic factors above are extremely
+amenable, already in {cite}`GiordanoPestov2002`, Theorems 2.1 and 2.4; see also the fuller
+proofs in {cite}`GiordanoPestov2007`, Theorem 4.2 and Theorem 6.1. The remaining factor in the
+first decomposition is compact, which proves
+{eq}`eq-pw-measure-preserving-aut-umf`. If $A_\mu$ is countably infinite,
+Glasner and Weiss compute
+$M(\operatorname{Sym}(A_\mu))=\operatorname{LO}(A_\mu)$
+{cite}`GlasnerWeiss2002`. For finite $A_\mu$, the permutation action on its linear orders
+is simply transitive, so it is the compact group's own universal minimal flow.
+{prf:ref}`lem-pw-umf-principles` proves
+{eq}`eq-pw-nonsingular-aut-umf` in every case.
+:::
+
+## Wreath products and atomic decompositions
+
+Let a nonsingular transformation $T$ act on $L^0(Y,\mu;K)$ by
+
+$$
+(T\mathbin{\cdot}f)(y)=f(T^{-1}y).
+$$
+
+For a compact metrizable group $K$, form the measurable wreath products
+
+$$
+\begin{aligned}
+W_\mu(K)
+  &=L^0(Y,\mu;K)\rtimes\operatorname{Aut}(Y,\mu)_{\mathrm w},\\
+ W_\mu^*(K)
+  &=L^0(Y,\mu;K)\rtimes\operatorname{Aut}^*(Y,\mu)_{\mathrm w}.
+\end{aligned}
+$$
+
+:::{prf:theorem}
+:label: thm-pw-measurable-wreath-umf
+
+There are natural isomorphisms of flows
+
+$$
+M(W_\mu(K))
+ \cong K^{A_\mu}\rtimes
+       \prod_{r\in R_\mu}\operatorname{Sym}(A_r),
+$$ (eq-pw-preserving-wreath-umf)
+
+$$
+M(W_\mu^*(K))
+ \cong K^{A_\mu}\times\operatorname{LO}(A_\mu).
+$$ (eq-pw-nonsingular-wreath-umf)
+
+The first compact group acts on itself by left translation. In the second
+formula, the atomic subgroup
+$K^{A_\mu}\rtimes\operatorname{Sym}(A_\mu)$ acts by
+
+$$
+(z,\sigma)\mathbin{\cdot}(w,<)
+ =\bigl(z(\sigma\mathbin{\cdot}w),\sigma\mathbin{\cdot}<\bigr),
+ \qquad
+ (\sigma\mathbin{\cdot}w)_a=w_{\sigma^{-1}(a)},
+$$
+
+and the nonatomic factor acts trivially. In particular, both measurable wreath
+products are extremely amenable when $\mu$ is atomless.
+:::
+
+:::{prf:proof}
+Restriction to the atomic and nonatomic parts gives
+
+$$
+\begin{aligned}
+W_\mu(K)
+ &\cong
+ \bigl(L^0(Y_{\mathrm c},\mu;K)\rtimes
+       \operatorname{Aut}(Y_{\mathrm c},\mu)_{\mathrm w}\bigr)
+ \times
+ \left(K^{A_\mu}\rtimes
+       \prod_{r\in R_\mu}\operatorname{Sym}(A_r)\right),\\
+ W_\mu^*(K)
+ &\cong
+ \bigl(L^0(Y_{\mathrm c},\mu;K)\rtimes
+       \operatorname{Aut}^*(Y_{\mathrm c},\mu)_{\mathrm w}\bigr)
+ \times
+ \bigl(K^{A_\mu}\rtimes\operatorname{Sym}(A_\mu)\bigr).
+\end{aligned}
+$$
+
+Each first factor is extremely amenable: its $L^0$-kernel is extremely
+amenable by {cite}`PestovSchneider2017`, Theorem 1.1, its quotient is extremely amenable by
+{cite}`GiordanoPestov2007`, Theorem 4.2 and Theorem 6.1, and
+{prf:ref}`lem-pw-umf-principles` applies twice.
+
+The second factor in the measure-preserving decomposition is compact, which
+gives {eq}`eq-pw-preserving-wreath-umf`. In the nonsingular case,
+$K^{A_\mu}$ is compact and normal. The semidirect-product formula
+{cite}`KechrisSokic2012`, Proposition 6.1, together with
+$M(\operatorname{Sym}(A_\mu))=\operatorname{LO}(A_\mu)$ from {cite}`GlasnerWeiss2002`,
+gives the phase space and the stated skew action in
+{eq}`eq-pw-nonsingular-wreath-umf`. The extension splits, so no cocycle
+correction is needed here: the skew action is the one produced by the
+splitting, as in the proof of {cite}`KechrisSokic2012`, Proposition 6.1. The extremely amenable direct factors do
+not change either universal minimal flow.
+:::
+
+The compact fibre in the preceding theorem can be replaced by a much larger
+class without changing the form of the answer.
+
+:::{prf:definition}
+:label: def-pw-ea-by-compact
+
+A Polish group $F$ is *extremely-amenable-by-compact* if it has a closed
+extremely amenable normal subgroup $F_0$ such that
+
+$$
+Q_F=F/F_0
+$$
+
+is compact.
+:::
+
+:::{prf:theorem}
+:label: thm-pw-ea-compact-measurable-wreath
+
+Let $F$ be extremely-amenable-by-compact and give $L^0(Y,\mu;F)$
+the topology of convergence in measure. Then
+
+$$
+M(L^0(Y,\mu;F))
+  \cong Q_F^{A_\mu},
+$$ (eq-pw-ea-compact-l0-umf)
+
+$$
+M\!\left(L^0(Y,\mu;F)\rtimes\operatorname{Aut}(Y,\mu)_{\mathrm w}\right)
+  \cong Q_F^{A_\mu}\rtimes
+        \prod_{r\in R_\mu}\operatorname{Sym}(A_r),
+$$ (eq-pw-ea-compact-preserving-wreath)
+
+$$
+M\!\left(L^0(Y,\mu;F)\rtimes\operatorname{Aut}^*(Y,\mu)_{\mathrm w}\right)
+  \cong Q_F^{A_\mu}\times\operatorname{LO}(A_\mu).
+$$ (eq-pw-ea-compact-nonsingular-wreath)
+
+The compact group in {eq}`eq-pw-ea-compact-preserving-wreath` acts on itself by
+left translation.  In {eq}`eq-pw-ea-compact-nonsingular-wreath` the quotient
+$Q_F^{A_\mu}\rtimes\operatorname{Sym}(A_\mu)$ has the standard skew action
+described in {prf:ref}`thm-pw-measurable-wreath-umf`, and the remaining
+nonatomic factor acts trivially.  In particular, all three groups are
+extremely amenable when $\mu$ is atomless.
+:::
+
+:::{prf:proof}
+The group $F$ is amenable, since both $F_0$ and its compact quotient are
+amenable.  On the nonatomic part, Pestov and Schneider's theorem therefore
+makes $L^0(Y_{\mathrm c},\mu;F)$ extremely amenable
+{cite}`PestovSchneider2017`, Theorem 1.1.  On the atoms, the closed normal subgroup
+$F_0^{A_\mu}$ is extremely amenable and the quotient is the compact group
+$Q_F^{A_\mu}$.  Restriction to the two parts, followed by
+{prf:ref}`lem-pw-umf-principles`, proves {eq}`eq-pw-ea-compact-l0-umf`.
+
+After adjoining measure-space transformations, the nonatomic semidirect
+factor is still extremely amenable: its kernel is the preceding measurable-map
+group and its quotient is extremely amenable by {cite}`GiordanoPestov2007`.  On the atomic
+part, divide first by $F_0^{A_\mu}$.  In the measure-preserving case the
+remaining group is the compact group displayed in
+{eq}`eq-pw-ea-compact-preserving-wreath`.  In the nonsingular case it is
+
+$$
+Q_F^{A_\mu}\rtimes\operatorname{Sym}(A_\mu).
+$$
+
+The compact-normal-subgroup formula {cite}`KechrisSokic2012`, Proposition 6.1 and the
+Glasner–Weiss computation {cite}`GlasnerWeiss2002` give
+{eq}`eq-pw-ea-compact-nonsingular-wreath` and its skew action.
+:::
+
+The same compact-extension argument gives a general supply of examples over
+countable structures.
+
+:::{prf:corollary}
+:label: cor-pw-nonarch-wreath-umf
+
+Let $\Omega$ be countable, let
+$H\leq\operatorname{Sym}(\Omega)$ be closed in the topology of pointwise
+convergence, and let $K$ be compact metrizable. Then
+
+$$
+M(K^\Omega\rtimes H)\cong K^\Omega\times M(H),
+$$
+
+with the standard skew action. Consequently,
+
+$$
+\begin{aligned}
+M(K^{\mathbb Q}\rtimes\operatorname{Aut}(\mathbb Q,<))
+ &\cong K^{\mathbb Q},\\
+ M(K^{\mathbb N}\rtimes\operatorname{Aut}(\mathcal R))
+ &\cong K^{\mathbb N}\times\operatorname{LO}(\mathbb N),
+\end{aligned}
+$$
+
+where $\mathcal R$ is the countable random graph.
+:::
+
+:::{prf:proof}
+The group $K^\Omega$ is compact and normal, so the first formula is
+{cite}`KechrisSokic2012`, Proposition 6.1. The group
+$\operatorname{Aut}(\mathbb Q,<)$ is extremely amenable, while the universal
+minimal flow of $\operatorname{Aut}(\mathcal R)$ is the space of all linear
+orders on its vertex set; both statements follow from the Ramsey-theoretic
+computations in {cite}`KPT2005`.
+:::
+
+The compactness of the fibre in {prf:ref}`cor-pw-nonarch-wreath-umf` is
+unnecessary when its universal minimal flow is metrizable.  This gives a
+wreath-product construction which is not restricted to compact homogeneous
+spaces. Before giving its stabiliser proof, we record the earlier comparisons.
+Sokić's relational composition theorem {cite}`Sokic2013`, Theorem 6.5(v)
+identifies the universal flow with admissible convex orders: the fibre class
+has strong amalgamation, at least one class has strong joint embedding, and
+the reasonable ordered expansions have the Ramsey and ordering properties. With finite
+sets as the quotient class, a convex order consists of an order on the
+quotient and an admissible order in each fibre; the automorphism group and
+flow are respectively $F^{\mathbb N}\rtimes\operatorname{Sym}(\mathbb N)$ and
+$M(F)^{\mathbb N}\times\operatorname{LO}(\mathbb N)$. Compositions of more general
+expansions are treated in {cite}`PawliukSokic2020`, Proposition 2.2 of the 2017 preprint.
+Jahel and Zucker's {cite}`JahelZucker2026`, Theorem 5.1 instead establishes metrizability
+and unique ergodicity for Polish wreath products. The next theorem gives the
+explicit flow for arbitrary Polish fibres with metrizable flow, using the
+standard co-precompact stabiliser construction; it does not require an ordered
+relational presentation of the fibre group.
+
+:::{prf:theorem}
+:label: thm-pw-metrizable-fibre-wreath-umf
+
+Let $F$ be a Polish group whose universal minimal flow $X=M(F)$ is
+metrizable, and let $\Omega$ be countable.  Give $F^\Omega$ the product
+topology and $\operatorname{Sym}(\Omega)$ the pointwise topology.  Then
+
+$$
+M\!\left(F^\Omega\rtimes\operatorname{Sym}(\Omega)\right)
+ \cong X^\Omega\times\operatorname{LO}(\Omega).
+$$
+
+The action is the standard skew action
+
+$$
+((f_a)_{a\in\Omega},\sigma)\mathbin{\cdot}((x_a)_{a\in\Omega},<)
+ =\bigl((f_a\mathbin{\cdot}x_{\sigma^{-1}(a)})_{a\in\Omega},
+        \sigma\mathbin{\cdot}<\bigr).
+$$
+
+For finite $\Omega$, the same formula applies and
+$\operatorname{LO}(\Omega)$ is the simply transitive
+$\operatorname{Sym}(\Omega)$-space of linear orders.
+:::
+
+:::{prf:proof}
+By {cite}`BYMT2017`, Theorem 1.1, there are a point $x_0\in X$ and a closed
+extremely amenable co-precompact subgroup
+
+$$
+F^*=\operatorname{Stab}_F(x_0)
+$$
+
+such that the completion of $F/F^*$, for the quotient of the right
+uniformity, is $X$.  If $\Omega$ is infinite, choose a linear order
+$<_0$ of type $\mathbb Q$ on $\Omega$; if it is finite, choose any
+linear order.  The subgroup
+
+$$
+H=(F^*)^\Omega\rtimes\operatorname{Aut}(\Omega,<_0)
+ \leq F^\Omega\rtimes\operatorname{Sym}(\Omega)
+$$
+
+is extremely amenable. Indeed, $(F^*)^\Omega$ is extremely amenable, and
+so is the quotient $\operatorname{Aut}(\Omega,<_0)$, by the Ramsey theorem
+in the infinite case and trivially in the finite case. Extreme amenability is
+preserved under extensions, so the assertion follows.
+
+Put $G=F^\Omega\rtimes\operatorname{Sym}(\Omega)$ and
+$y_0=((x_0)_{a\in\Omega},<_0)$. The stabiliser of $y_0$ is exactly $H$.
+The orbit map
+
+$$
+\Theta:G/H\longrightarrow X^\Omega\times\operatorname{LO}(\Omega),
+ \qquad \Theta(gH)=g\mathbin{\cdot}y_0,
+$$
+
+is one-to-one, and its image is
+
+$$
+(F\mathbin{\cdot}x_0)^\Omega\times
+ \bigl(\operatorname{Sym}(\Omega)\mathbin{\cdot}<_0\bigr).
+$$
+
+We spell out the uniform-completion point. A basic entourage of the quotient
+right uniformity on $G/H$ is obtained by choosing a finite set
+$D\subseteq\Omega$, requiring the two induced linear orders to agree on
+$D$,
+and requiring, for $a\in D$, the corresponding two $F/F^*$-coordinates
+to lie in prescribed entourages of the quotient right uniformity. This follows
+from the product topology on $F^\Omega$, the pointwise topology on
+$\operatorname{Sym}(\Omega)$, and the freedom to multiply on the right by
+the independent coordinates of $(F^*)^\Omega$ and by
+$\operatorname{Aut}(\Omega,<_0)$. More explicitly, agreement of the two
+induced orders on $D$ gives an order-preserving bijection between their
+inverse images under the two permutations. Homogeneity of the rational order
+extends this finite bijection to an order automorphism. After making this
+correction, the independent $F^*$-coordinates realise each of the finitely
+many quotient entourages. The converse follows by restricting a small group
+displacement to those coordinates. For finite $\Omega$, agreement on all
+of $\Omega$ replaces the order-extension step. These are precisely the entourages induced
+through $\Theta$ by the product of the quotient right uniformities on finite
+coordinate sets.
+
+By the choice of $F^*$, the completion of $F/F^*$ is $X$. The completion
+of $\operatorname{Sym}(\Omega)/\operatorname{Aut}(\Omega,<_0)$ is
+$\operatorname{LO}(\Omega)$, by the Glasner–Weiss computation (and by
+finiteness when $\Omega$ is finite). The finite-coordinate description
+therefore shows that $H$ is co-precompact and that $\Theta$ extends to a
+$G$-isomorphism
+
+$$
+\widehat{G/H}\cong X^\Omega\times\operatorname{LO}(\Omega).
+$$
+
+The displayed skew action is minimal: first use a permutation to meet any
+prescribed finite order condition and then use the independent $F$-coordinates
+and minimality of $X$ to meet any prescribed finite family of open subsets of
+$X$. An extremely amenable co-precompact subgroup makes every minimal
+subflow of $\widehat{G/H}$ a copy of $M(G)$, as recalled in the introduction
+of {cite}`BYMT2017`; the minimality just proved therefore gives the formula.
+:::
+
+This produces concrete examples from functional analysis that are not
+extremely-amenable-by-compact.  Let $\mathbb G$ and $\mathbb{NG}$ denote
+the Gurarij Banach space and the noncommutative Gurarij operator space.  Let
+$\mathbb P$ be the Poulsen simplex, and let $\mathbb{NP}_1$ be the compact
+space of scalar states of the noncommutative Poulsen simplex.
+
+:::{prf:corollary}
+:label: cor-pw-gurarij-poulsen-wreath-umf
+
+For every countable $\Omega$,
+
+$$
+\begin{aligned}
+M\!\left(\operatorname{Aut}(\mathbb G)^\Omega
+          \rtimes\operatorname{Sym}(\Omega)\right)
+ &\cong\operatorname{LO}(\Omega),\\
+ M\!\left(\operatorname{Aut}(\mathbb{NG})^\Omega
+          \rtimes\operatorname{Sym}(\Omega)\right)
+ &\cong\operatorname{LO}(\Omega),\\
+ M\!\left(\operatorname{Aut}(\mathbb P)^\Omega
+          \rtimes\operatorname{Sym}(\Omega)\right)
+ &\cong\mathbb P^\Omega\times\operatorname{LO}(\Omega),\\
+ M\!\left(\operatorname{Aut}(\mathbb{NP})^\Omega
+          \rtimes\operatorname{Sym}(\Omega)\right)
+ &\cong\mathbb{NP}_1^\Omega\times\operatorname{LO}(\Omega).
+\end{aligned}
+$$
+
+Here automorphisms mean surjective linear isometries for $\mathbb G$,
+surjective complete isometries for $\mathbb{NG}$, affine homeomorphisms for
+$\mathbb P$, and matrix-affine homeomorphisms for $\mathbb{NP}$.
+:::
+
+:::{prf:proof}
+The groups $\operatorname{Aut}(\mathbb G)$ and
+$\operatorname{Aut}(\mathbb{NG})$ are extremely amenable
+{cite}`BartosovaLopezAbadLupiniMbombo2022,BartosovaLopezAbadLupiniMbombo2021`.  The canonical actions on $\mathbb P$ and
+$\mathbb{NP}_1$ are the respective universal minimal flows of
+$\operatorname{Aut}(\mathbb P)$ and $\operatorname{Aut}(\mathbb{NP})$,
+again by {cite}`BartosovaLopezAbadLupiniMbombo2022,BartosovaLopezAbadLupiniMbombo2021`.  Apply
+{prf:ref}`thm-pw-metrizable-fibre-wreath-umf`.
+:::
+
+{prf:ref}`thm-pw-metrizable-fibre-wreath-umf` and
+{prf:ref}`cor-pw-gurarij-poulsen-wreath-umf` are recorded as consequences of
+the cited metrizable-flow and Ramsey results; no separate claim of priority is
+made for these formulas.
+
+### Full groups of measured equivalence relations
+
+Let $\mathcal R$ be a countable nonsingular measured equivalence relation on
+the standard probability space $(Y,\mu)$. Its full group $[\mathcal R]$
+is endowed with the uniform metric
+
+$$
+d_{\mathrm u}(S,T)=\mu\{y\in Y:S(y)\ne T(y)\}.
+$$
+
+Put $\mathcal R_{\mathrm c}=\mathcal R|_{Y_{\mathrm c}}$, and let
+
+$$
+\mathcal C_{\mathcal R}=A_\mu/\mathcal R
+$$
+
+be the countable family of $\mathcal R$-classes contained in the atomic
+part. We regard $\operatorname{LO}(C)$ as a singleton when $|C|\leq1$.
+
+:::{prf:theorem}
+:label: thm-pw-full-group-atomic-umf
+
+Assume that $[\mathcal R_{\mathrm c}]$, with the uniform topology, is
+extremely amenable. Then
+
+$$
+M([\mathcal R])
+ \cong \prod_{C\in\mathcal C_{\mathcal R}}\operatorname{LO}(C),
+$$
+
+with the coordinatewise order action. In particular, the conclusion applies
+when $\mathcal R_{\mathrm c}$ is ergodic and amenable. If $\mathcal R$ is
+measure preserving, every atomic class $C$ is finite, and the displayed flow
+is equivariantly isomorphic to the left-translation flow of the compact group
+
+$$
+\prod_{C\in\mathcal C_{\mathcal R}}\operatorname{Sym}(C).
+$$
+:::
+
+:::{prf:proof}
+Quasi-invariance prevents an atom from being $\mathcal R$-equivalent to a
+point of $Y_{\mathrm c}$: the saturation of a null singleton is null and
+therefore cannot contain an atom. Restriction consequently gives a topological
+direct-product decomposition
+
+$$
+[\mathcal R]
+ \cong [\mathcal R_{\mathrm c}]
+ \times\prod_{C\in\mathcal C_{\mathcal R}}\operatorname{Sym}(C).
+$$
+
+The topology on the second factor is pointwise convergence. Indeed, fixing a
+positive-mass atom is a uniform open condition, while outside a sufficiently
+large finite set of atoms the total mass is arbitrarily small.
+
+Write $H=\prod_C\operatorname{Sym}(C)$. For each countably infinite $C$,
+choose an order $<_C$ of type $\mathbb Q$, and choose the unique order type
+on each finite $C$. The subgroup
+
+$$
+H^*=\prod_C\operatorname{Aut}(C,<_C)
+$$
+
+is extremely amenable by the Ramsey theorem and closure of extreme amenability
+under products. It is co-precompact in $H$, the completion of $H/H^*$ is
+$\prod_C\operatorname{LO}(C)$, and the resulting action is minimal. The
+co-precompact-subgroup description of universal minimal flows
+{cite}`BYMT2017`, Theorem 1.1 therefore gives
+
+$$
+M(H)=\prod_C\operatorname{LO}(C);
+$$
+
+equivalently, this is the coordinatewise product of the Glasner–Weiss
+calculation {cite}`GlasnerWeiss2002`. The extremely amenable first direct factor does not
+change the universal minimal flow by {prf:ref}`lem-pw-umf-principles`.
+
+If $\mathcal R$ is measure preserving, atoms in the same class have equal
+mass. Such a class is finite, and the action of $\operatorname{Sym}(C)$ on
+$\operatorname{LO}(C)$ is simply transitive. Finally, Giordano and Pestov
+prove the asserted extreme amenability when $\mathcal R_{\mathrm c}$ is
+ergodic and amenable {cite}`GiordanoPestov2007`, Theorem 5.7.
+:::
+
+The same calculation allows compact labels along the equivalence relation.
+
+:::{prf:corollary}
+:label: cor-pw-decorated-full-group-umf
+
+Let $K$ be compact metrizable and retain the assumption of
+{prf:ref}`thm-pw-full-group-atomic-umf`. For the action by precomposition, put
+
+$$
+W_{\mathcal R}(K)=L^0(Y,\mu;K)\rtimes[\mathcal R].
+$$
+
+Then
+
+$$
+M(W_{\mathcal R}(K))
+ \cong K^{A_\mu}\times
+       \prod_{C\in\mathcal C_{\mathcal R}}\operatorname{LO}(C).
+$$
+
+The atomic group
+
+$$
+K^{A_\mu}\rtimes
+ \prod_{C\in\mathcal C_{\mathcal R}}\operatorname{Sym}(C)
+$$
+
+acts by the standard skew action, and the nonatomic factor acts trivially.
+:::
+
+:::{prf:proof}
+Restriction to $Y_{\mathrm c}$ and $A_\mu$ decomposes
+$W_{\mathcal R}(K)$ as the direct product of
+
+$$
+L^0(Y_{\mathrm c},\mu;K)\rtimes[\mathcal R_{\mathrm c}]
+$$
+
+and the displayed atomic group. The first factor is extremely amenable: its
+measurable-map kernel is extremely amenable by {cite}`PestovSchneider2017`, Theorem 1.1, its
+quotient is extremely amenable by assumption, and fixed points lift through
+extensions. On the atomic factor, $K^{A_\mu}$ is compact and normal.
+{prf:ref}`thm-pw-full-group-atomic-umf` and the compact semidirect-product
+formula {cite}`KechrisSokic2012`, Proposition 6.1 give the result.
+:::
+
+:::{prf:corollary}
+:label: cor-pw-ea-compact-full-group-umf
+
+Let $F$ be extremely-amenable-by-compact and retain the hypothesis on
+$\mathcal R$ from {prf:ref}`thm-pw-full-group-atomic-umf`. Then
+
+$$
+M\!\left(L^0(Y,\mu;F)\rtimes[\mathcal R]\right)
+ \cong Q_F^{A_\mu}\times
+       \prod_{C\in\mathcal C_{\mathcal R}}\operatorname{LO}(C).
+$$
+
+The quotient
+
+$$
+Q_F^{A_\mu}\rtimes
+ \prod_{C\in\mathcal C_{\mathcal R}}\operatorname{Sym}(C)
+$$
+
+acts by the coordinatewise standard skew action, and the extremely amenable
+kernel acts trivially.
+:::
+
+:::{prf:proof}
+The nonatomic semidirect factor is extremely amenable, as in the proof of
+{prf:ref}`thm-pw-ea-compact-measurable-wreath`.  On the atomic part, divide by
+the extremely amenable normal subgroup $F_0^{A_\mu}$, then apply the compact
+semidirect-product formula {cite}`KechrisSokic2012`, Proposition 6.1 and
+{prf:ref}`thm-pw-full-group-atomic-umf`.
+:::
+
+The nonatomic extreme-amenability input in
+{prf:ref}`thm-pw-full-group-atomic-umf` and
+Corollaries {prf:ref}`cor-pw-decorated-full-group-umf` and
+{prf:ref}`cor-pw-ea-compact-full-group-umf` is due to Giordano and Pestov. Retaining
+the atoms exposes the order flows of the individual atomic equivalence
+classes.
+
+For scalar $\ell^p$, the following atomic skew flow is already stated
+in {cite}`PestovRemarks2002`, Theorem 4.13 and Remark 4.14. Splitting the atomic and
+nonatomic bands gives the corresponding mixed-space formula. We record the
+calculation for the isometry groups of $L^p$-spaces. Put
+
+$$
+\mathbb S_{\mathbb C}=\mathbb T,
+\qquad
+\mathbb S_{\mathbb R}=\{-1,1\}.
+$$
+
+:::{prf:theorem}
+:label: thm-pw-lp-isometry-umf
+
+Let $\mathbb F\in\{\mathbb R,\mathbb C\}$ and
+$1\leq p<\infty$, $p\ne2$. Equip the group of surjective linear
+isometries of $L^p(Y,\mu;\mathbb F)$ with the strong operator topology. Then
+the phase space of its universal minimal flow is
+
+$$
+\mathbb S_{\mathbb F}^{A_\mu}\times\operatorname{LO}(A_\mu).
+$$
+
+The action is the standard skew action of the atomic monomial group
+
+$$
+\mathbb S_{\mathbb F}^{A_\mu}\rtimes
+\operatorname{Sym}(A_\mu),
+$$
+
+acting as follows: if $z,w\in\mathbb S_{\mathbb F}^{A_\mu}$,
+$\sigma\in\operatorname{Sym}(A_\mu)$, and
+$<\in\operatorname{LO}(A_\mu)$, then
+
+$$
+(z,\sigma)\mathbin{\cdot}(w,<)
+ =\bigl(z(\sigma\mathbin{\cdot}w),\sigma\mathbin{\cdot}<\bigr),
+ \qquad
+ (\sigma\mathbin{\cdot}w)_a=w_{\sigma^{-1}(a)},
+$$
+
+where $a\,(\sigma\mathbin{\cdot}<)\,b$ means
+$\sigma^{-1}(a)<\sigma^{-1}(b)$. The isometries of the nonatomic summand
+act trivially on this flow. In
+particular, the isometry group is extremely amenable when $\mu$ is atomless.
+:::
+
+:::{prf:proof}
+The Banach–Lamperti description, in the topological form used in
+{cite}`GiordanoPestov2007`, Section 6.2, preserves the atomic and nonatomic bands and gives
+
+$$
+\operatorname{Iso}(L^p(Y,\mu;\mathbb F))
+\cong E_{\mathrm c}\times
+ \bigl(\mathbb S_{\mathbb F}^{A_\mu}\rtimes
+       \operatorname{Sym}(A_\mu)\bigr).
+$$
+
+Here $E_{\mathrm c}$ is the isometry group of the nonatomic summand and is
+extremely amenable by {cite}`GiordanoPestov2007`, Theorem 6.6. On the atomic summand, after
+normalising the characteristic function of every atom, the strong operator
+topology is the product topology on the scalar coordinates together with
+pointwise convergence on the permutation coordinate.
+
+The group $\mathbb S_{\mathbb F}^{A_\mu}$ is compact and normal. The
+semidirect-product formula for universal minimal flows with a compact normal
+factor {cite}`KechrisSokic2012`, Proposition 6.1, together with {prf:ref}`thm-pw-measure-aut-umf`,
+identifies the phase space with
+$\mathbb S_{\mathbb F}^{A_\mu}\times\operatorname{LO}(A_\mu)$ and supplies
+the stated skew action. The extremely amenable direct factor does not change
+the universal minimal flow by {prf:ref}`lem-pw-umf-principles`.
+:::
+
+## Operator-algebraic applications
+
+### Weak unitary groups of injective and nuclear algebras
+
+The operator-algebraic compact factor can be identified explicitly.
+The underlying compact-times-extremely-amenable decomposition is already
+{cite}`GiordanoPestov2002`, Corollary 3.6; we record its factor coordinates using the fuller
+proof in {cite}`GiordanoPestov2007`. Let $N$
+be an injective von Neumann algebra and let
+$\{z_i:i\in I_{\mathrm{fd}}(N)\}$ be the family of minimal central
+projections for which $z_iN$ is finite-dimensional. Write
+$z_iN\cong M_{n_i}(\mathbb C)$ and put
+
+$$
+\mathcal C_N=\prod_{i\in I_{\mathrm{fd}}(N)}\mathrm U(n_i).
+$$
+
+:::{prf:theorem}
+:label: thm-pw-injective-vn-umf
+
+For the $s(N,N_{\ast})$-topology,
+
+$$
+M(\mathrm U(N)_{\mathrm s})\cong\mathcal C_N.
+$$
+
+Thus $\mathrm U(N)_{\mathrm s}$ is extremely amenable precisely when $N$ has no
+nonzero finite-dimensional factor summand.
+:::
+
+:::{prf:proof}
+Let $z=\sum_{i\in I_{\mathrm{fd}}(N)}z_i$. The central decomposition
+
+$$
+N=zN\oplus(1-z)N
+$$
+
+gives a topological direct product decomposition of the strong-topological
+unitary group. The first factor is the compact group $\mathcal C_N$.
+Giordano and Pestov's proof of {cite}`GiordanoPestov2007`, Theorem 3.3 shows that the unitary
+group of the complementary summand is extremely amenable: the nonatomic
+finite type-I, finite continuous, and properly infinite injective parts are
+handled in their Proposition 3.4, Proposition 3.7, and Corollary 3.6,
+respectively. {prf:ref}`lem-pw-umf-principles` gives the formula.
+:::
+
+For example, if
+
+$$
+N=L^\infty(Y,\mu)\,\overline\otimes\,M_n(\mathbb C),
+$$
+
+then $\mathrm U(N)_{\mathrm s}=L^0(Y,\mu;\mathrm U(n))$
+{cite}`GiordanoPestov2007`, Lemma 3.2, and {prf:ref}`thm-pw-injective-vn-umf` recovers
+
+$$
+M(\mathrm U(N)_{\mathrm s})\cong\mathrm U(n)^{A_\mu}.
+$$
+
+The preceding theorem also gives a formula directly at the $C^*$-algebra
+level. For a unital $C^*$-algebra $A$, let
+$\widehat A_{\mathrm{fd}}$ be the set of unitary-equivalence classes of
+finite-dimensional irreducible representations, and choose a representative
+$\pi:A\to\mathcal B(H_\pi)$ in each class.
+
+:::{prf:lemma}
+:label: lem-pw-finite-dimensional-envelope-summands
+
+Let $A$ be a unital $C^*$-algebra. The finite-dimensional factor summands
+of its universal von Neumann envelope $A^{**}$ are in canonical bijection
+with $\widehat A_{\mathrm{fd}}$. If $z_{\mathrm{fd}}$ is their central
+sum, then
+
+$$
+z_{\mathrm{fd}}A^{**}
+ \cong
+ \bigoplus_{[\pi]\in\widehat A_{\mathrm{fd}}}^{\ell^\infty}
+ \mathcal B(H_\pi),
+\qquad
+ \mathrm U(z_{\mathrm{fd}}A^{**})_{\mathrm s}
+ \cong
+ \prod_{[\pi]\in\widehat A_{\mathrm{fd}}}\mathrm U(H_\pi),
+$$
+
+where the last group has the product topology.
+:::
+
+:::{prf:proof}
+A finite-dimensional irreducible representation $\pi$ has a normal
+surjective extension
+$\widetilde\pi:A^{**}\to\mathcal B(H_\pi)$. Its kernel is a weak-star
+closed ideal, hence has the form $(1-z_\pi)A^{**}$ for a central projection
+$z_\pi$, and
+$z_\pi A^{**}\cong\mathcal B(H_\pi)$. In particular, $z_\pi$ is a
+minimal nonzero central projection. Hence two such central projections are
+either orthogonal or equal. If two such central summands agree,
+the corresponding finite-dimensional quotient representations differ by an
+automorphism of a full matrix algebra and are therefore unitarily equivalent.
+Thus inequivalent irreducible representations give orthogonal summands.
+
+Conversely, restricting a finite-dimensional factor-summand representation of
+$A^{**}$ to the weak-star dense copy of $A$ gives an irreducible
+finite-dimensional representation: in finite dimension weak-star density is
+norm density, so the image is the full matrix algebra. These two constructions
+are inverse. The first displayed decomposition follows by taking the central
+sum. The strong-topological unitary group of a von Neumann direct sum is the
+product of the strong-topological unitary groups of its summands
+{cite}`GiordanoPestov2007`, Lemma 3.1; on each finite-dimensional summand this is the usual
+compact topology.
+:::
+
+:::{prf:theorem}
+:label: thm-pw-nuclear-weak-umf
+
+Let $A$ be a unital separable nuclear $C^*$-algebra. Equip
+$\mathrm U(A)$ with the relative weak topology $\sigma(A,A^*)$. Then
+
+$$
+M(\mathrm U(A)_{\mathrm w})
+ \cong
+ \prod_{[\pi]\in\widehat A_{\mathrm{fd}}}\mathrm U(H_\pi),
+$$
+
+where $u\in\mathrm U(A)$ acts through the coordinates $\pi(u)$.
+In particular, $\mathrm U(A)_{\mathrm w}$ is extremely amenable when
+$A$ has no finite-dimensional irreducible representations.
+:::
+
+:::{prf:proof}
+The two-sided completion of $\mathrm U(A)$ in the relative weak topology is
+$\mathrm U(A^{**})$ with the $s(A^{**},A^*)$-topology; see the proof of
+{cite}`GiordanoPestov2007`, Theorem 3.8. Nuclearity makes $A^{**}$ injective. Its
+finite-dimensional factor summands are indexed precisely by
+$\widehat A_{\mathrm{fd}}$, by
+{prf:ref}`lem-pw-finite-dimensional-envelope-summands`, and their unitary groups
+form the displayed compact product. {prf:ref}`thm-pw-injective-vn-umf` computes the universal
+minimal flow of the completion. Universal minimal flows are unchanged on
+passing to the two-sided completion by {cite}`BassoZucker2021`, Fact 2.3.
+:::
+
+:::{prf:corollary}
+:label: cor-pw-nuclear-weak-examples
+
+Let $X$ be compact metrizable.
+
+1. $M(\mathrm U(C(X))_{\mathrm w})\cong\mathbb T^X$.
+2. If $A$ is unital, separable, nuclear, and has no finite-dimensional
+   representations, then $M(\mathrm U(A)_{\mathrm w})$ is a point.
+3. For the one-dimensional NCCW algebra in
+   {prf:ref}`prop-pw-nccw-umf`,
+
+   $$
+M(\mathrm U(A)_{\mathrm w})\cong\mathcal B_A.
+$$
+
+   Thus $\mathcal B_A$ is the full universal minimal flow in both the
+   pointwise and relative weak topologies, but remains only a known factor in the
+   norm topology.
+:::
+
+:::{prf:proof}
+The irreducible representations of $C(X)$ are its characters, indexed by
+$X$. The second assertion is the empty-product case of
+{prf:ref}`thm-pw-nuclear-weak-umf`. For a one-dimensional NCCW algebra, the
+finite-dimensional irreducible representations consist of the interior fibre
+representations together with the representations of the finite-dimensional
+quotient $E$. Consequently, the product in
+{prf:ref}`thm-pw-nuclear-weak-umf` is naturally
+$\mathrm U(E)\times\mathrm U(F)^{(0,1)}$, which is isomorphic to
+$\mathcal B_A$ by filling in the endpoint coordinates using
+$\phi_{\mathrm U}$.
+:::
+
+There is a corresponding formula after dividing by scalar unitaries. Put
+
+$$
+\operatorname{PU}(A)=\mathrm U(A)/(\mathbb T1_A),
+ \qquad
+ \mathcal Q_A=
+ \prod_{[\pi]\in\widehat A_{\mathrm{fd}}}\mathrm U(H_\pi),
+$$
+
+and, when the product is nonempty, let
+
+$$
+\Delta\mathbb T
+ =\{(\lambda1_{H_\pi})_{[\pi]}:\lambda\in\mathbb T\}
+ \leq\mathcal Q_A.
+$$
+
+For the empty product, $\mathcal Q_A/\Delta\mathbb T$ is understood to be a
+point.
+
+We use the following elementary completion fact. If $G$ is a Hausdorff
+topological group with two-sided completion $\widehat G$, and $C\leq G$
+is compact and central, then the two-sided completion of $G/C$ is
+$\widehat G/C$. Indeed, compactness makes $C$ closed in $\widehat G$;
+the quotient uniformity on $G/C$ is the restriction of that on
+$\widehat G/C$, and the image of $G/C$ is dense. This also shows that no
+additional kernel appears when the scalar circle is removed below.
+
+:::{prf:theorem}
+:label: thm-pw-projective-nuclear-weak-umf
+
+Let $A$ be a unital separable nuclear $C^*$-algebra, and equip
+$\operatorname{PU}(A)$ with the quotient of the relative weak topology on
+$\mathrm U(A)$. Then
+
+$$
+M(\operatorname{PU}(A)_{\mathrm w})
+ \cong \mathcal Q_A/\Delta\mathbb T.
+$$
+
+The action is induced coordinatewise by the finite-dimensional irreducible
+representations: the class of $u\in\mathrm U(A)$ sends the class of
+$(v_\pi)_{[\pi]}$ to the class of
+$(\pi(u)v_\pi)_{[\pi]}$.
+:::
+
+:::{prf:proof}
+Let $z\in A^{**}$ be the sum of the finite-dimensional factor summands and
+set
+
+$$
+E_A=\mathrm U((1-z)A^{**}).
+$$
+
+The proof of {prf:ref}`thm-pw-nuclear-weak-umf` identifies the two-sided
+completion of $\mathrm U(A)_{\mathrm w}$ with
+$E_A\times\mathcal Q_A$, and {prf:ref}`thm-pw-injective-vn-umf` shows that
+$E_A$ is extremely amenable. Since the scalar circle is compact and central,
+the completion of $\operatorname{PU}(A)_{\mathrm w}$ is
+
+$$
+(E_A\times\mathcal Q_A)/\Delta_A\mathbb T,
+ \qquad
+ \Delta_A\mathbb T
+ =\{(\lambda1_{(1-z)A^{**}},
+       (\lambda1_{H_\pi})_{[\pi]}):\lambda\in\mathbb T\}.
+$$
+
+If $\mathcal Q_A$ is nontrivial, projection onto the second coordinate
+induces a quotient onto $\mathcal Q_A/\Delta\mathbb T$ whose kernel is
+isomorphic to $E_A$. If $\mathcal Q_A$ is trivial, the completion is
+$E_A/(\mathbb T1)$, which is extremely amenable because quotients of
+extremely amenable groups are extremely amenable. Thus in either case the
+displayed compact quotient has an extremely amenable closed normal kernel.
+{prf:ref}`lem-pw-umf-principles`, followed by invariance of the universal minimal
+flow under two-sided completion {cite}`BassoZucker2021`, Fact 2.3, proves the formula.
+:::
+
+:::{prf:corollary}
+:label: cor-pw-projective-nuclear-weak-examples
+
+Let $X$ be compact metrizable.
+
+1. $$
+M(\operatorname{PU}(C(X))_{\mathrm w})
+ \cong\mathbb T^X/\Delta\mathbb T.
+$$
+2. If $A$ is unital, separable, nuclear, and has no finite-dimensional
+   irreducible representations, then $\operatorname{PU}(A)_{\mathrm w}$ is
+   extremely amenable.
+3. For the one-dimensional NCCW algebra in
+   {prf:ref}`prop-pw-nccw-umf`,
+
+   $$
+M(\operatorname{PU}(A)_{\mathrm w})
+ \cong\mathcal B_A/\Delta\mathbb T.
+$$
+:::
+
+*Proof.*
+For $C(X)$, the finite-dimensional irreducible representations are the
+characters indexed by $X$. The second assertion is the empty-product case of
+{prf:ref}`thm-pw-projective-nuclear-weak-umf`. The identification
+$\mathcal Q_A\cong\mathcal B_A$ in the proof of
+{prf:ref}`cor-pw-nuclear-weak-examples` intertwines the two diagonal scalar
+circles, which gives the last formula.
+$\square$
+The weak-topological projective unitary formula is a consequence of the
+preceding completion argument. For $A=M_n(\mathbb C)$,
+the formula reduces, as it should, to the compact group
+$\operatorname{PU}(n)=\mathrm U(n)/\mathbb T$.
+
+(sec-pw-encyclopaedia-proofs)=
+## Proofs of the statements in [](#sec-maps-transformations)
+
+:::{prf:proof}
+*Proof of prf:ref`thm-lupini-cp`.* This is the first assertion of {prf:ref}`thm-pw-cp-umf`.
+:::
+
+:::{prf:proof}
+*Proof of prf:ref`thm-lupini-aut-measure`.* This is {prf:ref}`thm-pw-measure-aut-umf`.
+:::
+
+:::{prf:proof}
+*Proof of prf:ref`thm-lupini-lp`.* This is {prf:ref}`thm-pw-lp-isometry-umf`.
+:::
+
+:::{prf:proof}
+*Proof of prf:ref`thm-lupini-wreath`.* This is {prf:ref}`thm-pw-metrizable-fibre-wreath-umf`.
+:::
+
+:::{prf:proof}
+*Proof of prf:ref`thm-lupini-nuclear`.* The formula and the extreme amenability are {prf:ref}`thm-pw-nuclear-weak-umf`;
+the formula for $U(C(X))$ is part (1) of {prf:ref}`cor-pw-nuclear-weak-examples`.
+:::

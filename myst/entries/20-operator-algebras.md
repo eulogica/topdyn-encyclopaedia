@@ -32,6 +32,8 @@ unitisation $D^+$.
 
 :::
 
+The proof is in [](#sec-proofs-cuntz).
+
 :::{prf:remark}
 :label: rem-lupini-cuntz
 
@@ -78,6 +80,8 @@ Part (3) is proved in {cite}`LupiniCuntz2026`, except for the amenability
 criterion, which is proved in {cite}`LupiniStable2026`.
 :::
 
+The proof is in [](#sec-proofs-stable-kirchberg).
+
 :::{prf:example}
 :label: ex-lupini-stable-cuntz
 
@@ -90,6 +94,8 @@ $\mathcal{O}_\infty\otimes\mathcal{K}$, where $K_0=\mathbb{Z}$, it is the
 two-point group $\{1,-1\}$ {cite}`LupiniCuntz2026`. In particular, the automorphism groups of $\mathcal{O}_2\otimes\mathcal{K}$ and
 $\mathcal{O}_3\otimes\mathcal{K}$ are extremely amenable.
 :::
+
+The proof is in [](#sec-proofs-cuntz).
 
 :::{prf:theorem} {cite:t}`LupiniStable2026`
 :label: thm-lupini-stable-geometric
@@ -110,12 +116,14 @@ with the actions induced by permutations of the summands and by
 homeomorphisms of $X$.
 :::
 
+The proof is in [](#sec-proofs-stable-kirchberg).
+
 :::{prf:theorem} {cite:t}`LupiniStable2026`
 :label: thm-lupini-stable-norm
 
 Let $C$ be a unital C*-algebra, let $B=C\otimes\mathcal{K}$, with minimal
 unitisation $B^+$, and give $U(B^+)$ the norm topology. Then $U(B^+)$ is
-amenable if and only if $C$ is nuclear. If $C$ is nuclear, then
+amenable if and only if $B$ is nuclear. If $C$ is nuclear, then
 
 $$
 M(U(B^+))\cong\mathbb{T}\times M(K_1(C)),
@@ -125,6 +133,8 @@ with $K_1(C)$ discrete, and $U(B^+)$ acting through the scalar character of
 $B^+$ and the $K_1$-class. For $C=\mathcal{O}_n$, where $K_1=0$, this gives
 $M(U((\mathcal{O}_n\otimes\mathcal{K})^+))\cong\mathbb{T}$ for every $n$.
 :::
+
+The proof is in [](#sec-proofs-stable-kirchberg).
 
 :::{prf:theorem} {cite:t}`LupiniUnital2026`
 :label: thm-lupini-unital
@@ -144,20 +154,24 @@ and $K_1(A)=0$, then $Q^0_A$ is the group of automorphisms of $K_0(A)$
 fixing the class of the unit, with the topology of pointwise convergence.
 :::
 
+The proof is in [](#sec-proofs-unital-kirchberg-af).
+
 :::{prf:theorem} {cite:t}`LupiniUnital2026`
 :label: thm-lupini-af
 
 Let $A$ be a separable unital AF algebra with no nonzero finite-dimensional
 representations, and let $\Gamma_A$ be the group of automorphisms of the
 scaled dimension group $(K_0(A),K_0(A)^+,[1_A])$, with the topology of
-pointwise convergence. Then the group of inner automorphisms of $A$ is
-extremely amenable, and $M(\mathrm{Aut}(A))$ is $M(\Gamma_A)$ with
+pointwise convergence. Then the closure of the group of inner automorphisms of
+$A$ is extremely amenable, and $M(\mathrm{Aut}(A))$ is $M(\Gamma_A)$ with
 $\mathrm{Aut}(A)$ acting through $\alpha\mapsto K_0(\alpha)$. This applies to
 every infinite-dimensional simple separable unital AF algebra. The hypothesis
 on representations cannot be dropped: for the matrix algebra $M_d(\mathbb{C})$
 with $d\geq2$ the group $\Gamma_A$ is trivial, while $\mathrm{Aut}(A)$ is the
 nontrivial compact group $PU(d)$.
 :::
+
+The proof is in [](#sec-proofs-unital-kirchberg-af).
 
 :::{prf:remark}
 :label: rem-lupini-unital

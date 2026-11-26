@@ -44,6 +44,8 @@ pointwise multiplication and the topology of pointwise convergence. Then
 $M(C_p(X,K))\cong K^X$, with $C_p(X,K)$ acting by left translation.
 :::
 
+The proof is in [](#sec-proofs-maps-transformations).
+
 :::{prf:remark}
 :label: rem-lupini-cp
 
@@ -84,6 +86,8 @@ $\mathrm{Aut}^*(Y,\mu)$ is the group of nonsingular automorphisms, and
 $\mathrm{LO}(A_\mu)$ is the space of linear orders on $A_\mu$.
 :::
 
+The proof is in [](#sec-proofs-maps-transformations).
+
 :::{prf:remark}
 :label: rem-lupini-aut-measure
 
@@ -121,6 +125,8 @@ In particular, the isometry group is extremely amenable when $\mu$ has no
 atoms.
 :::
 
+The proof is in [](#sec-proofs-maps-transformations).
+
 :::{prf:remark}
 :label: rem-lupini-lp
 
@@ -145,6 +151,8 @@ $$
 with the skew action
 $((f_a)_a,\sigma)\cdot((x_a)_a,<)=((f_a x_{\sigma^{-1}(a)})_a,\sigma\cdot{<})$.
 :::
+
+The proof is in [](#sec-proofs-maps-transformations).
 
 :::{prf:remark}
 :label: rem-lupini-wreath
@@ -185,6 +193,8 @@ extremely amenable in this topology when $A$ has no finite-dimensional
 irreducible representations, and $M(U(C(X)))\cong\mathbb{T}^X$ for every
 compact metrizable space $X$.
 :::
+
+The proof is in [](#sec-proofs-maps-transformations).
 
 :::{prf:remark}
 :label: rem-lupini-nuclear
