@@ -35,6 +35,11 @@ project:
     - file: entries/19-maps-and-transformations.md
     - file: entries/20-operator-algebras.md
     - file: entries/21-inductive-limits.md
+    - file: entries/22-proofs-maps-and-transformations.md
+    - file: entries/23-proofs-cuntz.md
+    - file: entries/24-proofs-stable-kirchberg.md
+    - file: entries/25-proofs-unital-kirchberg-af.md
+    - file: entries/26-proofs-inductive-limits.md
   exclude:
     - bibliography.md
 site:

@@ -26,7 +26,10 @@ later in the same way, from the full texts of the cited papers where available
 and otherwise from their abstracts, and have not been reviewed either. The
 entries from [](#sec-maps-transformations) to [](#sec-inductive-limits)
 report results from the editor's own preprints posted on Zenodo, which have
-not been refereed.
+not been refereed. The entries from [](#sec-proofs-maps-transformations) to
+[](#sec-proofs-inductive-limits) reproduce the proofs from those preprints, in
+the versions cited in the bibliography; the bibliographic data of the works
+they cite were checked against Crossref, zbMATH or arXiv.
 
 ```{toctree}
 :maxdepth: 1
@@ -53,5 +56,10 @@ entries/18-ea-catalogue
 entries/19-maps-and-transformations
 entries/20-operator-algebras
 entries/21-inductive-limits
+entries/22-proofs-maps-and-transformations
+entries/23-proofs-cuntz
+entries/24-proofs-stable-kirchberg
+entries/25-proofs-unital-kirchberg-af
+entries/26-proofs-inductive-limits
 bibliography
 ```

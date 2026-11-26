@@ -31,12 +31,16 @@ nonempty compact metrizable space $X$ in which no point is fixed by $K_j$. In
 particular, $G$ is not extremely amenable.
 :::
 
+The proof is in [](#sec-proofs-inductive-limits).
+
 :::{prf:corollary} {cite:t}`LupiniInductive2026`
 :label: cor-lupini-inductive
 
 With the final topology, none of $SU(\infty)$, $SO(\infty)$, $Sp(\infty)$,
 $U(\infty)$ and $O(\infty)$ is extremely amenable.
 :::
+
+The proof is in [](#sec-proofs-inductive-limits).
 
 :::{prf:remark}
 :label: rem-lupini-inductive
@@ -62,6 +66,8 @@ trivial, and those of $U(\infty)$ and $O(\infty)$ are $\mathbb{T}$ and
 $\{1,-1\}$, through the determinant.
 :::
 
+The proof is in [](#sec-proofs-inductive-limits).
+
 :::{prf:theorem} {cite:t}`LupiniInductive2026`
 :label: thm-lupini-inductive-free
 
@@ -73,6 +79,8 @@ action of $G$ on $M(G)$ is not free. Nevertheless, the points of $M(G)$ with
 trivial stabiliser form a dense $G_\delta$ set, which has full measure for
 every invariant Radon probability measure on $M(G)$, and such measures exist.
 :::
+
+The proof is in [](#sec-proofs-inductive-limits).
 
 :::{prf:remark}
 :label: rem-lupini-inductive-free
@@ -97,6 +105,8 @@ where $\det$ is the Fredholm determinant, is extremely amenable in the
 topology of the trace norm $\|u-v\|_1=\mathrm{Tr}|u-v|$, and so is its dense
 subgroup $\bigcup_nSU(n)$ with the same topology.
 :::
+
+The proof is in [](#sec-proofs-inductive-limits).
 
 :::{prf:remark}
 :label: rem-lupini-trace-class
