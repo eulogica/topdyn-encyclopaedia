@@ -32,6 +32,9 @@ project:
     - file: entries/16-semigroup.md
     - file: entries/17-discrete-groups.md
     - file: entries/18-ea-catalogue.md
+    - file: entries/19-maps-and-transformations.md
+    - file: entries/20-operator-algebras.md
+    - file: entries/21-inductive-limits.md
   exclude:
     - bibliography.md
 site:

@@ -23,7 +23,10 @@ standard secondary sources, and every bibliographic record was checked against
 the publisher or arXiv. They have not yet been reviewed by the editor or by
 experts. The entries from [](#sec-kpt-umf) to [](#sec-ea-catalogue) were added
 later in the same way, from the full texts of the cited papers where available
-and otherwise from their abstracts, and have not been reviewed either.
+and otherwise from their abstracts, and have not been reviewed either. The
+entries from [](#sec-maps-transformations) to [](#sec-inductive-limits)
+report results from the editor's own preprints posted on Zenodo, which have
+not been refereed.
 
 ```{toctree}
 :maxdepth: 1
@@ -47,5 +50,8 @@ entries/15-continua
 entries/16-semigroup
 entries/17-discrete-groups
 entries/18-ea-catalogue
+entries/19-maps-and-transformations
+entries/20-operator-algebras
+entries/21-inductive-limits
 bibliography
 ```

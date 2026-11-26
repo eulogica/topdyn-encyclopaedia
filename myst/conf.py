@@ -28,6 +28,8 @@ prf_realtyp_to_countertyp = {
 numfig = True
 mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
 tippy_enable_mathjax = True
+# Zenodo DOIs are registered with DataCite, which the DOI-tip API cannot read.
+tippy_skip_urls = (r"https://doi\.org/10\.5281/zenodo\.",)
 tippy_anchor_parent_selector = "article.bd-article"
 
 html_theme = "sphinx_book_theme"
