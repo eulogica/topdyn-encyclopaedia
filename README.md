@@ -1,8 +1,10 @@
 # Topological dynamics of topological groups
 
 **Website: <https://topologicaldynamics.org>** (MyST version; the LaTeX version
-is at <https://topologicaldynamics.org/latex/>). Every page links to its source
-file in this repository. To propose a change, see [CONTRIBUTING.md](CONTRIBUTING.md).
+is at <https://topologicaldynamics.org/latex/>, and the interactive proof tree of
+all statements at <https://topologicaldynamics.org/proof-tree/>). Every page links
+to its source file in this repository. To propose a change, see
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 A living, hypertextual encyclopaedia of the topological dynamics of
 topological groups, with an emphasis on universal minimal flows.
