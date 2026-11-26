@@ -12,6 +12,7 @@ Section~\ref{sec:inductive-limits} from those of the preprint.
 \subsection{Main results of the preprint}\label{sec:ind-main-results}
 
 \begin{theorem}\label{thm:ind-main}
+\uses{def:final-topology}
 Let $K_1\subseteq K_2\subseteq\cdots$ be compact Lie groups, and give
 $G=\bigcup_nK_n$ the final topology. Suppose that, for some $j$,
 $K_j^0$ is nonabelian or $K_j/K_j^0$ is nonsolvable. Then $G$ has a
@@ -26,6 +27,7 @@ the trivial group allowed as a zero-dimensional torus. The hypothesis on
 $K_j$ therefore says exactly that $K_j$ is not solvable.
 
 \begin{corollary}\label{cor:ind-classical-intro}
+\uses{def:ea}
 With the standard block embeddings and final topologies, none of
 \[
 \varinjlim\operatorname{SU}(n),\qquad \varinjlim\operatorname{SO}(n),\qquad
@@ -55,7 +57,7 @@ compactification of a topological group $G$; the definitions are recalled
 in Sections~\ref{sec:ind-bohr} and~\ref{sec:ind-umf}.
 
 \begin{theorem}\label{thm:ind-dynamics-intro}
-\uses{cor:ind-classical-intro}
+\uses{cor:ind-classical-intro, thm:ellis}
 For each of the five classical limits in
 Corollary~\ref{cor:ind-classical-intro}, $M(G)$ contains a homeomorphic copy
 of the Stone--\v{C}ech compactification $\beta\mathbb N$ of the discrete natural
@@ -80,6 +82,7 @@ Section~\ref{sec:ind-free-locus} we prove the following result, whose first
 assertion answers Pestov's Question~4.
 
 \begin{theorem}\label{thm:ind-free-intro}
+\uses{thm:ellis}
 For each of the five classical limits, every jointly continuous action
 on a nonempty compact Hausdorff space has a point with nontrivial
 stabiliser. Consequently, none of these $k_\omega$-groups admits a free
@@ -123,6 +126,7 @@ For a compact group $K$ with normalised Haar measure, we use
 \end{equation}
 
 \begin{theorem}\label{thm:ind-trace-intro}
+\uses{def:ea}
 The groups $G_{\mathrm{tr}}$ and $\operatorname{SU}_1$, each with its trace-norm topology, are
 extremely amenable. More precisely, if
 $N>m\ge2$ and $f:\operatorname{SU}(N)\to\mathbb R$ is $L$-Lipschitz for $d_1$, then
@@ -361,6 +365,7 @@ $\operatorname{Sp}(1)$-fixed point, respectively.
 \end{corollary}
 
 \begin{proof}
+\uses{thm:ind-main}
 The compact Lie groups $\operatorname{SU}(2)$, $\operatorname{SO}(3)$, and
 $\operatorname{Sp}(1)\cong\operatorname{SU}(2)$ are connected and nonabelian. Apply
 Theorem~\ref{thm:ind-main} at these stages. The real and quaternionic block
@@ -373,6 +378,7 @@ same obstruction. For the full unitary and orthogonal groups there
 are simpler obstructions.
 
 \begin{proposition}\label{prop:ind-determinants}
+\uses{def:ea}
 The final-topology groups $\varinjlim\operatorname{U}(n)$ and
 $\varinjlim\operatorname{O}(n)$ are not extremely amenable.
 \end{proposition}
@@ -518,6 +524,7 @@ G&G_{\mathrm{ss}}&L_0\\\hline
 \]
 
 \begin{lemma}\label{lem:ind-stage-orbits-nowhere-dense}
+\uses{def:minimal}
 Let $Y$ be a minimal $G$-flow on which $G_{\mathrm{ss}}$ acts nontrivially.
 Then $K_ny$ is nowhere dense in $Y$ for every $n$ and $y\in Y$.
 \end{lemma}
@@ -548,12 +555,13 @@ empty interior implies that it is nowhere dense.
 \end{proof}
 
 \begin{lemma}\label{lem:ind-semisimple-witness}
+\uses{def:flow}
 For every triple above there is a nonempty compact metrizable minimal
 $G$-flow $Y$ with $Y^{L_0}=\varnothing$.
 \end{lemma}
 
 \begin{proof}
-\uses{cor:ind-semisimple-classical}
+\uses{cor:ind-semisimple-classical, thm:ind-main}
 For $\operatorname{SU}(\infty)$, $\operatorname{SO}(\infty)$, and $\operatorname{Sp}(\infty)$, use the
 actions in Corollary~\ref{cor:ind-semisimple-classical} and take a minimal
 subflow. For $\operatorname{U}(\infty)$, apply Theorem~\ref{thm:ind-main} to the chain
@@ -646,6 +654,7 @@ $W$. Hence the sets $WA_n$ are pairwise disjoint.
 \end{proof}
 
 \begin{proposition}[Consequence of Basso--Zucker]\label{prop:ind-basso-zucker}
+\uses{thm:ellis}
 Let $G$ be any topological group. Suppose some minimal $G$-flow $Y$
 has nonempty open sets $A_n$ and an open identity neighbourhood $W$
 such that the sets $WA_n$ are pairwise disjoint. Then $M(G)$ contains
@@ -709,7 +718,7 @@ on $Z$. The invariance qualification is essential: a proper subset
 cannot have full measure for every Radon probability measure.
 
 \begin{theorem}\label{thm:ind-classical-free-locus}
-\uses{cor:ind-classical-intro}
+\uses{cor:ind-classical-intro, thm:ellis}
 Let $G$ be any of the five classical limits in
 Corollary~\ref{cor:ind-classical-intro}, with its standard final topology.
 Then $\operatorname{Free}(M(G))$ is a proper dense $G_\delta$ and is
@@ -825,6 +834,7 @@ The homotopy-theoretic input above is not a convenience.
 \end{remark}
 
 \begin{proposition}\label{prop:ind-involution-fixed}
+\uses{def:flow}
 Let $G$ be any of the five classical limits. Every nonempty compact
 Hausdorff $G$-flow has a point fixed by a nonidentity involution. For
 $\operatorname{SU}(\infty)$ one may take $a=\operatorname{diag}(-1,-1,1,\ldots)$, and for the
@@ -933,6 +943,7 @@ provides the required open neighbourhood of $z$.
 \end{proof}
 
 \begin{proposition}\label{prop:ind-generic-free-locus}
+\uses{def:flow}
 Let $G$ be one of the five classical final-topology unions, with
 standard stages $K_n$. Suppose that a nonempty compact Hausdorff
 $G$-flow $Z$ satisfies
@@ -988,7 +999,7 @@ countable intersection gives $\mu(\operatorname{Free}(Z))=1$.
 
 \begin{proof}[Proof of Theorem~\ref{thm:ind-classical-free-locus}]
 \proves{thm:ind-classical-free-locus}
-\uses{prop:ind-generic-free-locus, prop:ind-involution-fixed, thm:ind-oliver}
+\uses{prop:ind-generic-free-locus, prop:ind-involution-fixed, thm:ind-oliver, thm:ind-main}
 Let $X=\varprojlim D_m$ be the Oliver flow constructed in the proof
 of Theorem~\ref{thm:ind-main}. A minimal subflow of $X$ is a factor of
 $M(G)$, so there is a $G$-map $q:M(G)\to X$. For $z\in M(G)$,
@@ -1256,6 +1267,7 @@ The following elementary dynamical lemma makes the passage from
 finite observables to fixed points explicit.
 
 \begin{lemma}\label{lem:ind-variance-to-fixed}
+\uses{def:ea}
 Let a metrizable topological group $\Gamma$ have a compatible right-invariant
 metric and contain an increasing sequence of compact subgroups $K_m$
 with dense union. Suppose that for each $m$ and every finite family
