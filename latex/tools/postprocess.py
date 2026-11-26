@@ -3,8 +3,12 @@
 
 Adds, on top of plasTeX + plastexdepgraph:
   * a permanent-tag badge on every tagged section and statement;
-  * one page per tag, tag/XXXX.html: the statement, what it uses, what uses it,
-    and how to cite it;
+  * one page per tag, tag/XXXX.html: the statement, what it uses and what uses
+    it (in its statement or in its proof), its proof tree, and how to cite it.
+    The proof tree of a definition or result draws everything it rests on,
+    directly or through other statements, as declared with \\uses in the
+    statements and their proofs, together with the results of other works
+    that these statements and proofs cite with a precise locator;
   * tags.html, an index of all tags with a lookup box;
   * graph.html, a static dependency graph (SVG drawn by Graphviz at build
     time, so it needs no WebAssembly in the browser);
@@ -16,6 +20,7 @@ Usage: python3 tools/postprocess.py SITE_DIR
 """
 import copy
 import html
+import json
 import re
 import subprocess
 import sys
@@ -59,7 +64,24 @@ div.content-wrapper.wide{max-width:none}
 nav.toc ul.extra-nav{margin-top:1.2em;padding-top:.8em;border-top:1px solid rgba(0,0,0,.12)}
 .source-links{font-size:.85em;color:#666;margin:.3em 0 1.2em}
 .source-links a{color:#2e4a6b}
+.tag-page .tree-note{font-size:.9em;color:#555;margin:.2em 0 .6em}
+.tag-page .graph-wrap{max-height:80vh}
+.graph-wrap svg a{text-decoration:none}
+.graph-legend i.cited{background:#fff;border-style:dashed}
+.graph-legend i.this{background:#fff;border:2px solid #2e4a6b}
 """
+
+# Proof trees on tag pages.
+ENV_RE = re.compile(r"\\begin\{(definition|theorem|proposition|corollary|lemma|conjecture|"
+                    r"example|remark|proof)\}(.*?)\\end\{\1\}", re.S)
+USES_RE = re.compile(r"\\uses\{([^}]*)\}")
+PROVES_RE = re.compile(r"\\proves\{([^}]*)\}")
+CITE_RE = re.compile(r"\\cite\[([^\]]*)\]\{([^}]*)\}")
+RESULT_LOCATOR = re.compile(r"\b(Theorems?|Lemmas?|Propositions?|Corollar(?:y|ies)|Facts?|Claims?)\b")
+POINTER_BEFORE = re.compile(r"see also|compare|\bcf\.|fuller|for (?:a|another) (?:different|second)|"
+                            r"history|in contrast|unlike", re.I)
+TREE_SKIP = {"Section", "Remark", "Example"}
+MAX_TREE = 120
 
 
 def read_tags():
@@ -187,6 +209,152 @@ def extract_dot():
     return m.group(1) if m else None
 
 
+def skip_optional_arg(body):
+    """The body of an environment without its optional [title], which may nest brackets."""
+    s = body.lstrip()
+    if not s.startswith("["):
+        return body
+    depth = 0
+    for i, ch in enumerate(s):
+        depth += ch == "["
+        depth -= ch == "]"
+        if depth == 0:
+            return s[i + 1:]
+    return body
+
+
+def result_cites(text):
+    """(key, locator) of each citation of a numbered result of another work, not of pointers."""
+    out = []
+    for m in CITE_RE.finditer(text):
+        loc = " ".join(m.group(1).replace("~", " ").split())
+        if not RESULT_LOCATOR.search(loc):
+            continue
+        before = text[max(0, m.start() - 60):m.start()]
+        before = before[max(before.rfind(". "), before.rfind(";")) + 1:]
+        if POINTER_BEFORE.search(before):
+            continue
+        for key in m.group(2).split(","):
+            if key.strip():
+                out.append((key.strip(), loc))
+    return out
+
+
+def source_dependencies():
+    """For each statement label: the labels its statement and its proof declare with
+    \\uses, and the results of other works that they cite."""
+    deps = {}
+    for path in sorted((ROOT / "entries").glob("*.tex")):
+        last = None
+        for m in ENV_RE.finditer(path.read_text()):
+            env, body = m.group(1), m.group(2)
+            if env != "proof":
+                lab = LABEL_RE.search(body)
+                if not lab:
+                    continue
+                last = target = lab.group(1)
+                where, text = "statement", skip_optional_arg(body)
+            else:
+                pv = PROVES_RE.search(body)
+                target = pv.group(1).strip() if pv else last
+                if target is None:
+                    continue
+                where, text = "proof", body
+            d = deps.setdefault(target, {"statement": [], "proof": [], "cites": []})
+            for u in USES_RE.findall(text):
+                for x in u.split(","):
+                    x = x.strip()
+                    if x and x != target and x not in d[where]:
+                        d[where].append(x)
+            for c in result_cites(text):
+                if c not in d["cites"]:
+                    d["cites"].append(c)
+    return deps
+
+
+def bibliography_links(pages):
+    """Citation key -> (href of its bibliography entry, its number)."""
+    out = {}
+    for soup in pages.values():
+        for span in soup.find_all("span", class_="cite"):
+            for a in span.find_all("a", href=True):
+                if "#" in a["href"]:
+                    out.setdefault(a["href"].split("#", 1)[1], (a["href"], a.get_text(strip=True)))
+    return out
+
+
+def dot_text(s):
+    """A statement title as plain text for a Graphviz label."""
+    s = re.sub(r"\\[()\[\]]", "", s)
+    s = re.sub(r"\\(?:mathcal|mathrm|mathbb|operatorname|mathfrak|textup|emph)\s*\{([^{}]*)\}", r"\1", s)
+    s = re.sub(r"\\([A-Za-z]+)", r"\1", s).replace("{", "").replace("}", "")
+    words, lines, cur = s.split(), [], ""
+    for w in words:
+        if cur and len(cur) + len(w) > 24:
+            lines.append(cur)
+            cur = w
+        else:
+            cur = f"{cur} {w}".strip()
+    if cur:
+        lines.append(cur)
+    return "\\n".join(x.replace("\\", "").replace('"', "'") for x in lines)
+
+
+def proof_tree_svg(root, items, uses, cites, bib, name_of):
+    """SVG of what the statement `root` rests on, or None if it rests on nothing."""
+    order = {label: i for i, label in enumerate(items)}
+    seen, stack = set(), [root]
+    while stack:
+        for u in uses.get(stack.pop(), ()):
+            if u in items and u != root and u not in seen and items[u]["kind"] not in TREE_SKIP:
+                seen.add(u)
+                stack.append(u)
+    if len(seen) > MAX_TREE:
+        return None
+    nodes = [root] + sorted(seen, key=lambda l: order[l])
+    cited = []
+    for v in nodes:
+        for key, loc in cites.get(v, ()):
+            if key in bib:
+                cited.append((f"cite:{key}:{loc}", key, loc, v))
+    if not seen and not cited:
+        return None
+    lines = ['digraph G {',
+             'graph [bgcolor=transparent, rankdir=TB, nodesep=0.25, ranksep=0.4];',
+             'node [fontname="Helvetica", fontsize=10, margin="0.08,0.03"];',
+             'edge [color="#6b7785", arrowsize=0.6];']
+    for label in nodes:
+        it = items[label]
+        text = f'{KIND_ABBR.get(it["kind"], it["kind"])} {it["num"]}'
+        if it["title"]:
+            text += "\\n" + dot_text(it["title"])
+        shape = "box" if it["kind"] == "Definition" else "ellipse"
+        extra = ', penwidth=2.2, color="#2e4a6b"' if label == root else ""
+        tip = name_of(label).replace('"', "'").replace("\\", "")
+        lines.append(f'"{label}" [label="{text}", shape={shape}, style=filled, '
+                     f'fillcolor="{KIND_FILL.get(it["kind"], "#ffffff")}", URL="{it["tag"]}.html", '
+                     f'target="_top", tooltip="{tip} - Tag {it["tag"]}"{extra}];')
+    for v in nodes:
+        for u in uses.get(v, ()):
+            if u in seen:
+                lines.append(f'"{u}" -> "{v}";')
+    for cid, key, loc, v in cited:
+        href, num = bib[key]
+        lines.append(f'"{cid}" [label="[{num}, {loc}]", shape=box, style="dashed", '
+                     f'URL="../{href}", target="_top", tooltip="Cited result: [{num}, {loc}]"];')
+        lines.append(f'"{cid}" -> "{v}" [style=dashed];')
+    lines.append("}")
+    dot = "\n".join(lines)
+    reduced = subprocess.run(["tred"], input=dot, capture_output=True, text=True)
+    if reduced.returncode == 0 and reduced.stdout.strip():
+        dot = reduced.stdout
+    drawn = subprocess.run(["dot", "-Tsvg"], input=dot, capture_output=True, text=True)
+    if drawn.returncode != 0:
+        print(f"warning: no proof tree for {root}: {drawn.stderr.strip()}", file=sys.stderr)
+        return None
+    return drawn.stdout[drawn.stdout.find("<svg"):]
+
+
 def main():
     pairs = read_tags()
     tag_of = {label: tag for tag, label in pairs}
@@ -202,11 +370,26 @@ def main():
                 kind, num, title = describe(el)
                 items[label] = dict(tag=tag_of[label], page=name, kind=kind, num=num,
                                     title=title, uses=uses_of(el))
-    used_by = {label: [] for label in items}
+    # What each statement uses, in its statement and in its proof. plastexdepgraph
+    # shows only the first on the pages, so both are read from the sources.
+    src = source_dependencies()
+    bib = bibliography_links(pages)
     for label, it in items.items():
-        for u in it["uses"]:
-            if u in used_by and label not in used_by[u]:
+        d = src.get(label, {})
+        stmt = [u for u in it["uses"] + d.get("statement", []) if u in items and u != label]
+        it["uses"] = list(dict.fromkeys(stmt))
+        it["uses_proof"] = [u for u in dict.fromkeys(d.get("proof", []))
+                            if u in items and u != label and u not in it["uses"]]
+    uses_all = {label: it["uses"] + it["uses_proof"] for label, it in items.items()}
+    cites = {label: d["cites"] for label, d in src.items()}
+    used_by = {label: [] for label in items}
+    in_proof_of = set()
+    for label, it in items.items():
+        for u in uses_all[label]:
+            if label not in used_by[u]:
                 used_by[u].append(label)
+            if u in it["uses_proof"]:
+                in_proof_of.add((u, label))
     section_of = {}
     for label, it in items.items():
         if it["kind"] == "Section":
@@ -255,14 +438,41 @@ def main():
         if label in locs:
             path, line = locs[label]
             nodes += frag(f'<p class="source-links">Source: {file_links(path, line)}, line {line}.</p>')
-        def listing(labels, heading):
+        def listing(labels, heading, in_proof):
             if not labels:
                 return f"<h2>{heading}</h2><p>Nothing yet.</p>"
             lis = "".join(f'<li><a href="tag/{items[l]["tag"]}.html">Tag {items[l]["tag"]}</a>: '
-                          f'{html.escape(name_of(l))}</li>' for l in labels if l in items)
+                          f'{html.escape(name_of(l))}{" (in the proof)" if in_proof(l) else ""}</li>'
+                          for l in labels if l in items)
             return f"<h2>{heading}</h2><ul>{lis}</ul>"
-        nodes += frag(listing(it["uses"], "Uses"))
-        nodes += frag(listing(used_by[label], "Used by"))
+        nodes += frag(listing(uses_all[label], "Uses", lambda l: l in it["uses_proof"]))
+        nodes += frag(listing(used_by[label], "Used by", lambda l: (label, l) in in_proof_of))
+        if it["kind"] not in TREE_SKIP:
+            svg = proof_tree_svg(label, items, uses_all, cites, bib, name_of)
+            if svg:
+                heading = "Proof tree" if it["kind"] not in ("Definition", "Conjecture") else "What it rests on"
+                legend = "".join(f'<span><i style="background:{c}"></i>{k}</span>'
+                                 for k, c in KIND_FILL.items() if k != "Lemma")
+                legend += ('<span><i class="cited"></i>Cited result</span>'
+                           '<span><i class="this"></i>This statement</span>')
+                nodes += frag(
+                    f'<h2>{heading}</h2><p class="tree-note">Everything this statement rests on, '
+                    'directly or through other statements, as declared in its source and in the '
+                    'sources of its proof. An arrow means that the second item uses the first; '
+                    'implied arrows are left out. Dashed boxes are results of other works that '
+                    'these statements and proofs cite. Click a node to open its tag.</p>'
+                    f'<p class="graph-legend">{legend}</p>')
+                wrap = soup.new_tag("div")
+                wrap["class"] = ["graph-wrap"]
+                wrap.append(BeautifulSoup(svg, "html.parser"))
+                nodes.append(wrap)
+                # A wide tree scrolls sideways: start with this statement in view.
+                nodes += frag(
+                    '<script>{const w=document.currentScript.previousElementSibling;'
+                    'const n=[...w.querySelectorAll("g.node")].find(g=>{const t=g.querySelector("title");'
+                    f'return t&&t.textContent==={json.dumps(label)};}});'
+                    'if(n){const r=n.getBoundingClientRect(),b=w.getBoundingClientRect();'
+                    'w.scrollLeft+=r.left+r.width/2-b.left-b.width/2;w.scrollTop=w.scrollHeight;}}</script>')
         nodes += frag(f'<h2>How to cite</h2><p class="cite-as">{html.escape(TITLE)}, '
                       f'Tag {it["tag"]} ({html.escape(name_of(label))}).</p>')
         set_main(soup, nodes, f"Tag {it['tag']}")
