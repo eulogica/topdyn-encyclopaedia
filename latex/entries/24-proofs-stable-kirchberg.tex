@@ -1496,6 +1496,25 @@ therefore persist for minimal unitisations. In particular this verifies
 the unitisation assertion in Theorem~\ref{thm:st-geometric}. Weighted
 states on sums of unital fibers are treated in \cite{LupiniUnital2026}.
 
+\begin{proof}[Proof of Theorem~\ref{thm:st-geometric}]
+\proves{thm:st-geometric}
+\uses{prop:st-direct-sum, prop:st-field, cor:st-geometric-bohr, cor:st-geometric-amenability, lem:st-unitization, cor:st-direct-sum-bohr-general}
+The hypothesis holds for
+$B=\mathcal{O}_2\otimes\mathcal{K}$ and $B=\mathcal{O}_3\otimes\mathcal{K}$, as recorded at the
+start of this section. By Propositions~\ref{prop:st-direct-sum} and~\ref{prop:st-field}, the
+universal minimal flows of $\operatorname{Aut}(c_0(I,B))$ and $\operatorname{Aut}(C(X)\otimes B)$ are those of
+$\operatorname{Sym}(I)$ and $\operatorname{Homeo}(X)$, through the permutation of summand ideals and the
+induced homeomorphism of $X$. For finite $I$ this is the regular flow of
+$\operatorname{Sym}(I)$. For $I=\mathbb{N}$ and for the Cantor set it is $\operatorname{LO}(\mathbb{N})$ and
+$\Phi(X)$, by the results of Glasner and Weiss recalled above
+\cite{GlasnerWeiss2002,Glasner2002Orders} and \cite[Theorem~6.1]{GlasnerWeiss2003}.
+The Bohr compactifications are computed in Corollary~\ref{cor:st-geometric-bohr}, and
+amenability, unique ergodicity and nonamenability in
+Corollary~\ref{cor:st-geometric-amenability}. Lemma~\ref{lem:st-unitization} and the paragraph
+following it give the statements after unitisation. The final assertions, for
+nonzero simple stable $C$, are Corollary~\ref{cor:st-direct-sum-bohr-general}.
+\end{proof}
+
 
 \subsection{Stable nuclear norm-unitary groups}\label{sec:st-stable-proof}\label{sec:st-unitaries}
 
