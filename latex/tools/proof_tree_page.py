@@ -360,7 +360,7 @@ function below(){
    `<div><h3>How this page is made</h3><p>Each statement lists what it uses with <code>\\uses</code> in the LaTeX sources, in its statement or in its proof. The build reads these lists, and the citations with a precise locator, at every update of the encyclopaedia. The same data give the proof tree on each <a href="../latex/">tag page</a> and the <a href="../latex/graph.html">dependency graph</a>.</p></div>`;
 }
 let lastW=0;new ResizeObserver(()=>{const w=$('#map').getBoundingClientRect().width;if(LY&&Math.abs(w-lastW)>40){lastW=w;fit(true)}}).observe($('#map'));
-draw();below();if(!fromHash())panel();
+const h0=location.hash;draw();below();try{if(h0)history.replaceState(null,'',h0)}catch(e){}if(!fromHash())panel();
 window.addEventListener('hashchange',fromHash);
 }</script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
