@@ -752,6 +752,23 @@ def main():
         first = main_text.find("h2") if main_text else None
         if first is not None and not soup.find("nav", class_="proved-here"):
             first.insert_before(nav[0])
+            # The roadmap of the entry, drawn by the widget that the MyST version also
+            # uses (myst/widgets/entry-roadmap.mjs), after the block above.
+            roadmap = site_map.roadmap(src, stem, "latex")
+            widget = ROOT.parent / "myst" / "widgets" / "entry-roadmap.mjs"
+            if roadmap and widget.exists():
+                (SITE / "widgets").mkdir(exist_ok=True)
+                shutil.copy(widget, SITE / "widgets" / widget.name)
+                data = json.dumps(roadmap, ensure_ascii=False).replace("</", "<\\/")
+                block = frag(
+                    '<div id="entry-roadmap"></div>'
+                    f'<script type="application/json" id="entry-roadmap-data">{data}</script>'
+                    '<script type="module">import roadmap from "./widgets/entry-roadmap.mjs";'
+                    'const data=JSON.parse(document.getElementById("entry-roadmap-data").textContent);'
+                    'roadmap.render({model:{get:k=>k==="data"?data:undefined},'
+                    'el:document.getElementById("entry-roadmap")});</script>')
+                for node in reversed(block):
+                    nav[0].insert_after(node)
         script = soup.new_tag("script")
         script.string = (
             'document.addEventListener("DOMContentLoaded",function(){'
