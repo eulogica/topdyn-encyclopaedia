@@ -40,7 +40,8 @@ this table.
 
 * One file per entry in `latex/entries/`, included from `latex/main.tex`.
 * Every section and statement has a `\label`. Prefixes: `sec:`, `def:`,
-  `thm:`, `prop:`, `cor:`, `lem:`, `rem:`, `ex:`, followed by a descriptive
+  `thm:`, `prop:`, `cor:`, `lem:`, `rem:`, `ex:` (and `fig:` for figures),
+  followed by a descriptive
   slug (`thm:ellis`, not `thm:5-2`).
 * Every statement lists what it depends on with `\uses{label1, label2}` right
   after `\label`, and a proof lists what it uses with its own `\uses` (after
@@ -126,6 +127,34 @@ this table.
     toctree in `index.md` (Sphinx) and to `toc:` in `myst.yml` (mystmd).
     mystmd warns about the toctree directive in `index.md`; that warning is
     expected while both engines are used.
+
+## Figures (both versions)
+
+* Figures are SVG files in `figures/`, shared by both versions and drawn by
+  `figures/make_figures.py` (standard library only; run
+  `python3 figures/make_figures.py` and commit the SVGs it writes). Edit the
+  script, not the SVGs. Each SVG has a `<title>`, used as the alt text on both
+  sites.
+* LaTeX: a `figure` environment with `\includegraphics[width=\linewidth]{NAME}`,
+  a `\caption`, `\label{fig:NAME}` and `\illustrates{label1, label2}`, the
+  statements whose proofs it illustrates. `build.sh` converts the SVGs to PDF
+  and PNG with `rsvg-convert` in `latex/_figures/` (not committed) for pdflatex
+  and plasTeX, and `postprocess.py` puts the SVG back on the web pages.
+  Figures are numbered by section (Figure 12.1).
+* MyST: the twin is a `:::{figure} ../../figures/NAME.svg` block with
+  `:name: fig-NAME`, `:figclass: enc-figure`, `:alt:` (the SVG's title) and
+  `:width: 100%`, and the same caption. `myst/tools/site_map.py` gives it the
+  number of its LaTeX twin. Do not write numbers.
+* Do not link figures from the statements by hand: both builds add "Illustrated
+  in Fig. N" to the links block of every statement in its `\illustrates`.
+* A figure `fig:NAME` gets an interactive version when there is a widget
+  `myst/widgets/NAME.mjs` (an anywidget module that needs no data): both builds
+  put it under the figure. The figure must make sense without it, as in the PDF.
+* The Proofs entries reproduce preprints. A figure there is a supplement placed
+  after the proof it illustrates, never a change to the reproduced text, and
+  its caption ends with "(Illustration added for the encyclopaedia.)".
+* Figures follow the rules for content: they show what the text says, with its
+  notation, and add no claims of their own.
 
 ## Workflow
 
