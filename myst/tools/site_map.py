@@ -27,6 +27,9 @@ nothing the second time.
     references.bib with the same change, kept in the temporary folder: the LaTeX
     version uses references.bib as it is.
 
+It fails (and the build with it) if a MyST statement has no LaTeX twin or the
+proofs of an entry do not follow the LaTeX order.
+
 Usage: python3 tools/site_map.py        (from the myst/ folder or anywhere)
 """
 import json
@@ -232,6 +235,9 @@ def main():
         print("Not matched with the LaTeX version:", ", ".join(missing))
     if odd:
         print("Proofs to check (labels follow the LaTeX order):", "; ".join(odd))
+    if missing or odd:
+        # The two versions have drifted apart: fail, so that it is fixed before merging.
+        sys.exit(1)
 
     index = MYST / "index.md"
     text = index.read_text()
