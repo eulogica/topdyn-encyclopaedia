@@ -19,7 +19,8 @@ if os.environ.get("GITHUB_REPOSITORY"):
 else:
     REPO = "https://github.com/eulogica/topdyn-encyclopaedia"
 BRANCH = "main"
-MARK = "<!-- source-links -->"
+# A MyST comment: mystmd prints an HTML comment as text.
+MARK = "% source-links"
 
 
 def links(path):
