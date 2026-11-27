@@ -356,6 +356,15 @@ This proves nuclearity. Separability and unitality follow from the
 construction.
 :::
 
+:::{figure} ../../figures/tree-rays.svg
+:name: fig-tree-rays
+:figclass: enc-figure
+:alt: Rays toward a boundary point of the tree of the free group, from 1 and from h, and the vertices their first n vertices share
+:width: 100%
+
+{prf:ref}`lem-cu-boundary-recovery` at a boundary point $\xi$ of the tree of $\mathbb{F}_2$, for $n=6$ and $|h|=3$: the first $n$ vertices of the rays from $1$ and from $h$ toward $\xi$ share $4$ vertices, at least $n-|h|$. Hence $c_{n,h}(\xi)=4/6\geq1-|h|/n$. (Illustration added for the encyclopaedia.)
+:::
+
 We will use embeddings in both directions between $\mathcal{E}$ and $\mathcal{O}_2$. The embedding $\mathcal{E}\hookrightarrow\mathcal{O}_2$
 follows from Kirchberg–Phillips {cite}`KirchbergPhillips2000`. The other one has a simple
 formula. Let $P_x$, for $x=g_1,g_1^{-1},g_2,g_2^{-1}$, be the first-letter
