@@ -20,12 +20,19 @@ nothing the second time.
   * The line "% map-of-the-encyclopaedia" in index.md becomes the map, drawn by
     widgets/encyclopaedia-map.mjs from data that latex/tools/site_map.py reads
     from the LaTeX sources.
+  * mystmd shows page titles (in the heading, the sidebar, the breadcrumbs, the
+    links to other pages and the browser tab) and the titles in its
+    bibliographies as plain text, so maths there would appear as raw TeX. Each
+    page title gets its maths in Unicode ("S∞"), and the build reads a copy of
+    references.bib with the same change, kept in the temporary folder: the LaTeX
+    version uses references.bib as it is.
 
 Usage: python3 tools/site_map.py        (from the myst/ folder or anywhere)
 """
 import json
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 MYST = Path(__file__).resolve().parent.parent
@@ -41,6 +48,8 @@ OPTION = re.compile(r"^:(\w+):\s*(.*)$")
 ABBR = {"definition": "Def.", "theorem": "Thm.", "proposition": "Prop.", "corollary": "Cor.",
         "lemma": "Lem.", "conjecture": "Conj.", "example": "Ex.", "remark": "Rem."}
 LONGEST = 12  # longer lists end with a link to the tag page
+BIBLIOGRAPHY = "- ../references.bib"
+PLAIN_BIBLIOGRAPHY = Path(tempfile.gettempdir()) / "topdyn-encyclopaedia-references.bib"
 
 
 def myst_label(label):
@@ -179,6 +188,33 @@ def check_proofs(path, ctx):
     return odd
 
 
+def plain_titles(paths):
+    """Write the maths in each page's title in Unicode; the titles changed."""
+    changed = []
+    for path in paths:
+        lines = path.read_text().split("\n")
+        for i, line in enumerate(lines):
+            if line.startswith("# "):
+                if site_map.untex(line) != line:
+                    lines[i] = site_map.untex(line)
+                    path.write_text("\n".join(lines))
+                    changed.append(lines[i][2:])
+                break
+    return changed
+
+
+def plain_bibliography():
+    """Point the build at a copy of references.bib with its maths in Unicode."""
+    yml = MYST / "myst.yml"
+    text = yml.read_text()
+    if BIBLIOGRAPHY not in text:
+        return False
+    PLAIN_BIBLIOGRAPHY.write_text(
+        site_map.untex((ROOT / "references.bib").read_text(), superscripts=False))
+    yml.write_text(text.replace(BIBLIOGRAPHY, f"- {PLAIN_BIBLIOGRAPHY}", 1))
+    return True
+
+
 def main():
     src = site_map.read(ROOT / "latex")
     ctx = Context(src)
@@ -206,6 +242,12 @@ def main():
                  ":class: col-page-right\n" + data + "\n:::")
         index.write_text(text.replace(MARK, block, 1))
         print("Drew the map of the encyclopaedia in index.md")
+
+    titles = plain_titles([index] + entries)
+    if titles:
+        print("Wrote the maths in Unicode in the titles:", "; ".join(titles))
+    if plain_bibliography():
+        print(f"The build reads the bibliography with its maths in Unicode, from {PLAIN_BIBLIOGRAPHY}")
 
 
 if __name__ == "__main__":
