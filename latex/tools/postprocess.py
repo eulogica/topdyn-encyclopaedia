@@ -150,7 +150,7 @@ def set_main(soup, nodes, doc_title):
     for n in nodes:
         main.append(n)
     if soup.title:
-        soup.title.string = f"{TITLE}: {doc_title}"
+        soup.title.string = site_map.untex(f"{TITLE}: {doc_title}")
     for li in soup.select("nav.toc li"):
         li["class"] = [c for c in li.get("class", []) if c not in ("active", "current")]
     pun = soup.find("nav", class_="prev_up_next")
@@ -661,7 +661,7 @@ def main():
             break
         last.append(f'<a href="../proof-tree/#tree={html.escape(label)}">Proof tree</a>')
         rows.append(" · ".join(last))
-        nav = frag(f'<nav class="dep-links" aria-label="Links for {html.escape(name_of(label))}">'
+        nav = frag(f'<nav class="dep-links" aria-label="Links for {html.escape(site_map.untex(name_of(label)))}">'
                    + "".join(f"<p>{r}</p>" for r in rows) + "</nav>")
         el.insert_after(nav[0])
 
@@ -693,6 +693,12 @@ def main():
 
     (SITE / "styles" / "encyclopaedia.css").write_text(CSS)
     for name, soup in pages.items():
+        # Browser tabs and tooltips (such as those of the arrows to the previous and
+        # next sections) show titles as they are, so write their maths in Unicode.
+        if soup.title and soup.title.string:
+            soup.title.string = site_map.untex(soup.title.string)
+        for el in soup.find_all(title=True):
+            el["title"] = site_map.untex(el["title"])
         (SITE / name).write_text(str(soup))
     print(f"{len(items)} tagged items, {len(pages)} pages, tag pages in {SITE / 'tag'}")
 
