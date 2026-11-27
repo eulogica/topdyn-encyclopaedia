@@ -840,6 +840,15 @@ a contradiction. A nonzero finite-dimensional representation can
 always be restricted to its support and regarded as unital.
 :::
 
+:::{figure} ../../figures/bratteli.svg
+:name: fig-bratteli
+:figclass: enc-figure
+:alt: Two Bratteli diagrams with their block sizes: in one every block grows, in the other a block of size 1 survives at every level
+:width: 100%
+
+Bratteli diagrams of two unital AF algebras $\overline{\bigcup_nF_n}$, where each $F_n$ has two matrix blocks, labelled by their sizes $d_{n,j}$; every edge has multiplicity one. (a) Every block grows, so by {prf:ref}`lem-un-block-growth` the algebra has no nonzero finite-dimensional representations. (b) A block of size $1$ survives at every level and receives an edge only from the block of size $1$ above it, so the projections onto it are compatible and give a one-dimensional representation. (Illustration added for the encyclopaedia.)
+:::
+
 :::{prf:theorem}
 :label: thm-un-af-unitary
 
