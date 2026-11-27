@@ -14,9 +14,12 @@ runs before anything is built) and returns:
   * the proofs in document order, with the statement each one proves and whether
     the proof comes straight after it;
   * the figures, with their numbers, captions and images, and the statements whose
-    proofs each one illustrates (\\illustrates).
+    proofs each one illustrates (\\illustrates);
+  * the subsections, and the subsection of each statement and each proof.
 
-map_data() turns these into the widget's data, with links for either version.
+map_data() turns these into the widget's data, with links for either version, and
+roadmap() the data of the roadmap at the top of each Proofs entry
+(myst/widgets/entry-roadmap.mjs).
 myst/tools/site_map.py also gives the statements of the MyST version these
 numbers, so that both versions number every statement alike.
 """
@@ -46,6 +49,7 @@ PROVES = re.compile(r"\\proves\{([^}]*)\}")
 FIGURE = re.compile(r"\\begin\{figure\}(.*?)\\end\{figure\}", re.S)
 ILLUSTRATES = re.compile(r"\\illustrates\{([^}]*)\}")
 IMAGE = re.compile(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]*)\}")
+SUBSECTION = re.compile(r"\\subsection\{")
 NESTED = re.compile(r"\\begin\{")
 
 
@@ -160,7 +164,7 @@ def read(latex_dir):
     latex_dir = Path(latex_dir)
     files = re.findall(r"\\input\{entries/([^}]+)\}", (latex_dir / "main.tex").read_text())
     entries, statements, deps, proved_in, aliases, proofs = [], [], {}, {}, {}, []
-    figures = []
+    figures, subsections = [], []
     raw = []  # (label, where, uses) before aliases are resolved
     section = 0
     for stem in files:
@@ -177,6 +181,21 @@ def read(latex_dir):
                                 image=img.group(1) if img else "",
                                 illustrates=[x.strip() for x in ill.group(1).split(",")
                                              if x.strip()] if ill else []))
+        # The subsections of the file, numbered within their section; the file's
+        # section starts at its \\section, whose number is the one after the current.
+        subs = []
+        for k, sm in enumerate(SUBSECTION.finditer(text), 1):
+            title, after = balanced(text, sm.end() - 1)
+            lab = re.match(r"\s*\\label\{([^}]*)\}", text[after:])
+            subs.append(sm.start())
+            subsections.append(dict(label=lab.group(1) if lab else "", title=title.strip(),
+                                    num=f"{section + 1}.{k}", file=stem, section=section + 1))
+        first_sub = len(subsections) - len(subs)
+
+        def subsection_at(pos):
+            k = sum(1 for start in subs if start <= pos)
+            return first_sub + k - 1 if k else None
+
         counter, last = 0, None
         prev_end, prev_label = 0, None  # the statement environment just closed
         for m in TOKEN.finditer(text):
@@ -199,7 +218,10 @@ def read(latex_dir):
                     raw.append((target, "proof", USES.findall(body), section))
                 follows = (target is not None and target == prev_label
                            and not text[prev_end:m.start()].strip())
-                proofs.append(dict(file=stem, target=target, section=section, follows=follows))
+                proofs.append(dict(file=stem, target=target, section=section, follows=follows,
+                                   subsection=subsection_at(m.start()),
+                                   uses=[x.strip() for u in USES.findall(body)
+                                         for x in u.split(",") if x.strip()]))
                 continue
             counter += 1
             title = optional_arg(text, m.end())
@@ -217,7 +239,8 @@ def read(latex_dir):
             raw.append((label, "statement", USES.findall(own), section))
             statements.append(dict(label=label, kind=env, num=f"{section}.{counter}",
                                    title=plain(title), cited="\\cite" in title,
-                                   section=section, file=stem))
+                                   section=section, file=stem,
+                                   subsection=subsection_at(m.start())))
     for label, where, found, sec in raw:
         label = aliases.get(label, label)
         d = deps.setdefault(label, {"statement": [], "proof": []})
@@ -230,8 +253,10 @@ def read(latex_dir):
         d["proof"] = [u for u in dict.fromkeys(d["proof"]) if u not in d["statement"]]
     for p in proofs:
         p["target"] = aliases.get(p["target"], p["target"])
+        p["uses"] = list(dict.fromkeys(aliases.get(u, u) for u in p["uses"]))
     return dict(entries=entries, statements=statements, deps=deps, proved_in=proved_in,
-                aliases=aliases, proofs=proofs, figures=figures)
+                aliases=aliases, proofs=proofs, figures=figures,
+                subsections=subsections)
 
 
 def proof_entries(src):
@@ -292,6 +317,113 @@ def induced(keep, pred):
             else:
                 stack.extend(pred.get(u, ()))
     return transitive_reduction(edges)
+
+
+KIND_NAME = {"theorem": "Theorem", "proposition": "Proposition", "corollary": "Corollary",
+             "lemma": "Lemma", "definition": "Definition", "conjecture": "Conjecture",
+             "example": "Example", "remark": "Remark"}
+
+
+def reduce_edges(edges):
+    """The edges whose ends no other path joins, removed one at a time, so that what
+    reaches what is kept even where the edges form cycles."""
+    kept = set(edges)
+
+    def reaches(a, b):
+        seen, stack = {a}, [a]
+        while stack:
+            x = stack.pop()
+            for u, v in kept:
+                if u == x and v not in seen:
+                    if v == b:
+                        return True
+                    seen.add(v)
+                    stack.append(v)
+        return False
+
+    for e in sorted(edges):
+        kept.discard(e)
+        if not reaches(*e):
+            kept.add(e)
+    return kept
+
+
+def roadmap(src, stem, version):
+    """The roadmap of a Proofs entry: its subsections in order, and an edge from one
+    subsection to another when a statement or proof in the second uses a statement of
+    the first. A statement whose proof is in another subsection of the entry, such as
+    a main result stated at the start, counts as part of the subsection of its proof,
+    which is said to prove it. version is "myst" or "latex", as for map_data()."""
+    entries = {e["n"]: e for e in src["entries"]}
+    by_label = {e["label"]: e for e in src["entries"] if e["label"]}
+    subs = [k for k, sub in enumerate(src["subsections"]) if sub["file"] == stem]
+    if not subs:
+        return None
+    st = {x["label"]: x for x in src["statements"]}
+    mine = {l: x for l, x in st.items() if x["file"] == stem}
+    proofs = [q for q in src["proofs"] if q["file"] == stem and q["subsection"] is not None]
+    home = {l: x["subsection"] for l, x in mine.items() if x["subsection"] is not None}
+    moved = {}
+    for q in proofs:
+        t = q["target"]
+        if t in mine and home.get(t) is not None and q["subsection"] != home[t] and t not in moved:
+            moved[t] = home[t]
+            home[t] = q["subsection"]
+
+    def page(n):
+        e = entries[n]
+        if version == "myst":
+            return "/" + myst_slug(e["file"]).rstrip("/")
+        return e["label"].replace(":", "-") + ".html"
+
+    def link(label):
+        x = st[label]
+        anchor = label.replace(":", "-", 1) if version == "myst" else label
+        here = x["file"] == stem
+        name = f'{KIND_NAME.get(x["kind"], x["kind"].capitalize())} {x["num"]}'
+        return dict(text=name, href=("" if here else page(x["section"])) + "#" + anchor)
+
+    def title(sub):
+        t = re.sub(r"Section~?\\ref\{([^}]*)\}",
+                   lambda m: f'Section {by_label[m.group(1)]["n"]}' if m.group(1) in by_label
+                   else "another section", sub["title"])
+        return plain(untex(t))
+
+    # Remarks and examples are left out: they comment on the results rather than
+    # build on them.
+    edges = set()
+    for l, x in mine.items():
+        if x["kind"] in ("remark", "example"):
+            continue
+        for u in src["deps"].get(l, {}).get("statement", []):
+            if u in home and l in home and home[u] != home[l]:
+                edges.add((home[u], home[l]))
+    for q in proofs:
+        if q["target"] in st and st[q["target"]]["kind"] in ("remark", "example"):
+            continue
+        for u in q["uses"]:
+            if u in home and home[u] != q["subsection"]:
+                edges.add((home[u], q["subsection"]))
+    rows = []
+    for k in subs:
+        sub = src["subsections"][k]
+        anchor = sub["label"].replace(":", "-", 1) if version == "myst" else sub["label"]
+        stated = [l for l, x in mine.items() if x["subsection"] == k]
+        others = []
+        for q in proofs:
+            if (q["subsection"] == k and q["target"] in st and q["target"] not in mine
+                    and q["target"] not in others):
+                others.append(q["target"])
+        rows.append(dict(
+            title=title(sub), num=sub["num"] if version == "latex" else "",
+            href="#" + anchor if sub["label"] else "",
+            statements=sum(1 for l in stated if st[l]["kind"] not in ("remark", "example")),
+            states=[link(l) for l in stated if l in moved],
+            proves=[link(l) for l, h in home.items() if h == k and l in moved],
+            provesElsewhere=[link(l) for l in others]))
+    index = {k: i for i, k in enumerate(subs)}
+    return dict(version=version, rows=rows,
+                edges=sorted([index[a], index[b]] for a, b in reduce_edges(edges)))
 
 
 def myst_slug(stem):

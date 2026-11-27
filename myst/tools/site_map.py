@@ -25,7 +25,7 @@ nothing the second time.
     folded (`:class: dropdown`), so that the statements can be scanned; the proofs
     of an entry's main results, which come later, stay open. Each Proofs entry
     opens with the statements of other entries that it proves, with links to their
-    proofs and proof trees.
+    proofs and proof trees, and with its roadmap (widgets/entry-roadmap.mjs).
   * The line "% map-of-the-encyclopaedia" in index.md becomes the map, drawn by
     widgets/encyclopaedia-map.mjs from data that latex/tools/site_map.py reads
     from the LaTeX sources.
@@ -90,6 +90,7 @@ class Context:
             self.proofs.setdefault(p["file"], []).append((t, lab, p["section"], p["follows"]))
             self.proof_label.setdefault(t, (lab, p["section"]))
         self.fold = site_map.proof_entries(src)
+        self.src = src
         self.figures = {myst_label(f["label"]): f for f in src["figures"] if f["label"]}
         self.illustrated = {}
         for f in src["figures"]:
@@ -116,7 +117,7 @@ class Context:
 
     def proved_block(self, stem):
         """For a Proofs entry: the statements of other entries whose proofs it holds,
-        and a word on the folded proofs."""
+        a word on the folded proofs, and the roadmap of the entry."""
         if stem not in self.fold:
             return []
         items = []
@@ -126,8 +127,13 @@ class Context:
                          f"[proof tree]({SITE}/proof-tree/#tree={label}))")
         rows = ["**Proved in this entry** " + ", ".join(items)] if items else []
         rows.append("Proofs that follow their statement are folded: click “Proof” to open one.")
-        return [":::{div}", ":class: dep-links proved-here", ""] + "\n\n".join(rows).split("\n") \
+        out = [":::{div}", ":class: dep-links proved-here", ""] + "\n\n".join(rows).split("\n") \
             + [":::", ""]
+        roadmap = site_map.roadmap(self.src, stem, "myst")
+        if roadmap:
+            out += [":::{anywidget} ../widgets/entry-roadmap.mjs",
+                    json.dumps({"data": roadmap}, ensure_ascii=False), ":::", ""]
+        return out
 
     def block(self, label):
         s, d = self.st[label], self.deps.get(label, {"statement": [], "proof": []})

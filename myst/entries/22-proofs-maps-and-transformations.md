@@ -496,6 +496,7 @@ factor in the norm topology, not as the full norm-topological universal
 minimal flow.
 :::
 
+(sec-pw-measure)=
 ## Convergence in measure and sampled topologies
 
 The opposite extreme from pointwise convergence is provided by measurable
@@ -873,6 +874,7 @@ is simply transitive, so it is the compact group's own universal minimal flow.
 {eq}`eq-pw-nonsingular-aut-umf` in every case.
 :::
 
+(sec-pw-wreath)=
 ## Wreath products and atomic decompositions
 
 Let a nonsingular transformation $T$ act on $L^0(Y,\mu;K)$ by
@@ -1481,6 +1483,7 @@ the stated skew action. The extremely amenable direct factor does not change
 the universal minimal flow by {prf:ref}`lem-pw-umf-principles`.
 :::
 
+(sec-pw-operator)=
 ## Operator-algebraic applications
 
 ### Weak unitary groups of injective and nuclear algebras
