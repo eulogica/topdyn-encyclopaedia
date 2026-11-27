@@ -46,6 +46,15 @@ contains a diagonal point $(a,a)$, which means that $c_1$ and $c_2$ are
 proximal.
 :::
 
+:::{figure} ../../figures/cantor-chain.svg
+:name: fig-cantor-chain
+:figclass: enc-figure
+:alt: The Cantor set E and the members E ∩ [0, t] of the standard chain for six values of t
+:width: 100%
+
+The standard chain of {prf:ref}`ex-standard-chain`: the ternary Cantor set $E$, drawn to depth six, and the members $E\cap[0,t]$ for six values of $t$. For $t=0$ the member is the root $\{0\}$. Every $t$ in a gap gives the same member, and the member for $t=2/3$ is the one for $t=1/3$ together with the point $2/3$.
+:::
+
 :::{prf:remark} Stone duality
 :label: rem-stone-duality
 
