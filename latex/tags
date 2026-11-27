@@ -497,3 +497,6 @@
 00DS fig:kernel-pattern
 00DT fig:tree-rays
 00DU fig:bratteli
+00DV sec:pw-measure
+00DW sec:pw-wreath
+00DX sec:pw-operator
