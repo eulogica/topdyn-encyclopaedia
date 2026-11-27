@@ -32,6 +32,15 @@ minimal subflow of $\widehat{G/H}$ is a universal minimal flow, and
 {prf:ref}`thm-ellis` identifies it with $M(G)$.
 :::
 
+:::{figure} ../../figures/completion-pattern.svg
+:name: fig-completion-pattern
+:figclass: enc-figure
+:alt: From G to its quotient by H and the completion, and from both onto a minimal flow X
+:width: 100%
+
+The argument of {prf:ref}`prop-coprecompact-ea`. The extremely amenable subgroup $H$ fixes a point $x_0$ of a minimal flow $X$. The map $gH\mapsto gx_0$ is uniformly continuous, so it extends to a $G$-map from the completion $\widehat{G/H}$ to $X$. The image of every minimal subflow of $\widehat{G/H}$ is closed and invariant, hence all of $X$. Several other proofs use the same argument; their links name this figure.
+:::
+
 :::{prf:example}
 :label: ex-lo-coprecompact
 
