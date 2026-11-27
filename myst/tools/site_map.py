@@ -17,6 +17,10 @@ nothing the second time.
   * After every statement comes a short block of links, from the \\uses lists of
     the LaTeX sources: what the statement and its proof use, what uses it, where
     its proof is when that is in another entry, its tag and its proof tree.
+  * Every figure gets its LaTeX twin's number, and the statements its proof
+    illustrates (\\illustrates in the LaTeX source) name it in their links. A
+    figure fig-NAME is followed by its interactive version, widgets/NAME.mjs,
+    when there is one.
   * In the Proofs entries, a proof that comes straight after its statement is
     folded (`:class: dropdown`), so that the statements can be scanned; the proofs
     of an entry's main results, which come later, stay open. Each Proofs entry
@@ -52,6 +56,7 @@ SITE = "https://topologicaldynamics.org"
 MARK = "% map-of-the-encyclopaedia"
 DONE = "% statement-links"
 DIRECTIVE = re.compile(r"^:::\{prf:(\w+)\}(.*)$")
+FIGURE = re.compile(r"^:::\{figure\}")
 OPTION = re.compile(r"^:(\w+):\s*(.*)$")
 ABBR = {"definition": "Def.", "theorem": "Thm.", "proposition": "Prop.", "corollary": "Cor.",
         "lemma": "Lem.", "conjecture": "Conj.", "example": "Ex.", "remark": "Rem."}
@@ -85,6 +90,11 @@ class Context:
             self.proofs.setdefault(p["file"], []).append((t, lab, p["section"], p["follows"]))
             self.proof_label.setdefault(t, (lab, p["section"]))
         self.fold = site_map.proof_entries(src)
+        self.figures = {myst_label(f["label"]): f for f in src["figures"] if f["label"]}
+        self.illustrated = {}
+        for f in src["figures"]:
+            for target in f["illustrates"]:
+                self.illustrated.setdefault(target, []).append(f)
         self.proved_here = site_map.proved_here(src)
         self.tags = {}
         for line in (ROOT / "latex" / "tags").read_text().splitlines():
@@ -132,6 +142,10 @@ class Context:
         if label in self.proof_label and self.proof_label[label][1] != s["section"]:
             lab, sec = self.proof_label[label]
             last.append(f"**Proof** in {{prf:ref}}`Section {sec} <{lab}>`")
+        figs = [f"[Fig. {f['num']}](#{myst_label(f['label'])})"
+                for f in self.illustrated.get(label, [])]
+        if figs:
+            last.insert(0, "Illustrated in " + " and ".join([", ".join(figs[:-1]), figs[-1]] if len(figs) > 1 else figs))
         last.append(f"[Proof tree]({SITE}/proof-tree/#tree={label})")
         if label in self.tags:
             tag = self.tags[label]
@@ -150,6 +164,25 @@ def annotate(path, ctx):
     out, numbered, linked, missing = [], 0, 0, []
     i = 0
     while i < len(lines):
+        if FIGURE.match(lines[i]):
+            j, options = i + 1, {}
+            while j < len(lines) and OPTION.match(lines[j]):
+                k, v = OPTION.match(lines[j]).groups()
+                options[k] = v.strip()
+                j += 1
+            end = j
+            while end < len(lines) and lines[end].strip() != ":::":
+                end += 1
+            fig = ctx.figures.get(options.get("name", options.get("label", "")))
+            out += lines[i:j]
+            if fig and "enumerator" not in options:
+                out.append(f":enumerator: {fig['num']}")
+            out += lines[j:end + 1]
+            widget = fig and MYST / "widgets" / f"{fig['label'].split(':', 1)[-1]}.mjs"
+            if widget and widget.exists():
+                out += ["", f":::{{anywidget}} ../widgets/{widget.name}", "{}", ":::"]
+            i = end + 1
+            continue
         m = DIRECTIVE.match(lines[i])
         if not m:
             out.append(lines[i])

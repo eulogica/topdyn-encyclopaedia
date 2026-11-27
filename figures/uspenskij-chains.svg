@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="680" height="300" viewBox="0 0 680 300" role="img" aria-label="A maximal chain of closed sets with its root; and two members F and gF of one chain, neither containing the other">
+<title>A maximal chain of closed sets with its root; and two members F and gF of one chain, neither containing the other</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#25303b"/></marker></defs>
+<g font-family="'STIX Two Text','Times New Roman',Times,serif" font-size="17" fill="#25303b">
+<ellipse cx="175.0" cy="150.0" rx="138.0" ry="106.0" fill="none" fill-opacity="1" stroke="#25303b" stroke-width="2"/>
+<ellipse cx="167.1" cy="157.9" rx="119.4" ry="91.7" fill="#dbe6f7" fill-opacity="0.35" stroke="#2f63b8" stroke-width="1.2"/>
+<ellipse cx="159.3" cy="165.7" rx="100.9" ry="77.4" fill="#dbe6f7" fill-opacity="0.35" stroke="#2f63b8" stroke-width="1.2"/>
+<ellipse cx="151.4" cy="173.6" rx="82.3" ry="63.1" fill="#dbe6f7" fill-opacity="0.35" stroke="#2f63b8" stroke-width="1.2"/>
+<ellipse cx="143.6" cy="181.4" rx="63.7" ry="48.9" fill="#dbe6f7" fill-opacity="0.35" stroke="#2f63b8" stroke-width="1.2"/>
+<ellipse cx="135.7" cy="189.3" rx="45.1" ry="34.6" fill="#dbe6f7" fill-opacity="0.35" stroke="#2f63b8" stroke-width="1.2"/>
+<ellipse cx="127.9" cy="197.1" rx="26.6" ry="20.3" fill="#dbe6f7" fill-opacity="0.35" stroke="#2f63b8" stroke-width="1.2"/>
+<circle cx="120.0" cy="205.0" r="4" fill="#25303b" stroke="#25303b" stroke-width="1.5"/>
+<line x1="116.0" y1="209.0" x2="62.0" y2="262.0" stroke="#5d6873" stroke-width="1"/>
+<text x="50.0" y="280.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">r(c)</text>
+<text x="285.0" y="70.0" font-size="19" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">X</text>
+<text x="175.0" y="290.0" font-size="16" text-anchor="middle" fill="#5d6873" font-weight="normal">(a)</text>
+<ellipse cx="510.0" cy="160.0" rx="160.0" ry="115.0" fill="none" fill-opacity="1" stroke="#25303b" stroke-width="2"/>
+<text x="655.0" y="70.0" font-size="19" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">X</text>
+<ellipse cx="465.0" cy="165.0" rx="78.0" ry="58.0" fill="#dbe6f7" fill-opacity="0.6" stroke="#2f63b8" stroke-width="1.6"/>
+<ellipse cx="555.0" cy="165.0" rx="78.0" ry="58.0" fill="#f8e3d2" fill-opacity="0.6" stroke="#c4661f" stroke-width="1.6"/>
+<text x="420.0" y="112.0" font-size="19" text-anchor="middle" fill="#2f63b8" font-weight="normal" font-style="italic">F</text>
+<text x="612.0" y="112.0" font-size="19" text-anchor="middle" fill="#c4661f" font-weight="normal" font-style="italic">gF</text>
+<circle cx="510.0" cy="150.0" r="3.5" fill="#25303b" stroke="#25303b" stroke-width="1.5"/>
+<circle cx="440.0" cy="185.0" r="3.5" fill="#25303b" stroke="#25303b" stroke-width="1.5"/>
+<circle cx="582.0" cy="185.0" r="3.5" fill="#25303b" stroke="#25303b" stroke-width="1.5"/>
+<text x="510.0" y="140.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">x</text>
+<text x="430.0" y="207.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">y</text>
+<text x="592.0" y="207.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">z</text>
+<path d="M446,195 Q510,250 576,195" fill="none" stroke="#25303b" stroke-width="1.3" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="510.0" y="246.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">g</text>
+<text x="510.0" y="290.0" font-size="16" text-anchor="middle" fill="#5d6873" font-weight="normal">(b)</text>
+</g>
+</svg>

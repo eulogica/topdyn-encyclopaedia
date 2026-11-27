@@ -8,4 +8,5 @@ latex/*.blg
 latex/*.toc
 latex/*.paux
 latex/main.pdf
+latex/_figures/
 __pycache__/

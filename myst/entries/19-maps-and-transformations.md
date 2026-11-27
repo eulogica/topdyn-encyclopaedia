@@ -35,6 +35,15 @@ $M(G)=Q$. Both facts are standard {cite}`Pestov2006`; see also
 Lemma 2.1 of {cite}`LupiniPointwise2026`.
 :::
 
+:::{figure} ../../figures/kernel-pattern.svg
+:name: fig-kernel-pattern
+:figclass: enc-figure
+:alt: An exact sequence with extremely amenable kernel N, and a minimal flow X on which G acts through the quotient G/N
+:width: 100%
+
+Part (1) of {prf:ref}`prop-ea-normal`. In a minimal $G$-flow $X$, the points fixed by the extremely amenable normal subgroup $N$ form a nonempty, closed and invariant set, hence all of $X$. So $G$ acts through $G/N$, and $M(G)$ is $M(G/N)$. Several other proofs use the same argument; their links name this figure.
+:::
+
 :::{prf:theorem} {cite:t}`HernandezRodenas2007,ShakhmatovSpevak2010`
 :label: thm-lupini-cp
 

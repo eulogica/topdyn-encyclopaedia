@@ -45,7 +45,7 @@ SITE = Path(sys.argv[1])
 SKIP = {"dep_graph_document.html", "graph.html", "tags.html"}
 KIND_ABBR = {"Definition": "Def.", "Theorem": "Thm.", "Proposition": "Prop.",
              "Corollary": "Cor.", "Lemma": "Lem.", "Remark": "Rem.",
-             "Example": "Ex.", "Conjecture": "Conj."}
+             "Example": "Ex.", "Conjecture": "Conj.", "Figure": "Fig."}
 KIND_FILL = {"Definition": "#e8f0e3", "Theorem": "#f6e3d3",
              "Proposition": "#e4ebf4", "Corollary": "#efe6f2",
              "Lemma": "#e4ebf4", "Conjecture": "#f4f0d8"}
@@ -79,6 +79,10 @@ nav.toc ul.extra-nav{margin-top:1.2em;padding-top:.8em;border-top:1px solid rgba
   padding:.3em .8em;margin:.3em 0 1.2em}
 .dep-links p{margin:.15em 0}.dep-links b{color:#2b3540;font-weight:600}
 .dep-links.proved-here{margin:.8em 0 1.4em}
+figure{margin:1.2em 0 1.4em}
+figure img{display:block;margin:0 auto}
+figure>.tag-badge{align-self:center;margin:.4em 0 0}
+.enc-widget{margin:.4em 0 1.6em}
 .dep-links button.all-proofs{font:inherit;color:inherit;background:none;border:1px solid #a9b8c9;
   border-radius:3px;padding:.05em .5em;cursor:pointer}
 .graph-legend i.cited{background:#fff;border-style:dashed}
@@ -94,7 +98,7 @@ CITE_RE = re.compile(r"\\cite\[([^\]]*)\]\{([^}]*)\}")
 RESULT_LOCATOR = re.compile(r"\b(Theorems?|Lemmas?|Propositions?|Corollar(?:y|ies)|Facts?|Claims?)\b")
 POINTER_BEFORE = re.compile(r"see also|compare|\bcf\.|fuller|for (?:a|another) (?:different|second)|"
                             r"history|in contrast|unlike", re.I)
-TREE_SKIP = {"Section", "Remark", "Example"}
+TREE_SKIP = {"Section", "Remark", "Example", "Figure"}
 LONGEST_LIST = 12  # longer lists of links after a statement end with a link to its tag page
 MAX_TREE = 120
 
@@ -118,7 +122,10 @@ def load_pages():
 
 
 def describe(el):
-    """(kind, number, title) of a statement block or a section heading."""
+    """(kind, number, title) of a statement block, a figure or a section heading."""
+    if el.name == "figure":
+        ref = el.find("span", class_="caption_ref")
+        return "Figure", ref.get_text(strip=True) if ref else "", ""
     classes = " ".join(el.get("class", []))
     if "_thmwrapper" in classes:
         def part(suffix):
@@ -394,6 +401,24 @@ def main():
     pairs = read_tags()
     tag_of = {label: tag for tag, label in pairs}
     pages = load_pages()
+
+    # Figures: plasTeX shows a PNG copy, with the \\includegraphics command as alt text.
+    # Show the SVG instead (from ../figures, drawn by figures/make_figures.py), and give it
+    # the figure's own description as alt text.
+    figures_dir = ROOT.parent / "figures"
+    for soup in pages.values():
+        for fig in soup.find_all("figure"):
+            img = fig.find("img")
+            m = re.search(r"\{([^{}]*)\}\s*$", img.get("alt", "")) if img else None
+            svg_file = figures_dir / f"{m.group(1)}.svg" if m else None
+            if not svg_file or not svg_file.exists():
+                continue
+            (SITE / "figures").mkdir(exist_ok=True)
+            shutil.copy(svg_file, SITE / "figures" / svg_file.name)
+            title = re.search(r"<title>(.*?)</title>", svg_file.read_text(), re.S)
+            img["src"] = f"figures/{svg_file.name}"
+            img["alt"] = html.unescape(title.group(1)) if title else ""
+            img["style"] = "width:100%;max-width:680px;height:auto"
     locs = source_locations()
 
     # Locate every tagged item.
@@ -644,8 +669,15 @@ def main():
             shown += f', <a href="tag/{items[label]["tag"]}.html">and {len(keys) - LONGEST_LIST} more</a>'
         return shown
 
+    # The figures that illustrate each statement's proof (\\illustrates in the sources).
+    illustrated = {}
+    for f in site_map.read(ROOT)["figures"]:
+        for target in f["illustrates"]:
+            if f["label"] in items:
+                illustrated.setdefault(target, []).append(f["label"])
+
     for label, it in items.items():
-        if it["kind"] == "Section":
+        if it["kind"] in ("Section", "Figure"):
             continue
         el = pages[it["page"]].find(id=label)
         nxt = el.find_next_sibling() if el else None
@@ -662,6 +694,10 @@ def main():
             if target != it["page"] and target in section_of:
                 last.append(f'<b>Proof</b> in <a href="{html.escape(a["href"])}">Section {section_of[target][0]}</a>')
             break
+        figs = [f'<a href="{items[fig]["page"]}#{html.escape(fig)}">Fig.&nbsp;{items[fig]["num"]}</a>'
+                for fig in illustrated.get(label, [])]
+        if figs:
+            last.insert(0, "Illustrated in " + " and ".join([", ".join(figs[:-1]), figs[-1]] if len(figs) > 1 else figs))
         last.append(f'<a href="../proof-tree/#tree={html.escape(label)}">Proof tree</a>')
         rows.append(" · ".join(last))
         nav = frag(f'<nav class="dep-links" aria-label="Links for {html.escape(site_map.untex(name_of(label)))}">'
@@ -736,6 +772,24 @@ def main():
             '});')
         soup.body.append(script)
     print(f"folded {folded} proofs in the Proofs entries")
+
+    # Interactive figures: a figure fig:NAME is followed by the widget
+    # myst/widgets/NAME.mjs when there is one, as on the MyST site (tools/site_map.py).
+    for soup in pages.values():
+        for fig in soup.find_all("figure", id=True):
+            name = fig["id"].split(":", 1)[-1]
+            widget = ROOT.parent / "myst" / "widgets" / f"{name}.mjs"
+            if not fig["id"].startswith("fig:") or not widget.exists() \
+                    or soup.find(id=f"widget-{name}"):
+                continue
+            (SITE / "widgets").mkdir(exist_ok=True)
+            shutil.copy(widget, SITE / "widgets" / widget.name)
+            block = frag(f'<div class="enc-widget" id="widget-{name}"></div>'
+                         f'<script type="module">import w from "./widgets/{widget.name}";'
+                         f'w.render({{model:{{get:()=>undefined}},'
+                         f'el:document.getElementById("widget-{name}")}});</script>')
+            for node in reversed(block):
+                fig.insert_after(node)
 
     # The map of the encyclopaedia on the front page, drawn by the widget that the
     # MyST front page also uses (myst/widgets/encyclopaedia-map.mjs).

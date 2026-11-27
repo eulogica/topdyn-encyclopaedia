@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="680" height="290" viewBox="0 0 680 290" role="img" aria-label="An exact sequence with extremely amenable kernel N, and a minimal flow X on which G acts through the quotient G/N">
+<title>An exact sequence with extremely amenable kernel N, and a minimal flow X on which G acts through the quotient G/N</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#25303b"/></marker></defs>
+<g font-family="'STIX Two Text','Times New Roman',Times,serif" font-size="17" fill="#25303b">
+<text x="80.0" y="62.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal">1</text>
+<text x="200.0" y="62.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">N</text>
+<text x="340.0" y="62.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">G</text>
+<text x="480.0" y="62.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">G/N</text>
+<text x="600.0" y="62.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal">1</text>
+<line x1="102.0" y1="56.0" x2="174.0" y2="56.0" stroke="#25303b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="222.0" y1="56.0" x2="314.0" y2="56.0" stroke="#25303b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="362.0" y1="56.0" x2="454.0" y2="56.0" stroke="#25303b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="502.0" y1="56.0" x2="574.0" y2="56.0" stroke="#25303b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="200.0" y="90.0" font-size="14" text-anchor="middle" fill="#5d6873" font-weight="normal">extremely amenable</text>
+<ellipse cx="410.0" cy="215.0" rx="70.0" ry="34.0" fill="#dbe6f7" fill-opacity="0.6" stroke="#2f63b8" stroke-width="1.5"/>
+<text x="410.0" y="221.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">X</text>
+<path d="M340,78 Q330,150 352,197" fill="none" stroke="#2f63b8" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M480,78 Q490,150 468,197" fill="none" stroke="#c4661f" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="272.0" y="150.0" font-size="14" text-anchor="middle" fill="#2f63b8" font-weight="normal">acts</text>
+<text x="555.0" y="150.0" font-size="14" text-anchor="middle" fill="#c4661f" font-weight="normal">acts through</text>
+<text x="555.0" y="168.0" font-size="14" text-anchor="middle" fill="#c4661f" font-weight="normal">the quotient</text>
+<text x="410.0" y="272.0" font-size="14" text-anchor="middle" fill="#5d6873" font-weight="normal">every point of a minimal flow is fixed by <tspan font-style="italic">N</tspan></text>
+</g>
+</svg>

@@ -6,6 +6,14 @@ set -euo pipefail
 cd "$(dirname "$0")"
 OUT="${1:-../_site/latex}"
 export TEXINPUTS=".:" BIBINPUTS="..:"
+# Figures: PDF copies of ../figures/*.svg for pdflatex, PNG copies for plasTeX (whose
+# pages postprocess.py then points back to the SVG files).
+mkdir -p _figures
+for svg in ../figures/*.svg; do
+  name="$(basename "$svg" .svg)"
+  rsvg-convert -f pdf -o "_figures/$name.pdf" "$svg"
+  rsvg-convert -f png -o "_figures/$name.png" "$svg"
+done
 
 python3 tools/tags.py assign          # gives new \label{...} a permanent tag (append-only)
 

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="680" height="270" viewBox="0 0 680 270" role="img" aria-label="From G to its quotient by H and the completion, and from both onto a minimal flow X">
+<title>From G to its quotient by H and the completion, and from both onto a minimal flow X</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#25303b"/></marker></defs>
+<g font-family="'STIX Two Text','Times New Roman',Times,serif" font-size="17" fill="#25303b">
+<text x="90.0" y="70.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">G</text>
+<text x="300.0" y="70.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">G/H</text>
+<text x="540.0" y="70.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">G/H</text>
+<path d="M521.0,56.0 L540.0,49.0 L559.0,56.0" fill="none" stroke="#25303b" stroke-width="1.2"/>
+<text x="420.0" y="210.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">X</text>
+<line x1="112.0" y1="64.0" x2="266.0" y2="64.0" stroke="#25303b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="334.0" y1="64.0" x2="506.0" y2="64.0" stroke="#25303b" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<text x="420.0" y="50.0" font-size="14" text-anchor="middle" fill="#5d6873" font-weight="normal">dense</text>
+<line x1="314.0" y1="84.0" x2="398.0" y2="188.0" stroke="#2f63b8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="168.0" font-size="17" text-anchor="middle" fill="#2f63b8" font-weight="normal"><tspan font-style="italic">gH</tspan> ↦ <tspan font-style="italic">g</tspan><tspan font-style="italic">x</tspan><tspan baseline-shift="sub" font-size="12">0</tspan></text>
+<line x1="528.0" y1="84.0" x2="442.0" y2="188.0" stroke="#c4661f" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="590.0" y="150.0" font-size="14" text-anchor="middle" fill="#c4661f" font-weight="normal">extends; onto,</text>
+<text x="590.0" y="168.0" font-size="14" text-anchor="middle" fill="#c4661f" font-weight="normal">by minimality</text>
+<text x="420.0" y="248.0" font-size="14" text-anchor="middle" fill="#5d6873" font-weight="normal">a minimal flow, with a point <tspan font-style="italic">x</tspan><tspan baseline-shift="sub" font-size="12">0</tspan> fixed by the extremely amenable subgroup <tspan font-style="italic">H</tspan></text>
+</g>
+</svg>
