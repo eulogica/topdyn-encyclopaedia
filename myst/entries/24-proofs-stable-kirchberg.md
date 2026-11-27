@@ -463,7 +463,7 @@ $$
 This notation fixes the implementer convention for nonunital algebras.
 
 The stable nuclear norm-unitary theorem proved in
-[](#sec-st-stable-proof) gives the multiplier conclusion through
+[](#sec-st-unitaries) gives the multiplier conclusion through
 strict approximation. Its proof uses stable uniqueness and Haar
 concentration and does not depend on the present section.
 
@@ -1720,7 +1720,7 @@ following it give the statements after unitisation. The final assertions, for
 nonzero simple stable $C$, are {prf:ref}`cor-st-direct-sum-bohr-general`.
 :::
 
-(sec-st-stable-proof)=
+(sec-st-unitaries)=
 ## Stable nuclear norm-unitary groups
 
 For this section $A$ denotes a unital coefficient algebra and
