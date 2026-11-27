@@ -48,3 +48,5 @@ site:
   template: book-theme
   options:
     logo_text: Topological dynamics
+    # Styles for the links after each statement (see tools/site_map.py).
+    style: ./encyclopaedia.css
