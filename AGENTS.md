@@ -80,6 +80,19 @@ this table.
   for sections. Citations: ``{cite}`Ellis1960` ``.
 * Math between `$...$` or `$$...$$`, standard LaTeX only.
 * There are no dependency lists or permanent tags in this version.
+* Do not write numbers in the MyST files. Before `myst build`,
+  `myst/tools/site_map.py` gives every statement the number of its LaTeX twin
+  (`:enumerator: 5.2`) and leaves proofs unnumbered, so that both versions
+  number statements alike and a reference to another page reads
+  "Proposition 3.2". A statement whose label has no LaTeX twin keeps mystmd's
+  own numbering, which starts again on every page.
+* The front page of both versions shows the map of the encyclopaedia, drawn by
+  `myst/widgets/encyclopaedia-map.mjs`: the entries by strand, and for each
+  strand a map of its results. Its data come from the LaTeX sources through
+  `latex/tools/site_map.py`, whose `STRANDS` list names the first entry of each
+  strand; a new entry joins the strand of the entry before it. In
+  `myst/index.md` the line `% map-of-the-encyclopaedia` marks where the map
+  goes; on the LaTeX site `postprocess.py` puts it under the title.
 * The same files build with two engines:
   * Sphinx (older engine, configured in `myst/conf.py`):
     `cd myst && ./build.sh` → `_site/myst/index.html`.
@@ -98,7 +111,9 @@ this table.
   `github:` field of `myst/myst.yml` adds an edit link and
   `myst/tools/source_links.py`, run by the workflow before `myst build`, adds
   a footer. Neither needs maintaining by hand, provided the two versions of an
-  entry keep the same file name.
+  entry keep the same file name. The workflow runs `myst/tools/site_map.py` at
+  the same point, then restores the MyST files, so the Sphinx check sees them
+  as they are in the repository.
 * **Every push to `main` is published** at <https://topologicaldynamics.org>
   (mystmd build at the root, LaTeX build at `/latex/`). Work on a branch and
   open a pull request; the build workflow in `.github/workflows/build.yml` must
