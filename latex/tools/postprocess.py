@@ -78,6 +78,9 @@ nav.toc ul.extra-nav{margin-top:1.2em;padding-top:.8em;border-top:1px solid rgba
 .dep-links{font-size:.85em;line-height:1.5;color:#4a5560;background:#f3f5f8;border-left:3px solid #a9b8c9;
   padding:.3em .8em;margin:.3em 0 1.2em}
 .dep-links p{margin:.15em 0}.dep-links b{color:#2b3540;font-weight:600}
+.dep-links.proved-here{margin:.8em 0 1.4em}
+.dep-links button.all-proofs{font:inherit;color:inherit;background:none;border:1px solid #a9b8c9;
+  border-radius:3px;padding:.05em .5em;cursor:pointer}
 .graph-legend i.cited{background:#fff;border-style:dashed}
 .graph-legend i.this{background:#fff;border:2px solid #2e4a6b}
 """
@@ -664,6 +667,75 @@ def main():
         nav = frag(f'<nav class="dep-links" aria-label="Links for {html.escape(site_map.untex(name_of(label)))}">'
                    + "".join(f"<p>{r}</p>" for r in rows) + "</nav>")
         el.insert_after(nav[0])
+
+    # The Proofs entries: a proof that comes straight after its statement starts
+    # folded (click its heading to open it), so that the statements can be scanned;
+    # the proofs of an entry's main results, which come later, stay open. Each entry
+    # opens with the statements of other entries that it proves. The same proofs are
+    # folded on the MyST site (myst/tools/site_map.py).
+    src = site_map.read(ROOT)
+    page_of_file = {e["file"]: e["label"].replace(":", "-") + ".html" for e in src["entries"]}
+    folded = 0
+    for stem in sorted(site_map.proof_entries(src)):
+        soup = pages.get(page_of_file.get(stem))
+        if soup is None:
+            continue
+        wrappers = soup.select("div.proof_wrapper")
+        proofs = [p for p in src["proofs"] if p["file"] == stem]
+        if len(wrappers) != len(proofs):
+            print(f"{stem}: {len(wrappers)} proofs on the page, {len(proofs)} in the source; "
+                  "none folded")
+            continue
+        for w, p in zip(wrappers, proofs):
+            if p["follows"]:
+                w["class"] = w.get("class", []) + ["folded"]
+                content = w.find("div", class_="proof_content")
+                arrow = w.find("span", class_="expand-proof")
+                if content is not None:
+                    content["style"] = "display:none"
+                if arrow is not None:
+                    arrow.string = "▶"
+                folded += 1
+        rows = []
+        here = site_map.proved_here(src).get(stem, [])
+        if here:
+            links = []
+            for label in here:
+                proof = next((a["href"] for a in pages[items[label]["page"]].find(id=label)
+                              .select(".thm_header_hidden_extras a.proof[href]")
+                              if a.find("svg") is not None), None)
+                extra = f'<a href="{html.escape(proof)}">proof</a> · ' if proof else ""
+                links.append(f'{ref(label)} ({extra}<a href="../proof-tree/#tree='
+                             f'{html.escape(label)}">proof tree</a>)')
+            rows.append("<b>Proved in this entry</b> " + ", ".join(links))
+        rows.append('Proofs that follow their statement are folded: click “Proof” to open one, '
+                    'or <button type="button" class="all-proofs">open all proofs</button>')
+        nav = frag('<nav class="dep-links proved-here" aria-label="About this entry">'
+                   + "".join(f"<p>{r}</p>" for r in rows) + "</nav>")
+        main_text = soup.find("div", class_="main-text")
+        first = main_text.find("h2") if main_text else None
+        if first is not None and not soup.find("nav", class_="proved-here"):
+            first.insert_before(nav[0])
+        script = soup.new_tag("script")
+        script.string = (
+            'document.addEventListener("DOMContentLoaded",function(){'
+            'function set(w,open){var c=w.querySelector(".proof_content"),'
+            'a=w.querySelector(".expand-proof");if(c)c.style.display=open?"":"none";'
+            'if(a)a.textContent=open?"▼":"▶";}'
+            'var b=document.querySelector("button.all-proofs");'
+            'if(b)b.addEventListener("click",function(){var open=b.dataset.open!=="1";'
+            'document.querySelectorAll("div.proof_wrapper.folded").forEach(function(w){set(w,open)});'
+            'b.dataset.open=open?"1":"";b.textContent=open?"fold them again":"open all proofs";});'
+            'function reveal(id){var t=id&&document.getElementById(id);'
+            'var w=t&&t.closest("div.proof_wrapper");if(w)set(w,true);}'
+            'reveal(decodeURIComponent(location.hash.slice(1)));'
+            'window.addEventListener("hashchange",function(){'
+            'reveal(decodeURIComponent(location.hash.slice(1)))});'
+            'document.querySelectorAll("a.proof[href]").forEach(function(a){'
+            'a.addEventListener("click",function(){reveal(a.getAttribute("href").split("#")[1])})});'
+            '});')
+        soup.body.append(script)
+    print(f"folded {folded} proofs in the Proofs entries")
 
     # The map of the encyclopaedia on the front page, drawn by the widget that the
     # MyST front page also uses (myst/widgets/encyclopaedia-map.mjs).
