@@ -26,6 +26,7 @@ import copy
 import html
 import json
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -33,6 +34,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 import proof_tree_page
+import site_map
 
 ROOT = Path(__file__).resolve().parent.parent
 REPO = "https://github.com/eulogica/topdyn-encyclopaedia"
@@ -615,6 +617,32 @@ def main():
                                            tag_prefix="../../latex/tag/", bib_prefix="../../latex/"),
         legend=tree_legend, sections=section_of)
     print("interactive proof tree: %d nodes, %d dependencies, %d main results, in %s" % (count + (out,)))
+
+    # The map of the encyclopaedia on the front page, drawn by the widget that the
+    # MyST front page also uses (myst/widgets/encyclopaedia-map.mjs).
+    widget = ROOT.parent / "myst" / "widgets" / "encyclopaedia-map.mjs"
+    if widget.exists():
+        (SITE / "widgets").mkdir(exist_ok=True)
+        shutil.copy(widget, SITE / "widgets" / widget.name)
+        data = json.dumps(site_map.map_data(site_map.read(ROOT), "latex"), ensure_ascii=False)
+        data = data.replace("</", "<\\/")
+        front = pages["index.html"]
+        title = front.find("div", class_="titlepage")
+        block = frag(
+            '<h2 class="map-title">Map of the encyclopaedia</h2>'
+            '<div id="encyclopaedia-map" style="max-width:1180px"></div>'
+            f'<script type="application/json" id="encyclopaedia-map-data">{data}</script>'
+            '<script type="module">import map from "./widgets/encyclopaedia-map.mjs";'
+            'const data=JSON.parse(document.getElementById("encyclopaedia-map-data").textContent);'
+            'map.render({model:{get:k=>k==="data"?data:undefined},el:document.getElementById("encyclopaedia-map")});'
+            '</script>')
+        if title and not front.find(id="encyclopaedia-map"):
+            for node in reversed(block):
+                title.insert_after(node)
+            wrapper = front.find("div", class_="content-wrapper")
+            if wrapper:
+                wrapper["class"] = ["content-wrapper", "wide"]
+        print("map of the encyclopaedia on the front page")
 
     (SITE / "styles" / "encyclopaedia.css").write_text(CSS)
     for name, soup in pages.items():
