@@ -13,7 +13,9 @@ The same entries are also available in a
 for every statement, a dependency graph and a PDF. The
 [interactive proof tree](https://topologicaldynamics.org/proof-tree/) draws
 every statement with what it rests on; selecting a result shows its
-statement, its proof and its proof tree.
+statement, its proof and its proof tree. The
+[proof trees of the main results](https://topologicaldynamics.org/proof-tree/main/),
+the theorems that no other statement uses, are collected on one page.
 
 **Conventions.** Topological groups and compact spaces are Hausdorff. Actions
 are left actions. Conventions on left and right uniform structures differ
