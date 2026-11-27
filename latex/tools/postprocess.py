@@ -17,7 +17,8 @@ Adds, on top of plasTeX + plastexdepgraph:
   * extra navigation links and a small stylesheet;
   * the interactive proof tree of the whole encyclopaedia, written by
     proof_tree_page.py to proof-tree/index.html beside SITE_DIR (so at
-    /proof-tree/ when SITE_DIR is the site's latex/ folder).
+    /proof-tree/ when SITE_DIR is the site's latex/ folder), and the proof
+    trees of the main results at proof-tree/main/index.html.
 
 Usage: python3 tools/postprocess.py SITE_DIR
 """
@@ -327,8 +328,10 @@ def transitive_reduction(edges):
     return {(u, v) for u, v in edges if not reaches(u, v, (u, v))}
 
 
-def proof_tree_svg(root, items, uses, cites, bib, name_of):
-    """SVG of what the statement `root` rests on, or None if it rests on nothing."""
+def proof_tree_svg(root, items, uses, cites, bib, name_of, tag_prefix="", bib_prefix="../"):
+    """SVG of what the statement `root` rests on, or None if it rests on nothing. Its boxes
+    link to tag_prefix + "XXXX.html" and to bib_prefix + the bibliography entry; the
+    defaults suit the tag pages."""
     order = {label: i for i, label in enumerate(items)}
     seen, stack = set(), [root]
     while stack:
@@ -359,14 +362,14 @@ def proof_tree_svg(root, items, uses, cites, bib, name_of):
         extra = ', penwidth=2.2, color="#2e4a6b"' if label == root else ""
         tip = name_of(label).replace('"', "'").replace("\\", "")
         lines.append(f'"{label}" [label="{text}", shape={shape}, style=filled, '
-                     f'fillcolor="{KIND_FILL.get(it["kind"], "#ffffff")}", URL="{it["tag"]}.html", '
+                     f'fillcolor="{KIND_FILL.get(it["kind"], "#ffffff")}", URL="{tag_prefix}{it["tag"]}.html", '
                      f'target="_top", tooltip="{tip} - Tag {it["tag"]}"{extra}];')
     edges = {(u, v) for v in nodes for u in uses.get(v, ()) if u in seen}
     edges |= {(cid, v) for cid, _, _, v in cited}
     for cid, key, loc in dict.fromkeys(c[:3] for c in cited):
         href, num = bib[key]
         lines.append(f'"{cid}" [label="[{num}, {loc}]", shape=box, style="dashed", '
-                     f'URL="../{href}", target="_top", tooltip="Cited result: [{num}, {loc}]"];')
+                     f'URL="{bib_prefix}{href}", target="_top", tooltip="Cited result: [{num}, {loc}]"];')
     for u, v in sorted(transitive_reduction(edges)):
         lines.append(f'"{u}" -> "{v}"{" [style=dashed]" if u.startswith("cite:") else ""};')
     lines.append("}")
@@ -597,12 +600,20 @@ def main():
                 main_text.insert(0, node)
 
     # The interactive proof tree of the whole encyclopaedia, next to the LaTeX
-    # version: _site/proof-tree/ when this is _site/latex/.
+    # version: _site/proof-tree/ when this is _site/latex/, and the proof trees of
+    # the main results, drawn as on the tag pages, at _site/proof-tree/main/.
     out = SITE.resolve().parent / "proof-tree" / "index.html"
+    tree_legend = "".join(f'<span><i style="background:{c}"></i>{k}</span>'
+                          for k, c in KIND_FILL.items() if k != "Lemma")
+    tree_legend += ('<span><i class="cited"></i>Cited result</span>'
+                    '<span><i class="this"></i>The main result</span>')
     count = proof_tree_page.write(
         out, items, {l: it["uses"] for l, it in items.items()},
         {l: it["uses_proof"] for l, it in items.items()}, cites, bib, pages, locs,
-        ROOT.parent / "myst", KIND_ABBR)
+        ROOT.parent / "myst", KIND_ABBR,
+        trees=lambda label: proof_tree_svg(label, items, uses_all, cites, bib, name_of,
+                                           tag_prefix="../../latex/tag/", bib_prefix="../../latex/"),
+        legend=tree_legend, sections=section_of)
     print("interactive proof tree: %d nodes, %d dependencies, %d main results, in %s" % (count + (out,)))
 
     (SITE / "styles" / "encyclopaedia.css").write_text(CSS)
