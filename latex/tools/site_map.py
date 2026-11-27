@@ -12,7 +12,9 @@ runs before anything is built) and returns:
     section), title, kind and the section where its proof is;
   * what each statement and each proof declares with \\uses;
   * the proofs in document order, with the statement each one proves and whether
-    the proof comes straight after it.
+    the proof comes straight after it;
+  * the figures, with their numbers, captions and images, and the statements whose
+    proofs each one illustrates (\\illustrates).
 
 map_data() turns these into the widget's data, with links for either version.
 myst/tools/site_map.py also gives the statements of the MyST version these
@@ -41,6 +43,9 @@ TOKEN = re.compile(r"\\section\{|\\begin\{(%s|proof)\}" % "|".join(KINDS))
 LABEL = re.compile(r"\\label\{([^}]*)\}")
 USES = re.compile(r"\\uses\{([^}]*)\}")
 PROVES = re.compile(r"\\proves\{([^}]*)\}")
+FIGURE = re.compile(r"\\begin\{figure\}(.*?)\\end\{figure\}", re.S)
+ILLUSTRATES = re.compile(r"\\illustrates\{([^}]*)\}")
+IMAGE = re.compile(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]*)\}")
 NESTED = re.compile(r"\\begin\{")
 
 
@@ -155,11 +160,23 @@ def read(latex_dir):
     latex_dir = Path(latex_dir)
     files = re.findall(r"\\input\{entries/([^}]+)\}", (latex_dir / "main.tex").read_text())
     entries, statements, deps, proved_in, aliases, proofs = [], [], {}, {}, {}, []
+    figures = []
     raw = []  # (label, where, uses) before aliases are resolved
     section = 0
     for stem in files:
         text = (latex_dir / "entries" / f"{stem}.tex").read_text()
         text = re.sub(r"(?<!\\)%.*", "", text)
+        # Figures are numbered within their section, as \\numberwithin{figure}{section}.
+        for k, fm in enumerate(FIGURE.finditer(text), 1):
+            body = fm.group(1)
+            cap = body.find("\\caption{")
+            caption = balanced(body, cap + len("\\caption"))[0] if cap >= 0 else ""
+            lab, img, ill = LABEL.search(body), IMAGE.search(body), ILLUSTRATES.search(body)
+            figures.append(dict(label=lab.group(1) if lab else "", num=f"{section + 1}.{k}",
+                                file=stem, section=section + 1, caption=caption,
+                                image=img.group(1) if img else "",
+                                illustrates=[x.strip() for x in ill.group(1).split(",")
+                                             if x.strip()] if ill else []))
         counter, last = 0, None
         prev_end, prev_label = 0, None  # the statement environment just closed
         for m in TOKEN.finditer(text):
@@ -214,7 +231,7 @@ def read(latex_dir):
     for p in proofs:
         p["target"] = aliases.get(p["target"], p["target"])
     return dict(entries=entries, statements=statements, deps=deps, proved_in=proved_in,
-                aliases=aliases, proofs=proofs)
+                aliases=aliases, proofs=proofs, figures=figures)
 
 
 def proof_entries(src):
