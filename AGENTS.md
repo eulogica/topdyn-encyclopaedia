@@ -51,7 +51,10 @@ this table.
   a citation after "see also" or "compare" counts as a pointer and is left
   out. The same data build the interactive proof tree of the whole
   encyclopaedia at `/proof-tree/` (`latex/tools/proof_tree_page.py`, called by
-  `postprocess.py`).
+  `postprocess.py`), and the page `/proof-tree/main/` of the proof trees of the
+  main results, the theorems that no other statement uses. A theorem that is
+  really a step in a later proof becomes a main result if that proof does not
+  list it in its `\uses`.
 * Only standard LaTeX and AMS commands inside math. Do **not** define macros
   for use in formulas: the web version is rendered by MathJax, which does not
   see the preamble.

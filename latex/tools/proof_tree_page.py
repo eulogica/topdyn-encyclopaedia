@@ -9,6 +9,10 @@ and links to it in both versions and to its tag page; "Show what it rests on" ke
 only its proof tree. Links of the form /proof-tree/#tree=thm:ellis open a proof tree,
 and /proof-tree/#thm:ellis selects a statement.
 
+With trees= (a function from a label to the SVG of its proof tree, as on the tag
+pages), write() also writes /proof-tree/main/: every main result, in order, with its
+statement and its proof tree.
+
 The viewer is adapted from the proof-tree skill's interactive page.
 """
 
@@ -74,9 +78,12 @@ def bibliography(pages):
     return out
 
 
-def write(out_file, items, uses_stmt, uses_proof, cites, bib_links, pages, locs, myst_dir, kind_abbr):
+def write(out_file, items, uses_stmt, uses_proof, cites, bib_links, pages, locs, myst_dir, kind_abbr,
+          trees=None, legend="", sections=None):
     """items: label -> dict(tag, page, kind, num, title); uses_*: label -> [labels];
-    cites: label -> [(key, locator)]; bib_links: key -> (href, number)."""
+    cites: label -> [(key, locator)]; bib_links: key -> (href, number). With trees, also
+    write main/index.html beside out_file; legend is the key to the trees' colours and
+    sections maps a page to its section's (number, title)."""
     slugs = myst_slugs(myst_dir)
     bib_text = bibliography(pages)
     keep = [l for l, it in items.items() if it["kind"] in FAMILY]
@@ -146,7 +153,85 @@ def write(out_file, items, uses_stmt, uses_proof, cites, bib_links, pages, locs,
     out_file = Path(out_file)
     out_file.parent.mkdir(parents=True, exist_ok=True)
     out_file.write_text(page)
+    if trees:
+        main_file = out_file.parent / "main" / "index.html"
+        drawn = write_main(main_file, [n for n in nodes if n["main"]], items, uses_stmt, uses_proof,
+                           cites, bib_links, trees, legend, sections or {})
+        print("proof trees of the main results: %d of %d drawn, in %s"
+              % (drawn, sum(n["main"] for n in nodes), main_file))
     return len(nodes), len(edges), sum(n["main"] for n in nodes)
+
+
+TREE_KINDS_LEFT_OUT = {"Section", "Remark", "Example"}
+
+
+def plural(n, one, many):
+    return f"{n or 'no'} {one if n == 1 else many}"
+
+
+def rests_on(label, items, uses_stmt, uses_proof, cites, bib_links):
+    """What the proof tree of label contains: results, definitions, cited results."""
+    seen, stack = set(), [label]
+    while stack:
+        v = stack.pop()
+        for u in uses_stmt.get(v, []) + uses_proof.get(v, []):
+            if u in items and u != label and u not in seen and items[u]["kind"] not in TREE_KINDS_LEFT_OUT:
+                seen.add(u)
+                stack.append(u)
+    defs = sum(1 for u in seen if FAMILY.get(items[u]["kind"]) == "definition")
+    cited = {(k, loc) for v in seen | {label} for k, loc in cites.get(v, []) if k in bib_links}
+    return len(seen) - defs, defs, len(cited)
+
+
+def one_level_down(fragment, items):
+    """A statement cleaned for /proof-tree/, adjusted for /proof-tree/main/: links between
+    statements go to their tag pages, and relative links gain a level."""
+    soup = BeautifulSoup(fragment, "html.parser")
+    for a in soup.find_all("a"):
+        if "ref" in (a.get("class") or []) and a.get("data-id") in items:
+            a.attrs = {"href": f"../../latex/tag/{items[a['data-id']]['tag']}.html"}
+        elif a.get("href", "").startswith("../"):
+            a["href"] = "../" + a["href"]
+    return str(soup)
+
+
+def write_main(out_file, mains, items, uses_stmt, uses_proof, cites, bib_links, trees, legend, sections):
+    """The page of the proof trees of the main results. Returns how many trees it draws."""
+    rows, blocks, drawn = [], [], 0
+    for n in sorted(mains, key=lambda n: n["order"]):
+        label, it = n["id"], items[n["id"]]
+        title = f" ({html.escape(it['title'])})" if it["title"] else ""
+        sec = sections.get(it["page"])
+        sec_html = (f'Section {html.escape(str(sec[0]))}, <a href="../../latex/{html.escape(it["page"])}">'
+                    f'{html.escape(sec[1])}</a>') if sec else ""
+        res, defs, cited = rests_on(label, items, uses_stmt, uses_proof, cites, bib_links)
+        size = (f"{plural(res, 'result', 'results')}, {plural(defs, 'definition', 'definitions')} and "
+                f"{plural(cited, 'result', 'results')} of other works")
+        svg = trees(label)
+        anchor = html.escape(label)
+        rows.append(f'<tr><td><a href="#{anchor}">{html.escape(n["name"])}</a>{title}</td>'
+                    f'<td>{sec_html}</td><td class="num">{res}</td><td class="num">{defs}</td>'
+                    f'<td class="num">{cited}</td></tr>')
+        links = "".join(f'<a href="{html.escape("../" + h if h.startswith("../") else h)}">{html.escape(t)}</a>'
+                        for t, h in n["links"])
+        links += f'<a href="../#tree={anchor}">Interactive proof tree</a>'
+        if svg:
+            drawn += 1
+            tree = (f'<p class="size">Rests on {size}.'
+                    f' <button class="btn fit" type="button" aria-pressed="false">Fit to width</button></p>'
+                    f'<div class="graph-wrap" data-root="{anchor}">{svg}</div>')
+        else:
+            tree = '<p class="size">Rests on no other statement of the encyclopaedia.</p>'
+        blocks.append(f'<section class="result" id="{anchor}"><h2>{html.escape(n["name"])}{title}</h2>'
+                      f'<p class="meta">{sec_html}{" · " if sec_html else ""}Tag {html.escape(it["tag"])}</p>'
+                      f'<p class="links">{links}</p><div class="stmt">{one_level_down(n["html"], items)}</div>'
+                      f'{tree}</section>')
+    page = (MAIN.replace("__COUNT__", str(len(mains))).replace("__LEGEND__", legend)
+            .replace("__ROWS__", "".join(rows)).replace("__BLOCKS__", "\n".join(blocks)))
+    out_file = Path(out_file)
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+    out_file.write_text(page)
+    return drawn
 
 
 VIEWER = r'''<!DOCTYPE html>
@@ -206,7 +291,7 @@ details{margin-top:12px}summary{cursor:pointer;font:500 14px system-ui,sans-seri
 @media(max-width:900px){main{grid-template-columns:1fr}.map{border-right:0;border-bottom:1px solid var(--rule);min-height:62vh}aside{position:static;max-height:none}.legend{max-width:calc(100% - 120px)}}
 @media(prefers-reduced-motion:no-preference){.n rect,.e{transition:opacity .15s,stroke .15s,fill .15s}}
 </style></head><body>
-<nav><a href="../">Topological dynamics of topological groups</a><a href="../latex/">LaTeX version</a><a href="../latex/graph.html">Dependency graph</a></nav>
+<nav><a href="../">Topological dynamics of topological groups</a><a href="../latex/">LaTeX version</a><a href="main/">Proof trees of the main results</a><a href="../latex/graph.html">Dependency graph</a></nav>
 <header><div><h1 id="ttl"></h1><p class="sub" id="sub"></p></div><div class="counts" id="counts"></div></header>
 <div class="bar"><input type="search" id="q" placeholder="Find a statement" aria-label="Find a statement">
 <label class="tg"><input type="checkbox" id="t-def"> Definitions</label><label class="tg"><input type="checkbox" id="t-aside"> Remarks and examples</label>
@@ -321,7 +406,7 @@ function chipGroups(es,key,cls,stLabel,prLabel){if(!es.length)return'<div class=
 function panel(){
   const n=S.sel&&N.get(S.sel),el=$('#panel');
   if(!n){const m=mains.map(x=>chip(x.id,'')).join('')||'<span class="none">none</span>';
-    el.innerHTML=`<h2>Reading the map</h2><p class="empty">Main results sit at the top, the statements they rest on below them. <b>Select a box</b> to read the statement: what it rests on turns blue, what uses it turns red. <b>Double-click</b> a box, or choose "Show what it rests on", to keep only its proof tree. Definitions and remarks are hidden until you tick them above.</p><h3>Main results</h3><div class="chips">${m}</div>`;return}
+    el.innerHTML=`<h2>Reading the map</h2><p class="empty">Main results sit at the top, the statements they rest on below them. <b>Select a box</b> to read the statement: what it rests on turns blue, what uses it turns red. <b>Double-click</b> a box, or choose "Show what it rests on", to keep only its proof tree. Definitions and remarks are hidden until you tick them above.</p><h3>Main results</h3><div class="chips">${m}</div><p class="links"><a href="main/">Their proof trees, one by one</a></p>`;return}
   const ds=(deps[n.id]||[]).filter(e=>N.get(e.s)),us=(users[n.id]||[]).filter(e=>N.get(e.t));
   const links=(n.links||[]).map(([t,h])=>`<a href="${esc(h)}">${esc(t)}</a>`).join('');
   el.innerHTML=`<h2>${esc(n.name)}${n.title?` <span style="font-weight:400;font-style:italic">(${esc(n.title)})</span>`:''}</h2>
@@ -365,3 +450,62 @@ window.addEventListener('hashchange',fromHash);
 }</script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </body></html>'''
+
+
+MAIN = r'''<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proof trees of the main results · Topological dynamics of topological groups</title>
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#121417);--paper:light-dark(#f6f6f2,#1a1d21);--ink:light-dark(#141414,#ecebe6);--soft:light-dark(#4a4a48,#b9b8b2);--rule:light-dark(#d9d9d3,#33363b);--accent:light-dark(#1f3fb8,#7d97ff)}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "STIX Two Text","STIX Two",Georgia,serif}
+nav,button,.meta,.links,.size,.legend,table{font:500 14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+nav{padding:12px max(4vw,16px) 0;display:flex;flex-wrap:wrap;gap:6px 18px}
+a{color:var(--accent)}nav a,.links a{text-decoration:none}nav a:hover,.links a:hover{text-decoration:underline}
+.page{max-width:1180px;margin:0 auto;padding:0 max(4vw,16px) 48px}
+h1{font-size:clamp(26px,2.8vw,36px);line-height:1.12;margin:18px 0 8px;font-weight:600}
+.intro{font:400 15px/1.55 system-ui,sans-serif;color:var(--soft);max-width:60em;margin:0 0 10px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 18px;color:var(--soft);font-weight:400;margin:0 0 18px}
+.legend i{display:inline-block;width:1em;height:1em;border:1px solid #888;vertical-align:-.15em;margin-right:.35em}
+.legend i.cited{background:#fff;border-style:dashed}.legend i.this{background:#fff;border:2px solid #2e4a6b}
+.toc{overflow-x:auto;margin:0 0 8px}
+table{border-collapse:collapse;width:100%;font-weight:400}
+th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;color:var(--soft)}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.result{border-top:1px solid var(--rule);padding:26px 0 8px;scroll-margin-top:12px}
+.result h2{font-size:24px;line-height:1.2;margin:0 0 4px;font-weight:600}
+.meta{color:var(--soft);margin:0 0 4px;font-weight:400}
+.links{display:flex;flex-wrap:wrap;gap:4px 16px;margin:0 0 10px}
+.stmt{font-size:17px;line-height:1.6;max-width:52em;overflow-x:auto}.equation_label{display:none}
+.size{color:var(--soft);font-weight:400;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:14px 0 8px}
+.btn{min-height:34px;padding:4px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--ink)}.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.graph-wrap{overflow:auto;max-height:80vh;border:1px solid var(--rule);border-radius:6px;background:#fff;padding:.5em}
+.graph-wrap svg{display:block;margin:auto;max-width:none;height:auto}.graph-wrap.fit svg{max-width:100%}
+.graph-wrap svg a{text-decoration:none}
+</style></head><body>
+<nav><a href="../../">Topological dynamics of topological groups</a><a href="../../latex/">LaTeX version</a><a href="../">Interactive proof tree</a><a href="../../latex/graph.html">Dependency graph</a></nav>
+<div class="page">
+<h1>Proof trees of the main results</h1>
+<p class="intro">The main results are the __COUNT__ theorems of the encyclopaedia that no other statement uses. Each one appears below with its statement and its proof tree: everything it rests on, directly or through other statements, as declared in its source and in the sources of its proof. An arrow means that the second item uses the first; implied arrows are left out. Dashed boxes are results of other works that these statements and proofs cite. Click a box to open its tag page. This page is rebuilt at every update of the encyclopaedia.</p>
+<p class="legend">__LEGEND__</p>
+<div class="toc"><table><thead><tr><th>Main result</th><th>Section</th><th class="num">Results</th><th class="num">Definitions</th><th class="num">Cited</th></tr></thead><tbody>__ROWS__</tbody></table></div>
+__BLOCKS__
+</div>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],processEnvironments:true},svg:{fontCache:'global'},options:{enableMenu:false}};
+</script>
+<script>{
+// A wide tree scrolls sideways: start with the main result in view, at the bottom.
+for(const w of document.querySelectorAll('.graph-wrap')){
+  const n=[...w.querySelectorAll('g.node')].find(g=>{const t=g.querySelector('title');return t&&t.textContent===w.dataset.root});
+  if(n){const r=n.getBoundingClientRect(),b=w.getBoundingClientRect();w.scrollLeft+=r.left+r.width/2-b.left-b.width/2;w.scrollTop=w.scrollHeight}}
+for(const b of document.querySelectorAll('button.fit')){
+  const w0=b.closest('.result').querySelector('.graph-wrap');if(w0.scrollWidth<=w0.clientWidth+2)b.hidden=true;
+  b.onclick=()=>{
+  const w=b.closest('.result').querySelector('.graph-wrap'),on=w.classList.toggle('fit');
+  b.textContent=on?'Actual size':'Fit to width';b.setAttribute('aria-pressed',on)}}
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</body></html>
+'''
