@@ -101,9 +101,15 @@ this table.
   folded (click "Proof" to open it), while the proofs placed elsewhere, such as
   those of an entry's main results, stay open. Each Proofs entry opens with the
   statements of other entries that it proves, with links to their proofs and
-  proof trees. Both are added at build time from the LaTeX sources, by
+  proof trees, and with its roadmap: its subsections in order, with an arrow
+  from one subsection to each subsection that uses one of its results
+  (`myst/widgets/entry-roadmap.mjs`, from `roadmap()` in
+  `latex/tools/site_map.py`). A result stated in one subsection and proved in
+  another, such as a main result, counts as part of the subsection of its proof.
+  All of this is added at build time from the LaTeX sources, by
   `myst/tools/site_map.py` and `postprocess.py`: do not add `:class: dropdown`
-  or such lists by hand.
+  or such lists by hand. Give every subsection of a Proofs entry a `\label`, so
+  that the roadmap can link to it.
 * Write maths in titles and in `references.bib` as TeX, as everywhere else.
   mystmd shows page titles and bibliography entries as plain text, so the same
   step writes the maths in MyST page titles in Unicode ("S∞") and has the build
