@@ -83,6 +83,15 @@ $gF\in gf(x)=f(x)$, but $z\in gF\setminus F$ and $y\in F\setminus gF$, so $F$
 and $gF$ are not comparable, a contradiction.
 :::
 
+:::{figure} ../../figures/uspenskij-chains.svg
+:name: fig-uspenskij-chains
+:figclass: enc-figure
+:alt: A maximal chain of closed sets with its root; and two members F and gF of one chain, neither containing the other
+:width: 100%
+
+(a) A maximal chain $c$ of closed subsets of $X$: it contains $X$, and its least member is the singleton of its root $r(c)$ ({prf:ref}`prop-maximal-chains`). (b) The contradiction in the proof of {prf:ref}`thm-uspenskij-chains`: if $F$ belongs to the chain $f(x)$, with $y\in F\setminus\{x\}$ and $z\notin F$, and $g$ fixes $x$ and swaps $y$ and $z$, then $gF$ also belongs to $f(x)$, but neither of $F$ and $gF$ contains the other.
+:::
+
 :::{prf:corollary} {cite:t}`Uspenskij2000`
 :label: cor-not-3-transitive
 
