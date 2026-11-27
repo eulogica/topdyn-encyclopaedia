@@ -18,3 +18,8 @@
 
 /* At the top of each Proofs entry: the statements of other entries it proves. */
 .dep-links.proved-here { margin: 1rem 0 1.5rem; }
+
+/* Figures (figures/*.svg, drawn by figures/make_figures.py) are dark ink on a
+   transparent ground: invert them in dark mode, keeping the hues. */
+.enc-figure img { display: block; margin: 0 auto; }
+.dark .enc-figure img { filter: invert(.88) hue-rotate(180deg); }
