@@ -75,6 +75,9 @@ nav.toc ul.extra-nav{margin-top:1.2em;padding-top:.8em;border-top:1px solid rgba
 .tag-page .tree-note{font-size:.9em;color:#555;margin:.2em 0 .6em}
 .tag-page .graph-wrap{max-height:80vh}
 .graph-wrap svg a{text-decoration:none}
+.dep-links{font-size:.85em;line-height:1.5;color:#4a5560;background:#f3f5f8;border-left:3px solid #a9b8c9;
+  padding:.3em .8em;margin:.3em 0 1.2em}
+.dep-links p{margin:.15em 0}.dep-links b{color:#2b3540;font-weight:600}
 .graph-legend i.cited{background:#fff;border-style:dashed}
 .graph-legend i.this{background:#fff;border:2px solid #2e4a6b}
 """
@@ -89,6 +92,7 @@ RESULT_LOCATOR = re.compile(r"\b(Theorems?|Lemmas?|Propositions?|Corollar(?:y|ie
 POINTER_BEFORE = re.compile(r"see also|compare|\bcf\.|fuller|for (?:a|another) (?:different|second)|"
                             r"history|in contrast|unlike", re.I)
 TREE_SKIP = {"Section", "Remark", "Example"}
+LONGEST_LIST = 12  # longer lists of links after a statement end with a link to its tag page
 MAX_TREE = 120
 
 
@@ -617,6 +621,49 @@ def main():
                                            tag_prefix="../../latex/tag/", bib_prefix="../../latex/"),
         legend=tree_legend, sections=section_of)
     print("interactive proof tree: %d nodes, %d dependencies, %d main results, in %s" % (count + (out,)))
+
+    # Links after every statement on the section pages: what the statement and its
+    # proof use, what uses it, where its proof is when that is on another page, and its
+    # proof tree. (Added last, so that tag pages and the proof tree pages, which copy
+    # the statements, do not repeat them.)
+    def number_key(label):
+        return tuple(int(x) for x in re.findall(r"\d+", items[label]["num"])) or (0,)
+
+    def ref(label):
+        it = items[label]
+        return (f'<a href="{it["page"]}#{label}">'
+                f'{KIND_ABBR.get(it["kind"], it["kind"])}&nbsp;{it["num"]}</a>')
+
+    def listing(labels, label):
+        keys = sorted({l for l in labels if l in items and l != label}, key=number_key)
+        shown = ", ".join(ref(l) for l in keys[:LONGEST_LIST])
+        if len(keys) > LONGEST_LIST:
+            shown += f', <a href="tag/{items[label]["tag"]}.html">and {len(keys) - LONGEST_LIST} more</a>'
+        return shown
+
+    for label, it in items.items():
+        if it["kind"] == "Section":
+            continue
+        el = pages[it["page"]].find(id=label)
+        nxt = el.find_next_sibling() if el else None
+        if not el or (nxt is not None and "dep-links" in (nxt.get("class") or [])):
+            continue
+        rows = [f"<b>{title}</b> {listing(ls, label)}" for title, ls in (
+            ("Uses", it["uses"]), ("Its proof uses", it["uses_proof"]), ("Used by", used_by[label]))
+            if listing(ls, label)]
+        last = []
+        for a in el.select(".thm_header_hidden_extras a[href]"):
+            if a.find("svg") is None and "icon-cogs" not in str(a):
+                continue
+            target = a["href"].split("#")[0] or it["page"]
+            if target != it["page"] and target in section_of:
+                last.append(f'<b>Proof</b> in <a href="{html.escape(a["href"])}">Section {section_of[target][0]}</a>')
+            break
+        last.append(f'<a href="../proof-tree/#tree={html.escape(label)}">Proof tree</a>')
+        rows.append(" · ".join(last))
+        nav = frag(f'<nav class="dep-links" aria-label="Links for {html.escape(name_of(label))}">'
+                   + "".join(f"<p>{r}</p>" for r in rows) + "</nav>")
+        el.insert_after(nav[0])
 
     # The map of the encyclopaedia on the front page, drawn by the widget that the
     # MyST front page also uses (myst/widgets/encyclopaedia-map.mjs).
