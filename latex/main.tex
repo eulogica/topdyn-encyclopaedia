@@ -9,6 +9,15 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{hyperref}
 \usepackage{depgraph}
+\usepackage{graphicx}
+% Figures: one SVG file per figure in ../figures, drawn by figures/make_figures.py.
+% build.sh copies them into _figures/ as PDF (for pdflatex) and PNG (for plasTeX);
+% the website then shows the SVG. Figures are numbered within sections.
+\graphicspath{{_figures/}}
+\numberwithin{figure}{section}
+% \illustrates{label,...}, inside a figure: the statements whose proofs it
+% illustrates. It prints nothing; on both websites their links name the figure.
+\newcommand{\illustrates}[1]{}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
