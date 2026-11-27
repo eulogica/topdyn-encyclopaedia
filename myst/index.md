@@ -17,6 +17,8 @@ statement, its proof and its proof tree. The
 [proof trees of the main results](https://topologicaldynamics.org/proof-tree/main/),
 the theorems that no other statement uses, are collected on one page.
 
+% map-of-the-encyclopaedia
+
 **Conventions.** Topological groups and compact spaces are Hausdorff. Actions
 are left actions. Conventions on left and right uniform structures differ
 across the literature; the ones used here are fixed in {prf:ref}`def-ruc`.
