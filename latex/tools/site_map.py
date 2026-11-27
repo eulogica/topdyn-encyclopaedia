@@ -90,9 +90,11 @@ SYMBOLS = {"infty": "∞", "omega": "ω", "alpha": "α", "beta": "β", "gamma": 
            "geq": "≥", "to": "→", "colon": ":", "ldots": "…", "cdots": "⋯", "lt": "<", "gt": ">",
            "cong": "≅", "subseteq": "⊆", "in": "∈"}
 BLACKBOARD = {"Z": "ℤ", "N": "ℕ", "Q": "ℚ", "R": "ℝ", "C": "ℂ", "T": "𝕋", "S": "𝕊"}
+SCRIPT = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵"))
 WRAPPERS = r"mathrm|operatorname|mathcal|mathfrak|mathbf|mathsf|mathit|text|textup|textrm|" \
            r"textit|textbf|emph|boldsymbol|underline|overline"
 SUB_FROM, SUB_TO = "0123456789+-=()aeoxhklmnpstij", "₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑₒₓₕₖₗₘₙₚₛₜᵢⱼ"
+SUP_FROM, SUP_TO = "0123456789+-=()ni*", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿⁱ*"
 ACCENTS = {"'": "\u0301", "`": "\u0300", "^": "\u0302", '"': "\u0308", "~": "\u0303",
            "=": "\u0304", ".": "\u0307", "v": "\u030c", "u": "\u0306", "H": "\u030b",
            "c": "\u0327", "r": "\u030a"}
@@ -104,13 +106,32 @@ def _subscript(t):
     return t if len(t) == 1 and not t.isascii() else "_" + t
 
 
-def _math(t):
+def _superscript(t, unicode=True):
+    if t == "*":
+        return "*"
+    if unicode and all(c in SUP_FROM for c in t):
+        return t.translate(str.maketrans(SUP_FROM, SUP_TO))
+    return "^" + t
+
+
+def _math(t, superscripts=True):
     t = re.sub(r"\\mathbb\{(\w)\}", lambda k: BLACKBOARD.get(k.group(1), k.group(1)), t)
+    t = re.sub(r"\\mathcal\{(\w)\}", lambda k: SCRIPT.get(k.group(1), k.group(1)), t)
     t = re.sub(r"\\(?:%s)\s*\{([^{}]*)\}" % WRAPPERS, r"\1", t)
     t = re.sub(r"\\([A-Za-z]+)", lambda k: SYMBOLS.get(k.group(1), k.group(1)), t)
     t = re.sub(r"_\{([^{}]*)\}|_(\S)", lambda k: _subscript(k.group(1) or k.group(2)), t)
-    t = re.sub(r"\^\{\*\}|\^\*", "*", t)
+    t = re.sub(r"\^\{([^{}]*)\}|\^(\S)",
+               lambda k: _superscript(k.group(1) or k.group(2), superscripts), t)
     return t.replace("{", "").replace("}", "").replace(" ", "").replace("\\", "")
+
+
+def untex(text, superscripts=True):
+    """The text with each piece of maths ($...$ or \\(...\\)) written in Unicode and the rest
+    left alone: for places that show text as it is, such as browser tab titles, the MyST
+    page titles and the MyST bibliography. With superscripts=False, superscripts stay as
+    "^1" (mystmd's bibliographies print "¹" as a plain "1")."""
+    return re.sub(r"\$(?!\s)([^$]+?)(?<!\s)\$|\\\((.*?)\\\)",
+                  lambda m: _math(m.group(1) or m.group(2), superscripts), text)
 
 
 def plain(tex):

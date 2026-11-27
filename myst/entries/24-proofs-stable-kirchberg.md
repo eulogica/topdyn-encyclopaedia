@@ -1723,8 +1723,6 @@ nonzero simple stable $C$, are {prf:ref}`cor-st-direct-sum-bohr-general`.
 (sec-st-stable-proof)=
 ## Stable nuclear norm-unitary groups
 
-\labelsec:st-unitaries
-
 For this section $A$ denotes a unital coefficient algebra and
 $B=A\otimes\mathcal K$ its stabilisation. No separability of $A$ is
 assumed. In the notation of Section 1 of {cite}`LupiniStable2026`, the group under

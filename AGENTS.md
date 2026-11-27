@@ -93,6 +93,13 @@ this table.
   and its proof use, what uses it, where its proof is when that is in another
   entry, its tag and its proof tree. On the LaTeX site `postprocess.py` adds
   the same block. Its style is in `myst/encyclopaedia.css`.
+* Write maths in titles and in `references.bib` as TeX, as everywhere else.
+  mystmd shows page titles and bibliography entries as plain text, so the same
+  step writes the maths in MyST page titles in Unicode ("S∞") and has the build
+  read a copy of `references.bib` with its maths in Unicode. `postprocess.py`
+  does the same for browser-tab titles and tooltips on the LaTeX site. Never
+  put Unicode maths in `references.bib` itself: pdflatex rejects characters
+  such as 𝕊 or ∞.
 * The front page of both versions shows the map of the encyclopaedia, drawn by
   `myst/widgets/encyclopaedia-map.mjs`: the entries by strand, and for each
   strand a map of its results. Its data come from the LaTeX sources through
