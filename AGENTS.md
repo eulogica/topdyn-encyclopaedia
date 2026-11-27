@@ -65,6 +65,9 @@ this table.
   `build.sh`). The file is **append-only**: never edit, reorder, reuse or
   delete a line, even if a statement is moved, renumbered, reworded or
   removed. Commit the updated `tags` file together with the new labels.
+* **One `\label` per item.** plasTeX keeps only the last label of an item, so a
+  `\uses` of another one is lost and the dependency drops out of the proof
+  trees. `tags.py check` fails on an item with two labels.
 * Build: `cd latex && ./build.sh` → `_site/latex/index.html` and
   `latex/main.pdf`.
 
@@ -132,4 +135,9 @@ this table.
   (mystmd build at the root, LaTeX build at `/latex/`). Work on a branch and
   open a pull request; the build workflow in `.github/workflows/build.yml` must
   pass before merging.
+* Besides building, the workflow fails if a label has no tag or an item has two
+  labels (`latex/tools/tags.py check`); if a MyST statement has no LaTeX twin or
+  the proofs of an entry are not in the LaTeX order (`myst/tools/site_map.py`);
+  or if raw TeX shows anywhere on the built site, such as maths in a MyST page
+  title or a stray `\label` in a MyST file (`latex/tools/check_site.py`).
 * Do not commit build output (`_site/`, `*.aux`, `main.pdf`, ...).
