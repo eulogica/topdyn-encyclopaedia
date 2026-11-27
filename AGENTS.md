@@ -96,6 +96,13 @@ this table.
   and its proof use, what uses it, where its proof is when that is in another
   entry, its tag and its proof tree. On the LaTeX site `postprocess.py` adds
   the same block. Its style is in `myst/encyclopaedia.css`.
+* In the Proofs entries, a proof that comes straight after its statement is
+  folded (click "Proof" to open it), while the proofs placed elsewhere, such as
+  those of an entry's main results, stay open. Each Proofs entry opens with the
+  statements of other entries that it proves, with links to their proofs and
+  proof trees. Both are added at build time from the LaTeX sources, by
+  `myst/tools/site_map.py` and `postprocess.py`: do not add `:class: dropdown`
+  or such lists by hand.
 * Write maths in titles and in `references.bib` as TeX, as everywhere else.
   mystmd shows page titles and bibliography entries as plain text, so the same
   step writes the maths in MyST page titles in Unicode ("S∞") and has the build

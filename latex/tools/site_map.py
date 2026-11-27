@@ -11,7 +11,8 @@ runs before anything is built) and returns:
   * every statement with its LaTeX number (one counter for all statements of a
     section), title, kind and the section where its proof is;
   * what each statement and each proof declares with \\uses;
-  * the proofs in document order, with the statement each one proves.
+  * the proofs in document order, with the statement each one proves and whether
+    the proof comes straight after it.
 
 map_data() turns these into the widget's data, with links for either version.
 myst/tools/site_map.py also gives the statements of the MyST version these
@@ -160,11 +161,13 @@ def read(latex_dir):
         text = (latex_dir / "entries" / f"{stem}.tex").read_text()
         text = re.sub(r"(?<!\\)%.*", "", text)
         counter, last = 0, None
+        prev_end, prev_label = 0, None  # the statement environment just closed
         for m in TOKEN.finditer(text):
             if m.group(0) == "\\section{":
                 title, after = balanced(text, m.end() - 1)
                 section += 1
                 counter = 0
+                prev_label = None
                 lab = LABEL.match(text, after)
                 entries.append(dict(file=stem, n=section, title=plain(title),
                                     label=lab.group(1) if lab else ""))
@@ -177,13 +180,17 @@ def read(latex_dir):
                 target = pv.group(1).strip() if pv else last
                 if target:
                     raw.append((target, "proof", USES.findall(body), section))
-                proofs.append(dict(file=stem, target=target, section=section))
+                follows = (target is not None and target == prev_label
+                           and not text[prev_end:m.start()].strip())
+                proofs.append(dict(file=stem, target=target, section=section, follows=follows))
                 continue
             counter += 1
             title = optional_arg(text, m.end())
             nested = NESTED.search(body)
             own = body[:nested.start()] if nested else body
             labels = LABEL.findall(own)
+            prev_end = end + len(f"\\end{{{env}}}") if end >= 0 else len(text)
+            prev_label = labels[-1] if labels else None
             if not labels:
                 continue
             # Several labels: the statement is known by the last, as on the LaTeX site.
@@ -208,6 +215,28 @@ def read(latex_dir):
         p["target"] = aliases.get(p["target"], p["target"])
     return dict(entries=entries, statements=statements, deps=deps, proved_in=proved_in,
                 aliases=aliases, proofs=proofs)
+
+
+def proof_entries(src):
+    """The files of the entries in the Proofs strand."""
+    starts, strand, files = dict(STRANDS), None, set()
+    for e in src["entries"]:
+        strand = starts.get(e["file"], strand)
+        if strand == PROOF_STRAND:
+            files.add(e["file"])
+    return files
+
+
+def proved_here(src):
+    """For each entry, the statements of other entries whose proofs it holds, in the
+    order of the proofs."""
+    st = {s["label"]: s for s in src["statements"]}
+    here = {}
+    for p in src["proofs"]:
+        s = st.get(p["target"])
+        if s and s["section"] != p["section"] and p["target"] not in here.get(p["file"], []):
+            here.setdefault(p["file"], []).append(p["target"])
+    return here
 
 
 def transitive_reduction(edges):

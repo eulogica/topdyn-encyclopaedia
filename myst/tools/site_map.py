@@ -17,6 +17,11 @@ nothing the second time.
   * After every statement comes a short block of links, from the \\uses lists of
     the LaTeX sources: what the statement and its proof use, what uses it, where
     its proof is when that is in another entry, its tag and its proof tree.
+  * In the Proofs entries, a proof that comes straight after its statement is
+    folded (`:class: dropdown`), so that the statements can be scanned; the proofs
+    of an entry's main results, which come later, stay open. Each Proofs entry
+    opens with the statements of other entries that it proves, with links to their
+    proofs and proof trees.
   * The line "% map-of-the-encyclopaedia" in index.md becomes the map, drawn by
     widgets/encyclopaedia-map.mjs from data that latex/tools/site_map.py reads
     from the LaTeX sources.
@@ -77,8 +82,10 @@ class Context:
             t = p["target"]
             seen[t] = seen.get(t, 0) + 1
             lab = "proof-" + myst_label(t) + ("" if seen[t] == 1 else f"-{seen[t]}")
-            self.proofs.setdefault(p["file"], []).append((t, lab, p["section"]))
+            self.proofs.setdefault(p["file"], []).append((t, lab, p["section"], p["follows"]))
             self.proof_label.setdefault(t, (lab, p["section"]))
+        self.fold = site_map.proof_entries(src)
+        self.proved_here = site_map.proved_here(src)
         self.tags = {}
         for line in (ROOT / "latex" / "tags").read_text().splitlines():
             parts = line.split()
@@ -96,6 +103,21 @@ class Context:
         if len(keys) > LONGEST and label in self.tags:
             shown += f", [and {len(keys) - LONGEST} more]({SITE}/latex/tag/{self.tags[label]}.html)"
         return shown
+
+    def proved_block(self, stem):
+        """For a Proofs entry: the statements of other entries whose proofs it holds,
+        and a word on the folded proofs."""
+        if stem not in self.fold:
+            return []
+        items = []
+        for label in self.proved_here.get(stem, []):
+            lab = self.proof_label[label][0]
+            items.append(f"{self.ref(label)} ({{prf:ref}}`proof <{lab}>` · "
+                         f"[proof tree]({SITE}/proof-tree/#tree={label}))")
+        rows = ["**Proved in this entry** " + ", ".join(items)] if items else []
+        rows.append("Proofs that follow their statement are folded: click “Proof” to open one.")
+        return [":::{div}", ":class: dep-links proved-here", ""] + "\n\n".join(rows).split("\n") \
+            + [":::", ""]
 
     def block(self, label):
         s, d = self.st[label], self.deps.get(label, {"statement": [], "proof": []})
@@ -124,6 +146,7 @@ def annotate(path, ctx):
     if DONE in lines:
         return 0, 0, []
     proofs = list(ctx.proofs.get(path.stem, []))
+    fold = path.stem in ctx.fold
     out, numbered, linked, missing = [], 0, 0, []
     i = 0
     while i < len(lines):
@@ -143,9 +166,11 @@ def annotate(path, ctx):
             end += 1
         tex = options.get("label", "").replace("-", ":", 1)
         if kind == "proof":
-            target, lab, _ = proofs.pop(0) if proofs else (None, None, None)
+            target, lab, _, follows = proofs.pop(0) if proofs else (None, None, None, False)
             if "label" not in options and lab:
                 out.append(f":label: {lab}")
+            if fold and follows and "class" not in options:
+                out.append(":class: dropdown")
             if "enumerated" not in options and "nonumber" not in options:
                 out.append(":enumerated: false")
             out += lines[j:end + 1]
@@ -162,6 +187,13 @@ def annotate(path, ctx):
                 out += [""] + ctx.block(label)
                 linked += 1
         i = end + 1
+    proved = ctx.proved_block(path.stem)
+    if proved:
+        # Before the first subsection (and the label line above its heading).
+        k = next((n for n, line in enumerate(out) if line.startswith("## ")), len(out))
+        if k and re.match(r"^\(.+\)=$", out[k - 1]):
+            k -= 1
+        out[k:k] = proved
     out += ["", DONE]
     path.write_text("\n".join(out))
     if proofs:
