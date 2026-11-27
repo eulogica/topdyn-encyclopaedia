@@ -1093,9 +1093,9 @@ The whirly criterion follows from {prf:ref}`prop-st-transfer` and
 :::
 
 :::{prf:corollary}
-:label: cor-st-properties
+:label: cor-st-aut-bohr
 
-\labelcor:st-aut-bohr For a stable UCT Kirchberg
+For a stable UCT Kirchberg
 algebra $A$, extreme amenability, amenability, and metrizability of the
 universal minimal flow hold for $\operatorname{Aut}(A)$ exactly when they hold for
 $\operatorname{Aut}_\Lambda(\underline K(A))$, respectively, and
@@ -1198,7 +1198,7 @@ group and hence is amenable, by the Markov–Kakutani fixed-point theorem.
 Therefore {prf:ref}`lem-st-amenable-extensions` shows that $Q_A$ is amenable
 whenever $\operatorname{Aut}(G_0)\times\operatorname{Aut}(G_1)$ is amenable. Conversely, amenability
 passes to continuous quotients, so amenability of $Q_A$ implies amenability
-of both factors. Finally apply {prf:ref}`cor-st-properties`.
+of both factors. Finally apply {prf:ref}`cor-st-aut-bohr`.
 :::
 
 :::{prf:corollary} Vanishing Hausdorff extension kernel
