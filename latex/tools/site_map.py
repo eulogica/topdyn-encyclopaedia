@@ -10,7 +10,8 @@ runs before anything is built) and returns:
   * the entries, grouped into the strands below, with their section numbers;
   * every statement with its LaTeX number (one counter for all statements of a
     section), title, kind and the section where its proof is;
-  * what each statement and each proof declares with \\uses.
+  * what each statement and each proof declares with \\uses;
+  * the proofs in document order, with the statement each one proves.
 
 map_data() turns these into the widget's data, with links for either version.
 myst/tools/site_map.py also gives the statements of the MyST version these
@@ -131,7 +132,7 @@ def read(latex_dir):
     """Entries, statements, dependencies and proof locations, from the LaTeX sources."""
     latex_dir = Path(latex_dir)
     files = re.findall(r"\\input\{entries/([^}]+)\}", (latex_dir / "main.tex").read_text())
-    entries, statements, deps, proved_in, aliases = [], [], {}, {}, {}
+    entries, statements, deps, proved_in, aliases, proofs = [], [], {}, {}, {}, []
     raw = []  # (label, where, uses) before aliases are resolved
     section = 0
     for stem in files:
@@ -155,6 +156,7 @@ def read(latex_dir):
                 target = pv.group(1).strip() if pv else last
                 if target:
                     raw.append((target, "proof", USES.findall(body), section))
+                proofs.append(dict(file=stem, target=target, section=section))
                 continue
             counter += 1
             title = optional_arg(text, m.end())
@@ -181,8 +183,10 @@ def read(latex_dir):
     for d in deps.values():
         d["statement"] = list(dict.fromkeys(d["statement"]))
         d["proof"] = [u for u in dict.fromkeys(d["proof"]) if u not in d["statement"]]
+    for p in proofs:
+        p["target"] = aliases.get(p["target"], p["target"])
     return dict(entries=entries, statements=statements, deps=deps, proved_in=proved_in,
-                aliases=aliases)
+                aliases=aliases, proofs=proofs)
 
 
 def transitive_reduction(edges):
