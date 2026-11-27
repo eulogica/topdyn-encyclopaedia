@@ -23,7 +23,9 @@ can be compared before one is chosen:
 * `myst/`: MyST Markdown source, built with Sphinx, myst-parser and
   sphinx-proof. Cross-references show a preview when you hover over them.
 
-Both share `references.bib`.
+Both share `references.bib`, number every statement alike, and show on their
+front page the same map of the encyclopaedia: the entries by strand, with the
+entries each one rests on, and for each strand a map of its results.
 
 ## Entries
 
