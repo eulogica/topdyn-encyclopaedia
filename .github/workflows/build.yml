@@ -63,6 +63,9 @@ jobs:
       - name: Build LaTeX version (website and PDF) at /latex/
         run: ./latex/build.sh "$PWD/_site/latex"
 
+      - name: Check that no raw TeX shows on the built site
+        run: python3 latex/tools/check_site.py _site
+
       - name: Check the Sphinx build of the MyST files (not published)
         run: ./myst/build.sh "$RUNNER_TEMP/sphinx-check"
 
