@@ -15,3 +15,6 @@
 .dep-links strong { color: #2b3540; font-weight: 600; }
 .dark .dep-links { color: #b8c0c8; background: #1e2329; border-left-color: #4b5a6a; }
 .dark .dep-links strong { color: #dde3e8; }
+
+/* At the top of each Proofs entry: the statements of other entries it proves. */
+.dep-links.proved-here { margin: 1rem 0 1.5rem; }
