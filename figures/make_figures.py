@@ -15,13 +15,14 @@ BLUE, BLUE_FILL, ORANGE, ORANGE_FILL = "#2f63b8", "#dbe6f7", "#c4661f", "#f8e3d2
 SERIF = "'STIX Two Text','Times New Roman',Times,serif"
 
 
-def svg(width, height, body, title):
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
+def svg(width, height, body, title, defs=""):
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
+            f'width="{width}" height="{height}" '
             f'viewBox="0 0 {width} {height}" role="img" aria-label="{title}">\n'
             f'<title>{title}</title>\n'
             '<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" '
             f'markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="{INK}"/>'
-            '</marker></defs>\n'
+            f'</marker>{defs}</defs>\n'
             f'<g font-family="{SERIF}" font-size="17" fill="{INK}">\n{body}\n</g>\n</svg>\n')
 
 
@@ -117,36 +118,43 @@ def cantor_intervals(depth):
 
 
 def cantor_chain():
-    body, ivs = [], cantor_intervals(6)
+    ivs = cantor_intervals(6)
     x0, x1 = 120.0, 640.0
     X = lambda t: x0 + (x1 - x0) * t
     rows = [(0, "0"), (1 / 9, "1/9"), (1 / 3, "1/3"), (2 / 3, "2/3"), (7 / 9, "7/9"), (1, "1")]
+    # The intervals are drawn once, in <defs>, and every row reuses them: in grey, and in
+    # blue clipped at t, which colours exactly the intervals that end by t.
+    cantor = "".join(f'<rect x="{X(a):.2f}" y="-4" width="{max(X(b) - X(a), 0.6):.2f}" height="8"/>'
+                     for a, b in ivs)
+    defs = [f'<g id="cantor">{cantor}</g>']
+    body = []
     y = 40.0
     body.append(text(64, y + 5, "E", 18, italic=True))
-    for a, b in ivs:
-        body.append(f'<rect x="{X(a):.2f}" y="{y - 5}" width="{max(X(b) - X(a), 0.6):.2f}" '
-                    f'height="10" fill="{INK}"/>')
+    body.append(f'<use xlink:href="#cantor" transform="translate(0 {y}) scale(1 1.25)" fill="{INK}"/>')
     body.append(text(X(0), y + 26, "0", 14, color=SOFT))
     body.append(text(X(1), y + 26, "1", 14, color=SOFT))
-    # The first gap, which the stabiliser of the chain permutes with all the others.
+    # The first gap of E.
     body.append(path(f"M{X(1 / 3) + 2},{y + 14} q0,8 8,8 L{X(2 / 3) - 10},{y + 22} q8,0 8,-8",
                      color=SOFT, width=1.1))
     body.append(text(X(0.5), y + 40, 'a gap: <tspan font-style="italic">E</tspan> ∩ [0, '
                      '<tspan font-style="italic">t</tspan>] is the same for every '
                      '<tspan font-style="italic">t</tspan> in it', 13, color=SOFT))
     y = 105.0
-    for t, label in rows:
+    for k, (t, label) in enumerate(rows):
         body.append(text(64, y + 5, f'<tspan font-style="italic">t</tspan> = {label}', 15))
-        for a, b in ivs:
-            on = b <= t + 1e-12
-            body.append(f'<rect x="{X(a):.2f}" y="{y - 4}" width="{max(X(b) - X(a), 0.6):.2f}" '
-                        f'height="8" fill="{BLUE if on else FAINT}"/>')
+        body.append(f'<use xlink:href="#cantor" transform="translate(0 {y})" fill="{FAINT}"/>')
+        if t > 0:
+            defs.append(f'<clipPath id="upto{k}"><rect x="0" y="-10" width="{X(t) + 0.3:.2f}" '
+                        f'height="20"/></clipPath>')
+            body.append(f'<use xlink:href="#cantor" transform="translate(0 {y})" fill="{BLUE}" '
+                        f'clip-path="url(#upto{k})"/>')
         # t itself, when it is the left end of a surviving interval: E ∩ [0, t] gains one point.
         if any(abs(a - t) < 1e-12 for a, b in ivs):
             body.append(circle(X(t), y, 4.5, fill=BLUE, stroke=BLUE))
         y += 26
     return svg(680, 270, "\n".join(body),
-               "The Cantor set E and the members E ∩ [0, t] of the standard chain for six values of t")
+               "The Cantor set E and the members E ∩ [0, t] of the standard chain for six values of t",
+               defs="".join(defs))
 
 
 # --- Lemma 24.10: rays in the tree of the free group ---------------------------------
