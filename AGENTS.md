@@ -86,6 +86,13 @@ this table.
   number statements alike and a reference to another page reads
   "Proposition 3.2". A statement whose label has no LaTeX twin keeps mystmd's
   own numbering, which starts again on every page.
+* Do not write lists of dependencies or links to proofs by hand either. The
+  same step labels every proof `proof-<label>` (from its LaTeX twin: the proofs
+  of an entry come in the same order in both versions) and adds after every
+  statement a short block of links, from the `\uses` lists: what the statement
+  and its proof use, what uses it, where its proof is when that is in another
+  entry, its tag and its proof tree. On the LaTeX site `postprocess.py` adds
+  the same block. Its style is in `myst/encyclopaedia.css`.
 * The front page of both versions shows the map of the encyclopaedia, drawn by
   `myst/widgets/encyclopaedia-map.mjs`: the entries by strand, and for each
   strand a map of its results. Its data come from the LaTeX sources through
