@@ -15,14 +15,14 @@
 % the website then shows the SVG. Figures are numbered within sections.
 % The editor's monogram and emblems are images in ../images/logicartificialis,
 % taken from https://logicartificialis.org; they are not numbered figures.
-\graphicspath{{_figures/}{../images/logicartificialis/}}
+\graphicspath{{_figures/}{../images/logicartificialis/}{../images/funding/}}
 \numberwithin{figure}{section}
 % \illustrates{label,...}, inside a figure: the statements whose proofs it
 % illustrates. It prints nothing; on both websites their links name the figure.
 \newcommand{\illustrates}[1]{}
-% \emblem{file}{alt text}: one of the editor's emblems, 4.5cm high, at the end
-% of Section~\ref{sec:about}.
-\newcommand{\emblem}[2]{\includegraphics[height=4.5cm,alt={#2}]{#1}}
+% \emblem[height]{file}{alt text}: an image at the end of Section~\ref{sec:about}
+% (the editor's emblems, 4.5cm high, and the logos above the funding statement).
+\newcommand{\emblem}[3][4.5cm]{\includegraphics[height=#1,alt={#3}]{#2}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
