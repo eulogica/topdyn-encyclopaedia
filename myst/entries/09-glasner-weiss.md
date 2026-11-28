@@ -16,6 +16,15 @@ and only if $g^{-1}(a)<g^{-1}(b)$. This makes $\mathrm{LO}(\mathbb{N})$ an
 $S_\infty$-flow.
 :::
 
+:::{figure} ../../figures/transported-order.svg
+:name: fig-transported-order
+:figclass: enc-figure
+:alt: A linear order on the numbers 1 to 6, listed from least to greatest, and the order transported by a permutation g, which lists g(a) where the first order lists a
+:width: 100%
+
+{prf:ref}`def-lo`: a linear order $<$ on $\mathbb{N}$, restricted to $\{1,\dots,6\}$ and listed from least to greatest, a permutation $g\in S_\infty$ that permutes $\{1,\dots,6\}$ and fixes every other number, and the transported order $g\cdot{<}$. Since $a\mathrel{(g\cdot{<})}b$ if and only if $g^{-1}(a)<g^{-1}(b)$, the order $g\cdot{<}$ lists $g(a)$ where $<$ lists $a$.
+:::
+
 :::{prf:theorem} {cite:t}`GlasnerWeiss2002`
 :label: thm-glasner-weiss
 
