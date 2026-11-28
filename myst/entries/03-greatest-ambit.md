@@ -62,3 +62,12 @@ $g\mapsto f(gx_0)$ lies in $\mathrm{RUC}_b(G)$. This defines a unital
 $S(G)\to X$ is the required morphism. Uniqueness holds because $G$ is dense in
 $S(G)$. See {cite}`Auslander1988,Pestov2006`.
 :::
+
+:::{figure} ../../figures/greatest-ambit.svg
+:name: fig-greatest-ambit
+:figclass: enc-figure
+:alt: The greatest ambit S(G), with G dense in it, and its morphism onto an ambit (X, x0), sending 1 to x0 and g to gx0
+:width: 100%
+
+{prf:ref}`prop-greatest-ambit`: $G$ is dense in $S(G)$, and the morphism of ambits $(S(G),1)\to(X,x_0)$ sends each $g\in G$ to $gx_0$. It is unique because $G$ is dense in $S(G)$.
+:::
