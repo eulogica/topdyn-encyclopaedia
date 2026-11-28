@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="680" height="280" viewBox="0 0 680 280" role="img" aria-label="The first 12 and the first 100 points of an orbit of the rotation of the circle by an irrational multiple of 2 pi">
+<title>The first 12 and the first 100 points of an orbit of the rotation of the circle by an irrational multiple of 2 pi</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#25303b"/></marker></defs>
+<g font-family="'STIX Two Text','Times New Roman',Times,serif" font-size="17" fill="#25303b">
+<circle cx="170.0" cy="135.0" r="92" fill="none" stroke="#25303b" stroke-width="1.6"/>
+<circle cx="170.0" cy="43.0" r="5.5" fill="#c4661f" stroke="#c4661f" stroke-width="1"/>
+<text x="170.0" y="28.0" font-size="15" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">x</text>
+<circle cx="107.9" cy="202.8" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="94.3" y="222.6" font-size="15" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">Rx</text>
+<circle cx="261.6" cy="127.0" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="281.6" y="130.2" font-size="15" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">R²x</text>
+<circle cx="97.0" cy="79.0" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="81.1" y="71.9" font-size="15" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">R³x</text>
+<circle cx="186.0" cy="225.6" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="188.6" y="245.4" font-size="12" text-anchor="middle" fill="#5d6873" font-weight="normal">4</text>
+<circle cx="219.4" cy="57.4" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="227.4" y="49.7" font-size="12" text-anchor="middle" fill="#5d6873" font-weight="normal">5</text>
+<circle cx="81.2" cy="158.9" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="66.7" y="167.8" font-size="12" text-anchor="middle" fill="#5d6873" font-weight="normal">6</text>
+<circle cx="251.6" cy="177.4" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="265.0" y="189.3" font-size="12" text-anchor="middle" fill="#5d6873" font-weight="normal">7</text>
+<circle cx="138.4" cy="48.6" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="133.3" y="39.5" font-size="12" text-anchor="middle" fill="#5d6873" font-weight="normal">8</text>
+<circle cx="134.9" cy="220.0" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="129.2" y="238.9" font-size="12" text-anchor="middle" fill="#5d6873" font-weight="normal">9</text>
+<circle cx="253.3" cy="96.0" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="266.9" y="94.6" font-size="12" text-anchor="middle" fill="#5d6873" font-weight="normal">10</text>
+<circle cx="82.2" cy="107.5" r="4.5" fill="#2f63b8" stroke="#2f63b8" stroke-width="1"/>
+<text x="67.9" y="108.0" font-size="12" text-anchor="middle" fill="#5d6873" font-weight="normal">11</text>
+<path d="M170.0,59.0 A76,76 0 1 1 118.7,191.0" fill="none" stroke="#c4661f" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="170.0" y="141.0" font-size="17" text-anchor="middle" fill="#c4661f" font-weight="normal" font-style="italic">R</text>
+<circle cx="510.0" cy="135.0" r="92" fill="none" stroke="#25303b" stroke-width="1.6"/>
+<path d="M510.0,43.0h0 M447.9,202.8h0 M601.6,127.0h0 M437.0,79.0h0 M526.0,225.6h0 M559.4,57.4h0 M421.2,158.9h0 M591.6,177.4h0 M478.4,48.6h0 M474.9,220.0h0 M593.3,96.0h0 M422.2,107.5h0 M556.1,214.6h0 M529.8,45.1h0 M434.7,187.9h0 M601.2,146.8h0 M450.7,64.7h0 M506.2,226.9h0 M574.9,69.8h0 M418.1,139.2h0 M580.6,193.9h0 M497.7,43.8h0 M457.5,210.5h0 M599.8,114.8h0 M430.2,89.3h0 M538.0,222.6h0 M548.6,51.5h0 M425.1,170.5h0 M596.6,166.1h0 M467.2,53.6h0 M486.6,224.0h0 M587.4,85.2h0 M419.3,119.4h0 M566.3,207.7h0 M517.6,43.3h0 M442.5,197.5h0 M602.0,134.6h0 M441.9,73.2h0 M518.5,226.6h0 M565.6,61.7h0 M419.5,151.5h0 M587.9,184.0h0 M485.7,46.3h0 M468.0,216.9h0 M596.3,103.0h0 M424.8,100.3h0 M549.4,218.1h0 M537.1,47.1h0 M430.6,181.5h0 M599.9,154.3h0 M456.7,60.0h0 M498.6,226.3h0 M580.1,75.4h0 M418.1,131.6h0 M575.5,199.6h0 M505.3,43.1h0 M451.4,205.9h0 M601.1,122.3h0 M434.2,82.8h0 M530.6,224.7h0 M555.4,55.0h0 M422.5,163.4h0 M593.7,173.2h0 M474.1,50.3h0 M479.3,221.7h0 M591.2,91.8h0 M420.9,112.0h0 M560.1,212.1h0 M525.1,44.3h0 M437.5,191.7h0 M601.7,142.1h0 M447.2,67.8h0 M510.9,227.0h0 M571.5,66.6h0 M418.4,143.9h0 M583.6,190.3h0 M493.1,44.6h0 M461.4,213.1h0 M598.6,110.3h0 M427.9,93.4h0 M542.4,221.1h0 M544.3,49.6h0 M427.1,174.8h0 M598.0,161.7h0 M463.1,55.9h0 M491.1,225.0h0 M584.7,81.4h0 M418.7,124.1h0 M570.0,204.8h0 M512.9,43.0h0 M445.7,200.8h0 M601.9,129.9h0 M438.8,76.7h0 M523.2,226.1h0 M561.8,59.0h0 M420.4,156.1h0 M590.3,180.0h0 M481.2,47.6h0 M472.2,218.9h0 M594.5,98.7h0" stroke="#2f63b8" stroke-width="4.4" stroke-linecap="round" fill="none"/>
+<text x="170.0" y="268.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">(a) the first 12 points of the orbit</text>
+<text x="510.0" y="268.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">(b) the first 100 points</text>
+</g>
+</svg>
