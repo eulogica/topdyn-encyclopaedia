@@ -65,6 +65,15 @@ $p=qu\in M$. The map $p\mapsto pu$ is continuous, and it is a $G$-map by
 associativity.
 :::
 
+:::{figure} ../../figures/minimal-ideals.svg
+:name: fig-minimal-ideals
+:figclass: enc-figure
+:alt: The greatest ambit S(G) with two minimal left ideals M and M', an idempotent u in M, and the retraction of S(G) onto M sending p to pu
+:width: 100%
+
+{prf:ref}`prop-minimal-ideals`: the minimal left ideals $M$, $M'$, … of $S(G)$ are its minimal subflows, each isomorphic to $M(G)$. An idempotent $u\in M$ gives the $G$-map $p\mapsto pu$ from $S(G)$ onto $M$, which is the identity on $M$, so $M(G)$ is a retract of $S(G)$.
+:::
+
 :::{prf:definition} Enveloping semigroup
 :label: def-enveloping
 
