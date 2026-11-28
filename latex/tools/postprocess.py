@@ -87,6 +87,13 @@ figure>.tag-badge{align-self:center;margin:.4em 0 0}
   border-radius:3px;padding:.05em .5em;cursor:pointer}
 .graph-legend i.cited{background:#fff;border-style:dashed}
 .graph-legend i.this{background:#fff;border:2px solid #2e4a6b}
+header .site-mark{margin-left:auto;line-height:0}
+header .site-mark img{display:block;border-radius:5px}
+div.emblems{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;width:100%;
+  gap:0 2%;margin:.4em 0}
+div.minipage.emblem{width:31%!important;max-width:220px;margin:.6em 0;text-align:center}
+div.minipage.emblem p{margin:.3em 0}
+.titlepage .author img{display:block;margin:.8em auto 0}
 """
 
 # Proof trees on tag pages.
@@ -177,6 +184,15 @@ def add_chrome(soup, depth):
     head = soup.head
     if not head.find("link", href=f"{p}styles/encyclopaedia.css"):
         head.append(soup.new_tag("link", rel="stylesheet", href=f"{p}styles/encyclopaedia.css"))
+    # The editor's mark (images/logicartificialis/mark.svg, copied by main()): the
+    # favicon, and a link to the front page at the right of the header.
+    mark = f"{p}images/logicartificialis/mark.svg"
+    if not head.find("link", rel="icon"):
+        head.append(soup.new_tag("link", rel="icon", type="image/svg+xml", href=mark))
+    header = soup.find("header")
+    if header and not header.find("a", class_="site-mark"):
+        header.append(frag(f'<a class="site-mark" href="{p}index.html" title="LogicArtificialis">'
+                           f'<img src="{mark}" alt="LogicArtificialis" width="26" height="26"/></a>')[0])
     toc = soup.find("nav", class_="toc")
     if toc and not toc.find("ul", class_="extra-nav"):
         for a in toc.find_all("a", href=re.compile(r"dep_graph_document\.html$")):
@@ -419,6 +435,31 @@ def main():
             img["src"] = f"figures/{svg_file.name}"
             img["alt"] = html.unescape(title.group(1)) if title else ""
             img["style"] = "width:100%;max-width:680px;height:auto"
+
+    # The editor's monogram and emblems (../images/logicartificialis, taken from
+    # https://logicartificialis.org): plasTeX shows a copy with the whole
+    # \includegraphics command as alt text. Use its alt={...} key instead, and let
+    # the emblems of the gallery at the end of Section 1 scale with their column.
+    images_dir = ROOT.parent / "images" / "logicartificialis"
+    (SITE / "images" / "logicartificialis").mkdir(parents=True, exist_ok=True)
+    shutil.copy(images_dir / "mark.svg", SITE / "images" / "logicartificialis" / "mark.svg")
+    for soup in pages.values():
+        for img in soup.find_all("img", alt=re.compile(r"^\\includegraphics")):
+            m = re.search(r"alt=\{(.*)\}\]\{[^{}]*\}\s*$", img["alt"], re.S)
+            if not m:
+                continue
+            img["alt"] = " ".join(m.group(1).split())
+            box = img.find_parent("div", class_="minipage")
+            if box:
+                box["class"] = box.get("class", []) + ["emblem"]
+                img["style"] = "width:100%;height:auto"
+                # A row of the gallery: plasTeX puts it in a <p>, which browsers
+                # close before the first <div>; make it a row of its own.
+                if box.parent.name == "p":
+                    box.parent.name = "div"
+                    box.parent["class"] = ["emblems"]
+            else:
+                img["style"] = img.get("style", "").rstrip(";") + ";max-width:100%;height:auto"
     locs = source_locations()
 
     # Locate every tagged item.
