@@ -89,10 +89,8 @@ figure>.tag-badge{align-self:center;margin:.4em 0 0}
 .graph-legend i.this{background:#fff;border:2px solid #2e4a6b}
 header .site-mark{margin-left:auto;line-height:0}
 header .site-mark img{display:block;border-radius:5px}
-div.emblems{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;width:100%;
-  gap:0 2%;margin:.4em 0}
-div.minipage.emblem{width:31%!important;max-width:220px;margin:.6em 0;text-align:center}
-div.minipage.emblem p{margin:.3em 0}
+div.centered.emblems,.emblems{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center}
+img.emblem{width:auto;height:auto;max-width:100%;max-height:200px;margin:.4em 1em;border-radius:4px}
 .titlepage .author img{display:block;margin:.8em auto 0}
 """
 
@@ -438,8 +436,9 @@ def main():
 
     # The editor's monogram and emblems (../images/logicartificialis, taken from
     # https://logicartificialis.org): plasTeX shows a copy with the whole
-    # \includegraphics command as alt text. Use its alt={...} key instead, and let
-    # the emblems of the gallery at the end of Section 1 scale with their column.
+    # \includegraphics command as alt text. Use its alt={...} key instead. Outside
+    # the title page (the monogram) these are the emblems at the end of Section 1,
+    # which the stylesheet shows side by side at the same height.
     images_dir = ROOT.parent / "images" / "logicartificialis"
     (SITE / "images" / "logicartificialis").mkdir(parents=True, exist_ok=True)
     shutil.copy(images_dir / "mark.svg", SITE / "images" / "logicartificialis" / "mark.svg")
@@ -449,17 +448,13 @@ def main():
             if not m:
                 continue
             img["alt"] = " ".join(m.group(1).split())
-            box = img.find_parent("div", class_="minipage")
-            if box:
-                box["class"] = box.get("class", []) + ["emblem"]
-                img["style"] = "width:100%;height:auto"
-                # A row of the gallery: plasTeX puts it in a <p>, which browsers
-                # close before the first <div>; make it a row of its own.
-                if box.parent.name == "p":
-                    box.parent.name = "div"
-                    box.parent["class"] = ["emblems"]
-            else:
+            if img.find_parent("div", class_="titlepage"):
                 img["style"] = img.get("style", "").rstrip(";") + ";max-width:100%;height:auto"
+            else:
+                img["class"] = img.get("class", []) + ["emblem"]
+                del img["style"]
+                if "emblems" not in img.parent.get("class", []):
+                    img.parent["class"] = img.parent.get("class", []) + ["emblems"]
     locs = source_locations()
 
     # Locate every tagged item.
