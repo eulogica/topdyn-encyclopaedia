@@ -296,6 +296,180 @@ def kernel_pattern():
                "G acts through the quotient G/N")
 
 
+# --- Proposition 4.5: the greatest ambit -----------------------------------------------
+
+def greatest_ambit():
+    body = []
+    # S(G), with G dense in it and the base point 1.
+    body.append(ellipse(170, 140, 130, 95, fill=BLUE_FILL, stroke=BLUE, width=1.8, opacity=0.5))
+    body.append(math(60, 62, "S(G)", 19, anchor="start"))
+    for k, (x, y) in enumerate([(110, 115), (150, 95), (205, 110), (240, 150), (120, 175),
+                                (175, 190), (215, 200), (90, 145), (185, 145), (145, 140)]):
+        body.append(circle(x, y, 2.6, fill=BLUE, stroke=BLUE, width=1))
+    body.append(text(170, 258, "<tspan font-style=\"italic\">G</tspan>, dense in "
+                     "<tspan font-style=\"italic\">S</tspan>(<tspan font-style=\"italic\">G</tspan>)",
+                     14, color=BLUE))
+    one = (150, 140)
+    body.append(circle(*one, 5, fill=INK, stroke=INK))
+    body.append(text(one[0] - 12, one[1] + 5, "1", 17, anchor="end"))
+    # The ambit (X, x0).
+    body.append(ellipse(540, 140, 105, 80, stroke=INK, width=1.8))
+    body.append(math(630, 70, "X", 19))
+    x0 = (525, 135)
+    body.append(circle(*x0, 5, fill=INK, stroke=INK))
+    body.append(math(x0[0] + 12, x0[1] + 6, "x<tspan baseline-shift=\"sub\" font-size=\"12\">0</tspan>",
+                     17, anchor="start"))
+    g, gx0 = (205, 110), (570, 100)
+    body.append(circle(*gx0, 3, fill=INK, stroke=INK))
+    body.append(math(gx0[0] + 9, gx0[1] - 6, "gx<tspan baseline-shift=\"sub\" font-size=\"12\">0</tspan>",
+                     16, anchor="start"))
+    body.append(math(g[0] + 6, g[1] - 9, "g", 16, anchor="start"))
+    body.append(path(f"M{one[0] + 8},{one[1] + 2} C300,175 400,170 {x0[0] - 9},{x0[1] + 3}",
+                     ORANGE, 1.8, arrow=True))
+    body.append(path(f"M{g[0] + 5},{g[1] - 2} C320,60 470,60 {gx0[0] - 6},{gx0[1] - 2}",
+                     ORANGE, 1.5, arrow=True, dash="5 4"))
+    body.append(text(355, 198, "the unique morphism of ambits", 14, color=ORANGE))
+    body.append(text(355, 216, "(<tspan font-style=\"italic\">S</tspan>(<tspan font-style=\"italic\">G</tspan>), 1) "
+                     "→ (<tspan font-style=\"italic\">X</tspan>, <tspan font-style=\"italic\">x</tspan>"
+                     "<tspan baseline-shift=\"sub\" font-size=\"11\">0</tspan>)", 14, color=ORANGE))
+    return svg(680, 270, "\n".join(body),
+               "The greatest ambit S(G), with G dense in it, and its morphism onto an ambit (X, x0), "
+               "sending 1 to x0 and g to gx0")
+
+
+# --- Theorem 9.3 (Pestov): the circle -------------------------------------------------
+
+def pestov_circle():
+    import math as m
+    body = []
+    # (a) The circle cut at theta, and the interval it becomes.
+    c, r = (130, 130), 70
+    body.append(circle(*c, r, fill="none", stroke=INK, width=2))
+    th = (c[0], c[1] - r)
+    body.append(circle(*th, 5, fill=ORANGE, stroke=ORANGE))
+    body.append(math(th[0], th[1] - 12, "θ", 18))
+    # An orientation-preserving homeomorphism fixing theta moves the other points along.
+    for a0, a1 in ((40, 70), (150, 185), (250, 275)):
+        p0 = (c[0] + (r + 12) * m.sin(m.radians(a0)), c[1] - (r + 12) * m.cos(m.radians(a0)))
+        p1 = (c[0] + (r + 12) * m.sin(m.radians(a1)), c[1] - (r + 12) * m.cos(m.radians(a1)))
+        body.append(path(f"M{p0[0]:.1f},{p0[1]:.1f} A{r + 12},{r + 12} 0 0 1 {p1[0]:.1f},{p1[1]:.1f}",
+                         BLUE, 1.5, arrow=True))
+    body.append(line(225, 130, 275, 130, arrow=True))
+    body.append(text(250, 118, "cut at <tspan font-style=\"italic\">θ</tspan>", 13, color=SOFT))
+    body.append(line(292, 130, 402, 130, INK, 2))
+    for x in (292, 402):
+        body.append(circle(x, 130, 5, fill=ORANGE, stroke=ORANGE))
+    body.append(math(292, 155, "θ", 17))
+    body.append(math(402, 155, "θ", 17))
+    body.append(path("M310,118 Q330,100 350,116", BLUE, 1.5, arrow=True))
+    body.append(path("M360,118 Q373,106 386,116", BLUE, 1.5, arrow=True))
+    body.append(text(240, 236, "(a) the stabiliser of <tspan font-style=\"italic\">θ</tspan> "
+                     "≅ Homeo<tspan baseline-shift=\"sub\" font-size=\"11\">+</tspan>[0, 1]",
+                     15, color=SOFT))
+    # (b) The map onto a flow X.
+    c2 = (535, 130)
+    body.append(circle(c2[0] - 55, c2[1], 38, fill="none", stroke=INK, width=1.8))
+    body.append(circle(c2[0] - 55, c2[1] - 38, 4, fill=ORANGE, stroke=ORANGE))
+    body.append(math(c2[0] - 55, c2[1] - 50, "θ", 16))
+    body.append(math(c2[0] - 55, c2[1] + 62, "\U0001d54a<tspan baseline-shift=\"super\" font-size=\"11\">1</tspan>",
+                     17))
+    body.append(ellipse(c2[0] + 80, c2[1], 50, 40, stroke=INK, width=1.8))
+    body.append(math(c2[0] + 80, c2[1] + 62, "X", 17))
+    body.append(circle(c2[0] + 72, c2[1] - 8, 4, fill=INK, stroke=INK))
+    body.append(math(c2[0] + 84, c2[1] - 12, "x′", 16, anchor="start"))
+    body.append(path(f"M{c2[0] - 50},{c2[1] - 40} C{c2[0]},{c2[1] - 75} {c2[0] + 35},{c2[1] - 50} "
+                     f"{c2[0] + 66},{c2[1] - 13}", ORANGE, 1.7, arrow=True))
+    body.append(text(c2[0] + 18, c2[1] - 66, "<tspan font-style=\"italic\">gθ</tspan> ↦ "
+                     "<tspan font-style=\"italic\">gx′</tspan>", 15, color=ORANGE))
+    body.append(text(c2[0] + 18, 236, "(b) onto every minimal flow", 15, color=SOFT))
+    return svg(680, 250, "\n".join(body),
+               "The circle cut at a point theta becomes an interval, and the map from the circle to a "
+               "flow X sending g theta to g x'")
+
+
+# --- Definition 11.2: the Ramsey property, for finite linear orders -------------------------
+
+RAMSEY_POINTS = 6
+RAMSEY_TRIPLE = (0, 2, 4)              # the copy B' of B, drawn in the colour of its pairs
+
+
+def ramsey_colouring():
+    """A colouring of the pairs of {0, ..., 5} in two colours, with RAMSEY_TRIPLE
+    monochromatic in colour 0. Fixed, so that the figure does not change."""
+    pattern = "011010101101001"            # one digit per pair, in lexicographic order
+    pairs = [(i, j) for i in range(RAMSEY_POINTS) for j in range(i + 1, RAMSEY_POINTS)]
+    colour = dict(zip(pairs, (int(d) for d in pattern)))
+    for i in RAMSEY_TRIPLE:
+        for j in RAMSEY_TRIPLE:
+            if i < j:
+                colour[i, j] = 0
+    return colour
+
+
+def ramsey_property():
+    body = []
+    colour = ramsey_colouring()
+    x0, dx, y = 110, 92, 220
+    X = lambda i: x0 + dx * i
+    triple = set(RAMSEY_TRIPLE)
+    for (i, j), col in sorted(colour.items(), key=lambda e: (e[0][0] in triple and e[0][1] in triple)):
+        hot = i in triple and j in triple
+        rx = (X(j) - X(i)) / 2
+        ry = 26 + 26 * (j - i)
+        stroke = BLUE if col == 0 else ORANGE
+        body.append(path(f"M{X(i)},{y - 8} A{rx:.1f},{ry} 0 0 1 {X(j)},{y - 8}", stroke,
+                         3.2 if hot else 1.2, dash=None if col == 0 else "6 4"))
+    body.append(line(X(0) - 30, y, X(RAMSEY_POINTS - 1) + 30, y, SOFT, 1.2))
+    for i in range(RAMSEY_POINTS):
+        hot = i in triple
+        body.append(circle(X(i), y, 7, fill=BLUE if hot else "#fff", stroke=BLUE if hot else INK, width=1.6))
+        body.append(text(X(i), y + 28, str(i + 1), 15, color=SOFT))
+    body.append(math(X(RAMSEY_POINTS - 1) + 48, y + 6, "C", 19, anchor="start"))
+    # Legend.
+    body.append(line(40, 26, 74, 26, BLUE, 2))
+    body.append(text(82, 31, "colour 1", 14, anchor="start"))
+    body.append(line(160, 26, 194, 26, ORANGE, 2, dash="6 4"))
+    body.append(text(202, 31, "colour 2", 14, anchor="start"))
+    body.append(line(300, 26, 334, 26, BLUE, 3.2))
+    body.append(text(342, 31, "the pairs of a copy <tspan font-style=\"italic\">B</tspan>′ of "
+                     "<tspan font-style=\"italic\">B</tspan>: one colour", 14, anchor="start"))
+    return svg(680, 268, "\n".join(body),
+               "A colouring of the pairs of a six-element linear order C in two colours, and three points "
+               "whose three pairs have the same colour")
+
+
+# --- Proposition 17.3: minimal left ideals of the greatest ambit --------------------------
+
+def minimal_ideals():
+    body = []
+    body.append(ellipse(330, 140, 290, 112, fill="none", stroke=INK, width=2))
+    body.append(math(62, 52, "S(G)", 19, anchor="start"))
+    body.append(circle(110, 150, 5, fill=INK, stroke=INK))
+    body.append(text(98, 155, "1", 16, anchor="end"))
+    # Two minimal left ideals: the minimal subflows, each a copy of M(G).
+    body.append(ellipse(420, 125, 95, 58, fill=BLUE_FILL, stroke=BLUE, width=1.7, opacity=0.6))
+    body.append(math(470, 88, "M", 18, color=BLUE))
+    body.append(ellipse(235, 195, 62, 34, fill=BLUE_FILL, stroke=BLUE, width=1.4, opacity=0.6))
+    body.append(math(268, 182, "M′", 17, color=BLUE))
+    body.append(text(235, 202, "≅ <tspan font-style=\"italic\">M</tspan>(<tspan font-style=\"italic\">G</tspan>)",
+                     14, color=BLUE))
+    u = (400, 130)
+    body.append(circle(*u, 5, fill=ORANGE, stroke=ORANGE))
+    body.append(math(u[0] - 12, u[1] + 5, "u", 17, anchor="end"))
+    body.append(text(u[0], u[1] + 26, "<tspan font-style=\"italic\">u</tspan> = <tspan font-style=\"italic\">uu</tspan>",
+                     13, color=ORANGE))
+    # The retraction p -> pu.
+    p, pu = (170, 105), (455, 140)
+    body.append(circle(*p, 4, fill=INK, stroke=INK))
+    body.append(math(p[0] - 10, p[1] + 5, "p", 17, anchor="end"))
+    body.append(circle(*pu, 4, fill=INK, stroke=INK))
+    body.append(math(pu[0] + 10, pu[1] + 18, "pu", 16, anchor="start"))
+    body.append(path(f"M{p[0] + 7},{p[1] - 3} C260,55 380,60 {pu[0] - 3},{pu[1] - 8}", ORANGE, 1.7, arrow=True))
+    return svg(680, 270, "\n".join(body),
+               "The greatest ambit S(G) with two minimal left ideals M and M', an idempotent u in M, "
+               "and the retraction of S(G) onto M sending p to pu")
+
+
 FIGURES = {
     "uspenskij-chains": uspenskij_chains,
     "cantor-chain": cantor_chain,
@@ -303,6 +477,10 @@ FIGURES = {
     "bratteli": bratteli,
     "completion-pattern": completion_pattern,
     "kernel-pattern": kernel_pattern,
+    "greatest-ambit": greatest_ambit,
+    "pestov-circle": pestov_circle,
+    "ramsey-property": ramsey_property,
+    "minimal-ideals": minimal_ideals,
 }
 
 if __name__ == "__main__":
