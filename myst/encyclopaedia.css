@@ -24,14 +24,12 @@
 .enc-figure img { display: block; margin: 0 auto; }
 .dark .enc-figure img { filter: invert(.88) hue-rotate(180deg); }
 
-/* The editor's monogram on the front page, and the gallery of its emblems at
-   the end of the front page (images/logicartificialis). mystmd puts the class
-   of the list-table on the figure around the table. */
+/* The editor's monogram on the front page, and its seal and emblem at the end
+   of the front page (images/logicartificialis). mystmd puts the class of the
+   list-table on the figure around the table. */
 img.la-monogram { display: block; margin: 0.4rem 0 1.2rem !important; }
-.la-emblems table { width: 100%; table-layout: fixed; margin: 0; }
+.la-emblems table { width: auto; margin: 0 auto; }
 .la-emblems tr, .la-emblems td { border: none; background: none; }
-.la-emblems td { width: 33.3%; vertical-align: top; text-align: center;
-  font-size: 0.9rem; line-height: 1.4; padding: 0.6rem; }
-.la-emblems td p { margin: 0.4rem 0 0; }
-.la-emblems img { display: block; width: 100%; max-width: 220px; height: auto;
-  margin: 0 auto; border-radius: 4px; }
+.la-emblems td { vertical-align: middle; text-align: center; padding: 0.5rem 1rem; }
+.la-emblems img { display: block; width: auto; height: auto; max-width: 100%;
+  max-height: 200px; margin: 0 auto; border-radius: 4px; }
