@@ -353,6 +353,15 @@ $D_j^{K_j}=\varnothing$. The $K_j$-equivariant projection $X\to D_j$
 implies $X^{K_j}=\varnothing$, and therefore $X^G=\varnothing$.
 :::
 
+:::{figure} ../../figures/inverse-limit-disks.svg
+:name: fig-inverse-limit-disks
+:figclass: enc-figure
+:alt: The disks D_j, D_(j+1), D_(j+2) with the groups K_n acting on them and the maps p_n between them, their inverse limit X with the action of G, and the projection from X to D_j
+:width: 100%
+
+The proof of {prf:ref}`thm-ind-main`. {prf:ref}`lem-ind-bonding` gives $K_n$-equivariant maps $p_n\colon D_{n+1}\to D_n$ between the disks $D_n=D_{K_n}$ of {prf:ref}`thm-ind-oliver`, and {prf:ref}`lem-ind-inverse-action` makes $X=\varprojlim_{n\ge j}(D_n,p_n)$ a nonempty compact metrizable $G$-space whose projection to $D_j$ is $K_j$-equivariant. Since $D_j^{K_j}=\varnothing$, also $X^{K_j}=\varnothing$, and therefore $X^G=\varnothing$. (Illustration added for the encyclopaedia.)
+:::
+
 :::{prf:remark}
 :label: rem-ind-sharpness
 
