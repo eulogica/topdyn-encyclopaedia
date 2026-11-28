@@ -30,3 +30,12 @@ subflow.
 A fixed point is a minimal subflow. The rotation of the circle by an irrational
 multiple of $2\pi$ is a minimal $\mathbb{Z}$-flow, since every orbit is dense.
 :::
+
+:::{figure} ../../figures/irrational-rotation.svg
+:name: fig-irrational-rotation
+:figclass: enc-figure
+:alt: The first 12 and the first 100 points of an orbit of the rotation of the circle by an irrational multiple of 2 pi
+:width: 100%
+
+{prf:ref}`ex-minimal`: the first $12$ and the first $100$ points $x$, $Rx$, $R^2x$, … of an orbit of the rotation $R$ of the circle by $2\pi\alpha$, where $\alpha=(\sqrt5-1)/2$ is irrational. Every orbit is dense, so the rotation is a minimal $\mathbb{Z}$-flow.
+:::

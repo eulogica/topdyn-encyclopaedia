@@ -470,6 +470,416 @@ def minimal_ideals():
                "and the retraction of S(G) onto M sending p to pu")
 
 
+# --- Example 3.3: an irrational rotation of the circle -----------------------------------
+
+ROTATION_ALPHA = (5 ** 0.5 - 1) / 2        # irrational: the rotation is by 2*pi*alpha
+ROTATION_DENSE = 100
+
+
+def irrational_rotation():
+    import math as m
+    body = []
+    labels = ["x", "Rx", "R²x", "R³x"]
+    dots = []
+    for panel, (cx, count) in enumerate(((170, 12), (510, ROTATION_DENSE))):
+        cy, r = 135, 92
+        body.append(circle(cx, cy, r, fill="none", stroke=INK, width=1.6))
+        for k in range(count):
+            a = 2 * m.pi * ((k * ROTATION_ALPHA) % 1)
+            x, y = cx + r * m.sin(a), cy - r * m.cos(a)
+            if panel == 0:
+                hot = k == 0
+                body.append(circle(x, y, 5.5 if hot else 4.5, fill=ORANGE if hot else BLUE,
+                                   stroke=ORANGE if hot else BLUE, width=1))
+                rr = r + (20 if k < 4 else 15)
+                lx, ly = cx + rr * m.sin(a), cy - rr * m.cos(a) + 5
+                if k < 4:
+                    body.append(math(lx, ly, labels[k], 15))
+                else:
+                    body.append(text(lx, ly, str(k), 12, color=SOFT))
+            else:
+                dots.append(f"M{x:.1f},{y:.1f}h0")
+        if panel == 1:
+            body.append(f'<path d="{" ".join(dots)}" stroke="{BLUE}" stroke-width="4.4" '
+                        f'stroke-linecap="round" fill="none"/>')
+        if panel == 0:
+            # The rotation by 2*pi*alpha, from x to Rx, drawn inside the circle.
+            a1 = 2 * m.pi * ROTATION_ALPHA
+            rr = r - 16
+            p0 = (cx, cy - rr)
+            p1 = (cx + rr * m.sin(a1), cy - rr * m.cos(a1))
+            body.append(path(f"M{p0[0]:.1f},{p0[1]:.1f} A{rr},{rr} 0 1 1 {p1[0]:.1f},{p1[1]:.1f}",
+                             ORANGE, 1.4, arrow=True))
+            body.append(math(cx, cy + 6, "R", 17, color=ORANGE))
+    body.append(text(170, 268, "(a) the first 12 points of the orbit", 15, color=SOFT))
+    body.append(text(510, 268, f"(b) the first {ROTATION_DENSE} points", 15, color=SOFT))
+    return svg(680, 280, "\n".join(body),
+               f"The first 12 and the first {ROTATION_DENSE} points of an orbit of the rotation of the circle by an "
+               "irrational multiple of 2 pi")
+
+
+# --- Remark 8.3: concentration of measure on spheres ------------------------------------
+
+def latitude_density(n, theta):
+    """The density of the latitude of a random point of the sphere S^n (n >= 1), in the
+    geodesic distance from the equator: proportional to cos(theta)^(n-1)."""
+    import math as m
+    c = m.cos(theta)
+    return 0.0 if c <= 0 else c ** (n - 1)
+
+
+def sphere_concentration():
+    import math as m
+    body = []
+    # (a) A hemisphere H of the sphere and its epsilon-neighbourhood.
+    cx, cy, r, eps = 140, 138, 90, 0.32
+    h = r * m.sin(eps)                       # the edge of H_eps, above the equator
+    w = (r * r - h * h) ** 0.5
+    body.append(path(f"M{cx - r},{cy} A{r},{r} 0 0 0 {cx + r},{cy} A{r},{r * 0.28} 0 0 1 {cx - r},{cy} z",
+                     BLUE, 0, fill=BLUE_FILL))
+    body.append(path(f"M{cx - r},{cy} A{r},{r * 0.28} 0 0 0 {cx + r},{cy} "
+                     f"A{r},{r} 0 0 0 {cx + w:.1f},{cy - h:.1f} A{w:.1f},{w * 0.28:.1f} 0 0 1 {cx - w:.1f},{cy - h:.1f} "
+                     f"A{r},{r} 0 0 0 {cx - r},{cy} z", ORANGE, 0, fill=ORANGE_FILL))
+    body.append(circle(cx, cy, r, fill="none", stroke=INK, width=1.8))
+    body.append(ellipse(cx, cy, r, r * 0.28, stroke=INK, width=1.2))
+    body.append(ellipse(cx, cy - h, w, w * 0.28, stroke=ORANGE, width=1.2))
+    body.append(math(cx, cy + 58, "H", 18, color=BLUE))
+    bx = cx + r + 14
+    body.append(path(f"M{bx - 5},{cy + r} L{bx},{cy + r} L{bx},{cy - h:.1f} L{bx - 5},{cy - h:.1f}", ORANGE, 1.3))
+    body.append(text(bx + 6, cy + 6, "<tspan font-style=\"italic\">H</tspan>"
+                     "<tspan baseline-shift=\"sub\" font-size=\"12\" font-style=\"italic\">ε</tspan>",
+                     17, anchor="start", color=ORANGE))
+    ra = r + 10
+    body.append(path(f"M{cx - ra},{cy} A{ra},{ra} 0 0 1 {cx - ra * m.cos(eps):.1f},{cy - ra * m.sin(eps):.1f}",
+                     ORANGE, 1.6))
+    for t in (0, eps):
+        body.append(line(cx - (r + 5) * m.cos(t), cy - (r + 5) * m.sin(t),
+                         cx - (r + 15) * m.cos(t), cy - (r + 15) * m.sin(t), ORANGE, 1.3))
+    body.append(math(cx - ra * m.cos(eps / 2) - 8, cy - ra * m.sin(eps / 2) + 5, "ε", 15, anchor="end",
+                     color=ORANGE))
+    body.append(text(cx, 266, "(a) a hemisphere <tspan font-style=\"italic\">H</tspan> and its "
+                     "<tspan font-style=\"italic\">ε</tspan>-neighbourhood", 15, color=SOFT))
+    # (b) The distribution of the latitude for three values of n.
+    x0, x1, yb, ht = 330, 650, 196, 150
+    X = lambda t: x0 + (t + m.pi / 2) / m.pi * (x1 - x0)
+    body.append(line(x0, yb, x1, yb, SOFT, 1.2))
+    for t, lab in ((-m.pi / 2, "−π/2"), (0, "0"), (m.pi / 2, "π/2")):
+        body.append(line(X(t), yb, X(t), yb + 5, SOFT, 1.2))
+        body.append(text(X(t), yb + 19, lab, 13, color=SOFT))
+    body.append(text((x0 + x1) / 2, yb + 37, "latitude (geodesic distance from the equator, with a sign)",
+                     12, color=SOFT))
+    curves = ((2, FAINT, "5 3"), (10, SOFT, None), (100, BLUE, None))
+    steps = 160
+    peak = None
+    for n, colour, dash in curves:
+        ts = [-m.pi / 2 + m.pi * i / steps for i in range(steps + 1)]
+        vals = [latitude_density(n, t) for t in ts]
+        total = sum(vals) * m.pi / steps
+        dens = [v / total for v in vals]
+        if peak is None:
+            peak = max(latitude_density(100, t) for t in ts) / (
+                sum(latitude_density(100, t) for t in ts) * m.pi / steps)
+        pts = " ".join(f"{X(t):.1f},{yb - ht * d / peak:.1f}" for t, d in zip(ts, dens))
+        body.append(f'<polyline points="{pts}" fill="none" stroke="{colour}" stroke-width="1.8"'
+                    + (f' stroke-dasharray="{dash}"' if dash else "") + "/>")
+    for t in (-eps, eps):
+        body.append(line(X(t), yb, X(t), yb - ht - 6, ORANGE, 1.1, dash="4 3"))
+    body.append(text(X(eps) + 4, yb - ht + 6, "<tspan font-style=\"italic\">ε</tspan>", 14,
+                     anchor="start", color=ORANGE))
+    body.append(text(X(-eps) - 4, yb - ht + 6, "−<tspan font-style=\"italic\">ε</tspan>", 14,
+                     anchor="end", color=ORANGE))
+    for n, colour, y in ((100, BLUE, 52), (10, SOFT, 72), (2, FAINT, 92)):
+        body.append(line(x1 - 92, y - 4, x1 - 66, y - 4, colour, 1.8, dash="5 3" if n == 2 else None))
+        body.append(text(x1 - 60, y, f"<tspan font-style=\"italic\">n</tspan> = {n}", 13,
+                         anchor="start", color=INK))
+    body.append(text((x0 + x1) / 2, 266, "(b) the latitude of a random point of "
+                     "\U0001d54a<tspan baseline-shift=\"super\" font-size=\"10\" font-style=\"italic\">n</tspan>",
+                     15, color=SOFT))
+    return svg(680, 280, "\n".join(body),
+               "A hemisphere of the sphere and its epsilon-neighbourhood, and the distribution of the "
+               "latitude of a random point of the n-sphere for n = 2, 10 and 100")
+
+
+# --- Definition 10.1: transporting a linear order by a permutation -------------------------
+
+ORDER_EXAMPLE = [4, 1, 6, 3, 5, 2]          # a linear order on {1, ..., 6}, least first
+PERM_EXAMPLE = {1: 2, 2: 3, 3: 1, 4: 4, 5: 6, 6: 5}
+
+
+def transported_order():
+    body = []
+    g = PERM_EXAMPLE
+    x0, dx, y1, y2 = 200, 72, 70, 190
+    body.append(math(60, y1 + 6, "&lt;", 20))
+    body.append(math(60, y2 + 6, "g·&lt;", 20))
+    for i, a in enumerate(ORDER_EXAMPLE):
+        x = x0 + dx * i
+        body.append(circle(x, y1, 16, fill="#fff", stroke=INK, width=1.5))
+        body.append(text(x, y1 + 6, str(a), 17))
+        body.append(circle(x, y2, 16, fill=BLUE_FILL, stroke=BLUE, width=1.5))
+        body.append(text(x, y2 + 6, str(g[a]), 17, color=BLUE))
+        body.append(line(x, y1 + 19, x, y2 - 21, ORANGE, 1.4, arrow=True))
+        if i:
+            body.append(text(x - dx / 2, y1 + 6, "&lt;", 15, color=SOFT))
+            body.append(text(x - dx / 2, y2 + 6, "&lt;", 15, color=SOFT))
+    body.append(text(x0 + dx * 2.5, y1 - 30, "least  →  greatest", 13, color=SOFT))
+    body.append(text(118, (y1 + y2) / 2 + 5, "<tspan font-style=\"italic\">a</tspan> ↦ "
+                     "<tspan font-style=\"italic\">g</tspan>(<tspan font-style=\"italic\">a</tspan>)",
+                     14, color=ORANGE))
+    # The permutation g, in two-line notation.
+    gx, gy = 200, 248
+    body.append(math(gx, gy + 5, "g", 17, anchor="end"))
+    body.append(text(gx + 8, gy + 5, "=", 17, anchor="start"))
+    body.append(path(f"M{gx + 32},{gy - 18} Q{gx + 24},{gy} {gx + 32},{gy + 18}", INK, 1.2))
+    for k in range(1, 7):
+        body.append(text(gx + 30 + 18 * k, gy - 4, str(k), 14))
+        body.append(text(gx + 30 + 18 * k, gy + 14, str(g[k]), 14, color=BLUE))
+    body.append(path(f"M{gx + 150},{gy - 18} Q{gx + 158},{gy} {gx + 150},{gy + 18}", INK, 1.2))
+    body.append(text(gx + 168, gy + 5, "on 1, …, 6, and <tspan font-style=\"italic\">g</tspan> fixes every "
+                     "other number", 14, anchor="start", color=SOFT))
+    return svg(680, 280, "\n".join(body),
+               "A linear order on the numbers 1 to 6, listed from least to greatest, and the order "
+               "transported by a permutation g, which lists g(a) where the first order lists a")
+
+
+# --- Example 13.5 (2): convex orders on an equivalence relation -------------------------------
+
+def class_mark(x, y, k, size=9):
+    """Element of the k-th class: a circle, a square or a triangle, each in its colour."""
+    if k == 0:
+        return circle(x, y, size, fill=BLUE_FILL, stroke=BLUE, width=1.6)
+    if k == 1:
+        return (f'<rect x="{x - size:.1f}" y="{y - size:.1f}" width="{2 * size}" height="{2 * size}" '
+                f'fill="{ORANGE_FILL}" stroke="{ORANGE}" stroke-width="1.6"/>')
+    s = size * 1.25
+    return (f'<polygon points="{x:.1f},{y - s:.1f} {x + s:.1f},{y + s * 0.75:.1f} '
+            f'{x - s:.1f},{y + s * 0.75:.1f}" fill="#eef0f2" stroke="{INK}" stroke-width="1.6"/>')
+
+
+CONVEX_ORDER = [0, 0, 0, 1, 1, 1, 2, 2, 2]
+NONCONVEX_ORDER = [0, 1, 0, 2, 1, 0, 2, 2, 1]
+
+
+def convex_orders():
+    body = []
+    x0, dx = 150, 52
+    for row, (order, y, label) in enumerate(((CONVEX_ORDER, 80, "(a) convex: every class is an interval"),
+                                             (NONCONVEX_ORDER, 200, "(b) not convex"))):
+        body.append(line(x0 - 30, y, x0 + dx * 8 + 30, y, FAINT, 1.2, arrow=True))
+        for i, k in enumerate(order):
+            body.append(class_mark(x0 + dx * i, y, k))
+        body.append(text(x0 + dx * 4, y + 52, label, 15, color=SOFT))
+        if row == 0:
+            for k in range(3):
+                a, b = x0 + dx * 3 * k - 16, x0 + dx * (3 * k + 2) + 16
+                body.append(path(f"M{a},{y - 20} L{a},{y - 27} L{b},{y - 27} L{b},{y - 20}", SOFT, 1.2))
+        else:
+            first = order.index(0)
+            last = len(order) - 1 - order[::-1].index(0)
+            a, b = x0 + dx * first - 16, x0 + dx * last + 16
+            body.append(path(f"M{a},{y - 20} L{a},{y - 27} L{b},{y - 27} L{b},{y - 20}", BLUE, 1.2))
+            body.append(text((a + b) / 2, y - 34, "the circles, with other points between them", 13,
+                             color=BLUE))
+    body.append(text(x0 + dx * 8 + 30, 30, "least → greatest", 13, anchor="end", color=SOFT))
+    return svg(680, 270, "\n".join(body),
+               "Nine points in three classes, drawn as circles, squares and triangles, in an order where "
+               "each class is an interval and in an order where it is not")
+
+
+# --- Definition 16.2: the Cantor fan and the Lelek fan -----------------------------------
+
+def cantor_points(depth, left, width):
+    """One point of the middle-thirds Cantor set in each of the 2^depth intervals of its
+    depth-th stage (the left end in the left half, the right end in the right half, so
+    that the picture is symmetric), scaled to [left, left + width]."""
+    pts = [0.0]
+    size = 1.0
+    for _ in range(depth):
+        size /= 3
+        pts = [p for q in pts for p in (q, q + 2 * size)]
+    return [left + width * (p if p < 0.5 else p + size) for p in pts]
+
+
+def van_der_corput(k, bits):
+    return sum(((k >> i) & 1) / 2 ** (i + 1) for i in range(bits))
+
+
+def lelek_fan():
+    body = []
+    depth = 5
+    for panel, (cx, label) in enumerate(((170, "(a) the Cantor fan"),
+                                         (510, "(b) shorter blades, in the Cantor fan"))):
+        top, bottom, width = 40, 222, 280
+        xs = cantor_points(depth, cx - width / 2, width)
+        body.append(circle(cx, top, 4, fill=INK, stroke=INK))
+        body.append(math(cx, top - 10, "v", 17))
+        if panel == 1:
+            body.append(path(" ".join(f"M{cx} {top}L{x:.1f} {bottom}" for x in xs), FAINT, 0.7))
+        blades, ends = [], []
+        for k, x in enumerate(xs):
+            t = 1.0 if panel == 0 else 0.18 + 0.82 * van_der_corput(k * 7 % 32, depth)
+            ex, ey = cx + (x - cx) * t, top + (bottom - top) * t
+            blades.append(f"M{cx} {top}L{ex:.1f} {ey:.1f}")
+            ends.append(f"M{ex:.1f} {ey:.1f}h0")
+        body.append(path(" ".join(blades), INK if panel == 0 else BLUE, 0.9))
+        if panel == 1:
+            body.append(f'<path d="{" ".join(ends)}" stroke="{ORANGE}" stroke-width="5" '
+                        f'stroke-linecap="round" fill="none"/>')
+        if panel == 0:
+            body.append(text(cx + width / 2 + 6, bottom + 4, "<tspan font-style=\"italic\">C</tspan> × {1}",
+                             13, anchor="start", color=SOFT))
+        body.append(text(cx, 262, label, 15, color=SOFT))
+    return svg(680, 275, "\n".join(body),
+               "The Cantor fan, drawn with finitely many blades from its top v, and a fan whose blades have "
+               "different lengths, with their endpoints marked")
+
+
+# --- Definition 16.5: generalised Wazewski dendrites -------------------------------------
+
+def dendrite_segments(p, q, depth, orders, out, marks, level=0):
+    """Segments of a schematic dendrite on the arc from p to q: each arc gets one
+    ramification point of each order in `orders`, at evenly spaced places; a point of
+    order k carries k - 2 new branches. Recurse on all the pieces."""
+    import math as m
+    if depth == 0:
+        out.append((p, q))
+        return
+    k = len(orders)
+    pts = [(p[0] + (q[0] - p[0]) * i / (k + 1), p[1] + (q[1] - p[1]) * i / (k + 1)) for i in range(k + 2)]
+    for i in range(k + 1):
+        dendrite_segments(pts[i], pts[i + 1], depth - 1, orders, out, marks, level + 1)
+    dx, dy = q[0] - p[0], q[1] - p[1]
+    length = m.hypot(dx, dy)
+    ux, uy = dx / length, dy / length
+    for i, order in enumerate(orders, start=1):
+        c = pts[i]
+        marks.append((c, order, level))
+        branch = length * 0.42 / (k + 1) * 2
+        sides = [1] if order == 3 else [1, -1]
+        for j, s in enumerate(sides):
+            sign = s * (1 if (level + i) % 2 == 0 else -1)
+            ang = m.radians(64) * sign
+            bx = ux * m.cos(ang) - uy * m.sin(ang)
+            by = ux * m.sin(ang) + uy * m.cos(ang)
+            dendrite_segments(c, (c[0] + bx * branch, c[1] + by * branch), depth - 1, orders, out, marks,
+                              level + 1)
+
+
+def wazewski():
+    body = []
+    for panel, (cx, orders, depth, label) in enumerate(
+            ((170, [3], 5, "(a) <tspan font-style=\"italic\">W</tspan>"
+                           "<tspan baseline-shift=\"sub\" font-size=\"11\">{3}</tspan>"),
+             (510, [3, 4], 3, "(b) <tspan font-style=\"italic\">W</tspan>"
+                              "<tspan baseline-shift=\"sub\" font-size=\"11\">{3,4}</tspan>"))):
+        segs, marks = [], []
+        dendrite_segments((cx - 150, 150), (cx + 150, 150), depth, orders, segs, marks)
+        body.append(path(" ".join(f"M{a[0]:.0f} {a[1]:.0f}L{b[0]:.0f} {b[1]:.0f}" for a, b in segs),
+                         INK, 1.0))
+        for (x, y), order, level in marks:
+            if level > 1:
+                continue
+            if order == 3:
+                body.append(circle(x, y, 4.2, fill=BLUE, stroke=BLUE, width=1))
+            else:
+                body.append(f'<rect x="{x - 4:.1f}" y="{y - 4:.1f}" width="8" height="8" fill="{ORANGE}" '
+                            f'stroke="{ORANGE}" stroke-width="1"/>')
+        body.append(text(cx, 268, label, 15, color=SOFT))
+    body.append(circle(232, 28, 4.2, fill=BLUE, stroke=BLUE, width=1))
+    body.append(text(242, 33, "order 3", 13, anchor="start", color=SOFT))
+    body.append(f'<rect x="{348 - 4}" y="{28 - 4}" width="8" height="8" fill="{ORANGE}" stroke="{ORANGE}"/>')
+    body.append(text(358, 33, "order 4", 13, anchor="start", color=SOFT))
+    return svg(680, 280, "\n".join(body),
+               "The first stages of two generalised Wazewski dendrites: one with ramification points of "
+               "order 3, one with ramification points of orders 3 and 4")
+
+
+# --- Proposition 23.12 and Theorem 23.19: the atoms of a measure space -----------------------
+
+def atoms():
+    body = []
+    groups = [("r₁", 3, 15), ("r₂", 2, 11), ("r₃", 4, 7.5)]
+    rows = ((62, "(a) measure-preserving automorphisms permute each <tspan font-style=\"italic\">A</tspan>"
+                 "<tspan baseline-shift=\"sub\" font-size=\"11\" font-style=\"italic\">r</tspan>"),
+            (196, "(b) nonsingular automorphisms may permute all the atoms"))
+    for row, (y, label) in enumerate(rows):
+        # The atomless part.
+        body.append(f'<rect x="40" y="{y - 22}" width="190" height="44" rx="6" fill="{BLUE_FILL}" '
+                    f'stroke="{BLUE}" stroke-width="1.4"/>')
+        body.append(text(135, y + 6, "<tspan font-style=\"italic\">Y</tspan>"
+                         "<tspan baseline-shift=\"sub\" font-size=\"12\">c</tspan>", 18, color=BLUE))
+        body.append(text(135, y + 42, "atomless part", 13, color=BLUE))
+        x = 268
+        centres = []
+        for name, count, rad in groups:
+            start = x
+            mine = []
+            for i in range(count):
+                cx = x + rad
+                mine.append((cx, rad))
+                body.append(circle(cx, y, rad, fill=ORANGE_FILL, stroke=ORANGE, width=1.4))
+                x += 2 * rad + 12
+            centres += mine
+            end = x - 12
+            if row == 0:
+                (p, pr), (q, qr) = mine[0], mine[-1]
+                body.append(path(f"M{p:.1f},{y - pr - 4:.1f} Q{(p + q) / 2:.1f},{y - 40:.1f} "
+                                 f"{q:.1f},{y - qr - 4:.1f}", ORANGE, 1.3, arrow=True, arrow_start=True))
+            body.append(path(f"M{start},{y + 26} L{start},{y + 31} L{end},{y + 31} L{end},{y + 26}", SOFT, 1.1))
+            body.append(text((start + end) / 2, y + 48, f"<tspan font-style=\"italic\">A</tspan>"
+                             f"<tspan baseline-shift=\"sub\" font-size=\"11\" font-style=\"italic\">{name}</tspan>",
+                             15, color=SOFT))
+            x += 20
+        body.append(text(x + 2, y + 6, "…", 18, anchor="start", color=SOFT))
+        if row == 1:
+            for (p, pr), (q, qr), h in ((centres[2], centres[3], 18), (centres[0], centres[7], 50)):
+                body.append(path(f"M{p:.1f},{y - pr - 4:.1f} Q{(p + q) / 2:.1f},{y - h - 14:.1f} "
+                                 f"{q:.1f},{y - qr - 4:.1f}", ORANGE, 1.3, arrow=True, arrow_start=True,
+                                 dash="5 3"))
+        body.append(text(340, y + 74, label, 14, color=SOFT))
+    return svg(680, 290, "\n".join(body),
+               "A measure space split into its atomless part and its atoms, grouped by mass; measure-preserving "
+               "automorphisms permute atoms of equal mass, nonsingular ones may permute all atoms")
+
+
+# --- Theorem 27.1: the inverse limit of Oliver disks ---------------------------------------
+
+def inverse_limit_disks():
+    body = []
+    y = 110
+    xs = [110, 250, 390]
+    names = ["j", "j+1", "j+2"]
+    sub = lambda letter, nm, size=16: (f"<tspan font-style=\"italic\">{letter}</tspan><tspan baseline-shift=\"sub\" "
+                                       f"font-size=\"{size - 5}\" font-style=\"italic\">{nm}</tspan>")
+    for x, nm in zip(xs, names):
+        body.append(circle(x, y, 40, fill=BLUE_FILL, stroke=BLUE, width=1.6))
+        body.append(text(x, y + 6, sub("D", nm, 18), 18))
+        body.append(path(f"M{x - 26},{y - 52} A30,14 0 1 1 {x + 26},{y - 52}", INK, 1.2, arrow=True))
+        body.append(text(x, y - 74, sub("K", nm), 16))
+    for xa, xb in ((110, 250), (250, 390)):
+        body.append(text((xa + xb) / 2, y - 74, "⊂", 16, color=SOFT))
+    body.append(text(462, y - 74, "⊂ …", 16, color=SOFT))
+    for (xa, xb), nm in zip(((110, 250), (250, 390)), names):
+        body.append(line(xb - 46, y, xa + 46, y, INK, 1.4, arrow=True))
+        body.append(text((xa + xb) / 2, y - 8, sub("p", nm, 15), 15))
+    body.append(line(474, y, 436, y, INK, 1.4, arrow=True))
+    body.append(text(490, y + 6, "…", 18, anchor="start", color=SOFT))
+    # The inverse limit, and its projection to D_j.
+    xX = 600
+    body.append(ellipse(xX, y, 52, 40, fill=ORANGE_FILL, stroke=ORANGE, width=1.6))
+    body.append(math(xX, y + 6, "X", 19))
+    body.append(path(f"M{xX - 26},{y - 52} A30,14 0 1 1 {xX + 26},{y - 52}", INK, 1.2, arrow=True))
+    body.append(text(xX, y - 74, "<tspan font-style=\"italic\">G</tspan> = ⋃ " + sub("K", "n"), 16))
+    body.append(path(f"M{xX - 36},{y + 29} C{xX - 120},{y + 78} 240,{y + 78} 146,{y + 24}", ORANGE, 1.5,
+                     arrow=True))
+    body.append(text(370, y + 92, "the projection is " + sub("K", "j", 14) + "-equivariant", 14, color=ORANGE))
+    body.append(text(96, y + 62, "no " + sub("K", "j", 13) + "-fixed point", 13, color=SOFT))
+    body.append(text(xX + 6, y + 62, "so no " + sub("K", "j", 13) + "-fixed point,", 13, color=SOFT))
+    body.append(text(xX + 6, y + 79, "and no <tspan font-style=\"italic\">G</tspan>-fixed point", 13, color=SOFT))
+    return svg(680, 220, "\n".join(body),
+               "The disks D_j, D_(j+1), D_(j+2) with the groups K_n acting on them and the maps p_n between "
+               "them, their inverse limit X with the action of G, and the projection from X to D_j")
+
 FIGURES = {
     "uspenskij-chains": uspenskij_chains,
     "cantor-chain": cantor_chain,
@@ -481,6 +891,14 @@ FIGURES = {
     "pestov-circle": pestov_circle,
     "ramsey-property": ramsey_property,
     "minimal-ideals": minimal_ideals,
+    "irrational-rotation": irrational_rotation,
+    "sphere-concentration": sphere_concentration,
+    "transported-order": transported_order,
+    "convex-orders": convex_orders,
+    "lelek-fan": lelek_fan,
+    "wazewski-dendrites": wazewski,
+    "atoms": atoms,
+    "inverse-limit-disks": inverse_limit_disks,
 }
 
 if __name__ == "__main__":

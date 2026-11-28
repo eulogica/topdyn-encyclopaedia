@@ -120,3 +120,12 @@ In each case the automorphism group of the Fraïssé limit of $\mathcal{K}^*$
 is extremely amenable ({prf:ref}`thm-kpt`). See also the survey
 {cite}`NguyenVanThe2014`.
 :::
+
+:::{figure} ../../figures/convex-orders.svg
+:name: fig-convex-orders
+:figclass: enc-figure
+:alt: Nine points in three classes, drawn as circles, squares and triangles, in an order where each class is an interval and in an order where it is not
+:width: 100%
+
+{prf:ref}`ex-kpt-computations`(2), on nine points of the equivalence relation in three classes, drawn as circles, squares and triangles; each order is listed from least to greatest. (a) A convex order: every class is an interval. (b) An order that is not convex: there are points of other classes between the circles.
+:::

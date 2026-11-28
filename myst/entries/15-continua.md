@@ -27,6 +27,15 @@ Cantor fan with more than one point whose endpoints are dense in it
 {cite}`BartosovaKwiatkowska2019`.
 :::
 
+:::{figure} ../../figures/lelek-fan.svg
+:name: fig-lelek-fan
+:figclass: enc-figure
+:alt: The Cantor fan, drawn with finitely many blades from its top v, and a fan whose blades have different lengths, with their endpoints marked
+:width: 100%
+
+Schematic pictures of {prf:ref}`def-lelek-fan`, with finitely many blades. (a) The Cantor fan: each segment is the image of $\{c\}\times[0,1]$ for a point $c$ of $C$, and $C\times\{0\}$ is collapsed to the top $v$. (b) A subcontinuum of the Cantor fan whose blades have different lengths; the dots are its endpoints. In the Lelek fan $L$ the endpoints are dense, which no picture with finitely many blades can show.
+:::
+
 :::{prf:theorem} {cite:t}`BartosovaKwiatkowska2019`
 :label: thm-lelek
 
@@ -60,6 +69,15 @@ order is at least $3$. For $P\subseteq\{3,4,\dots,\omega\}$, a
 ramification point has order in $P$ and, for every $p\in P$, every arc contains
 a ramification point of order $p$. It is unique up to homeomorphism; see
 {cite}`Kwiatkowska2018`.
+:::
+
+:::{figure} ../../figures/wazewski-dendrites.svg
+:name: fig-wazewski-dendrites
+:figclass: enc-figure
+:alt: The first stages of two generalised Wazewski dendrites: one with ramification points of order 3, one with ramification points of orders 3 and 4
+:width: 100%
+
+Schematic pictures of the first stages of two generalised Ważewski dendrites ({prf:ref}`def-wazewski`): (a) $W_{\{3\}}$, in which every ramification point has order $3$; (b) $W_{\{3,4\}}$, with ramification points of order $3$ (circles) and of order $4$ (squares). Only the first ramification points are marked. In $W_P$ every arc contains a ramification point of order $p$ for every $p\in P$, which a picture with finitely many branches can only suggest.
 :::
 
 :::{prf:theorem} {cite:t}`Kwiatkowska2018`

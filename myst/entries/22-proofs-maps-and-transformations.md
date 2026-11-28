@@ -874,6 +874,15 @@ is simply transitive, so it is the compact group's own universal minimal flow.
 {eq}`eq-pw-nonsingular-aut-umf` in every case.
 :::
 
+:::{figure} ../../figures/atoms.svg
+:name: fig-atoms
+:figclass: enc-figure
+:alt: A measure space split into its atomless part and its atoms, grouped by mass; measure-preserving automorphisms permute atoms of equal mass, nonsingular ones may permute all atoms
+:width: 100%
+
+The decompositions in the proofs of {prf:ref}`prop-pw-l0-umf` and {prf:ref}`thm-pw-measure-aut-umf`. A standard probability space $(Y,\mu)$ is the union of its atomless part $Y_{\mathrm c}$ and its set $A_\mu$ of atomic points, which is the union of the finite sets $A_r$ of atoms of mass $r\in R_\mu$. (a) A measure-preserving automorphism preserves atom masses, so it permutes each $A_r$. (b) A nonsingular automorphism may permute all the atoms. Since the factors on $Y_{\mathrm c}$ are extremely amenable, the universal minimal flows are $K^{A_\mu}$, $\prod_{r\in R_\mu}\operatorname{Sym}(A_r)$ and $\operatorname{LO}(A_\mu)$. (Illustration added for the encyclopaedia.)
+:::
+
 (sec-pw-wreath)=
 ## Wreath products and atomic decompositions
 
