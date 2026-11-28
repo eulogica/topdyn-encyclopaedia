@@ -38,7 +38,7 @@ experts. The entries from [](#sec-kpt-umf) to [](#sec-ea-catalogue) were added
 later in the same way, from the full texts of the cited papers where available
 and otherwise from their abstracts, and have not been reviewed either. The
 entries from [](#sec-maps-transformations) to [](#sec-inductive-limits)
-report results from the editor's own preprints posted on Zenodo, which have
+report results from preprints posted on Zenodo, which have
 not been refereed. The entries from [](#sec-proofs-maps-transformations) to
 [](#sec-proofs-inductive-limits) reproduce the proofs from those preprints, in
 the versions cited in the bibliography; the bibliographic data of the works
