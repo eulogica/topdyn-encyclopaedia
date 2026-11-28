@@ -13,11 +13,16 @@
 % Figures: one SVG file per figure in ../figures, drawn by figures/make_figures.py.
 % build.sh copies them into _figures/ as PDF (for pdflatex) and PNG (for plasTeX);
 % the website then shows the SVG. Figures are numbered within sections.
-\graphicspath{{_figures/}}
+% The editor's monogram and emblems are images in ../images/logicartificialis,
+% taken from https://logicartificialis.org; they are not numbered figures.
+\graphicspath{{_figures/}{../images/logicartificialis/}{../images/funding/}}
 \numberwithin{figure}{section}
 % \illustrates{label,...}, inside a figure: the statements whose proofs it
 % illustrates. It prints nothing; on both websites their links name the figure.
 \newcommand{\illustrates}[1]{}
+% \emblem[height]{file}{alt text}: an image at the end of Section~\ref{sec:about}
+% (the editor's emblems, 4.5cm high, and the logos above the funding statement).
+\newcommand{\emblem}[3][4.5cm]{\includegraphics[height=#1,alt={#3}]{#2}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -32,7 +37,10 @@
 \newtheorem{remark}[theorem]{Remark}
 
 \title{Topological dynamics of topological groups}
-\author{A living, hypertextual encyclopaedia. Editor: LogicArtificialis}
+\author{A living, hypertextual encyclopaedia. Editor:
+  \href{https://logicartificialis.org}{LogicArtificialis}\\[2ex]
+  \includegraphics[width=4cm,alt={The LogicArtificialis monogram: navy LA initials
+  with a gold turnstile, above the wordmark LogicArtificialis.}]{monogram}}
 \date{Prototype, version of 26 November 2026}
 
 \begin{document}

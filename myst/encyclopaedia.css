@@ -23,3 +23,15 @@
    transparent ground: invert them in dark mode, keeping the hues. */
 .enc-figure img { display: block; margin: 0 auto; }
 .dark .enc-figure img { filter: invert(.88) hue-rotate(180deg); }
+
+/* The editor's monogram on the front page, and its seal and emblem at the end
+   of the front page (images/logicartificialis). mystmd puts the class of the
+   list-table on the figure around the table. */
+img.la-monogram { display: block; margin: 0.4rem 0 1.2rem !important; }
+.la-emblems table { width: auto; margin: 0 auto; }
+.la-emblems tr, .la-emblems td { border: none; background: none; }
+.la-emblems td { vertical-align: middle; text-align: center; padding: 0.5rem 1rem; }
+.la-emblems img { display: block; width: auto; height: auto; max-width: 100%;
+  max-height: 200px; margin: 0 auto; border-radius: 4px; }
+/* The DAT logo and the ERC + EU logo above the funding statement. */
+.la-funding img { max-height: 130px; background: #ffffff; padding: 6px; box-sizing: content-box; }

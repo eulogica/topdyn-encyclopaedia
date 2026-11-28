@@ -1,7 +1,14 @@
 (sec-about)=
 # Topological dynamics of topological groups
 
-*A living, hypertextual encyclopaedia (prototype). Editor: LogicArtificialis.*
+*A living, hypertextual encyclopaedia (prototype). Editor:
+[LogicArtificialis](https://logicartificialis.org).*
+
+```{image} ../images/logicartificialis/monogram.jpg
+:alt: The LogicArtificialis monogram: navy LA initials with a gold turnstile, above the wordmark LogicArtificialis.
+:width: 150px
+:class: la-monogram
+```
 
 This is a prototype of a living, hypertextual reference work on the topological
 dynamics of topological groups, with an emphasis on universal minimal flows. It
@@ -43,6 +50,32 @@ not been refereed. The entries from [](#sec-proofs-maps-transformations) to
 [](#sec-proofs-inductive-limits) reproduce the proofs from those preprints, in
 the versions cited in the bibliography; the bibliographic data of the works
 they cite were checked against Crossref, zbMATH or arXiv.
+
+**The editor.** The encyclopaedia is edited by LogicArtificialis
+(<https://logicartificialis.org>). Its seal and one of its emblems, reproduced
+from its website, are shown below.
+
+```{list-table}
+:class: la-emblems
+
+* - ![A gold circular seal with a sapphire turtle, a corgi, a capybara and the Latin motto Organum rationis, sapphirus mentis, above the wordmark LogicArtificialis.](../images/logicartificialis/seal.jpg)
+  - ![A corgi and a capybara riding a green turtle above the wordmark LogicArtificialis and the motto Meaning guides. Syntax decides.](../images/logicartificialis/meaning-guides.jpg)
+```
+
+**Funding.** This work is supported by ERC grant DAT (Definable Algebraic
+Topology), 101077154.
+
+```{list-table}
+:class: la-emblems la-funding
+
+* - ![The DAT logo: the words Definable Algebraic Topology, with large magenta initials D, A and T.](../images/funding/dat-logo.svg)
+  - ![Funded by the European Union, with the flag of the European Union, beside the logo of the European Research Council, established by the European Commission.](../images/funding/erc-eu-logo.png)
+```
+
+Funded by the European Union. Views and opinions expressed are however those of
+the author(s) only and do not necessarily reflect those of the European Union
+or the European Research Council Executive Agency. Neither the European Union
+nor the granting authority can be held responsible for them.
 
 ```{toctree}
 :maxdepth: 1
