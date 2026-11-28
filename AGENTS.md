@@ -143,7 +143,8 @@ this table.
   sites.
 * LaTeX: a `figure` environment with `\includegraphics[width=\linewidth]{NAME}`,
   a `\caption`, `\label{fig:NAME}` and `\illustrates{label1, label2}`, the
-  statements whose proofs it illustrates. `build.sh` converts the SVGs to PDF
+  statements it illustrates (their proofs, or the statements themselves for a
+  definition or an example). `build.sh` converts the SVGs to PDF
   and PNG with `rsvg-convert` in `latex/_figures/` (not committed) for pdflatex
   and plasTeX, and `postprocess.py` puts the SVG back on the web pages.
   Figures are numbered by section (Figure 12.1).
