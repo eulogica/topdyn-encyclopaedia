@@ -52,31 +52,14 @@ the versions cited in the bibliography; the bibliographic data of the works
 they cite were checked against Crossref, zbMATH or arXiv.
 
 **The editor.** The encyclopaedia is edited by LogicArtificialis
-(<https://logicartificialis.org>). Its seal and emblems, reproduced from its
-website, are shown below.
+(<https://logicartificialis.org>). Its seal and one of its emblems, reproduced
+from its website, are shown below.
 
 ```{list-table}
 :class: la-emblems
 
-* - ![A gold circular seal with a sapphire turtle, a corgi, a capybara and the Latin motto, above the wordmark LogicArtificialis.](../images/logicartificialis/seal.jpg)
-
-    The seal: *Organum rationis, sapphirus mentis* (the instrument of reason,
-    the sapphire of the mind).
-  - ![A faceted blue sapphire edged in gold, with a corgi, a capybara and a turtle.](../images/logicartificialis/sapphire.jpg)
-
-    The sapphire.
-  - ![A corgi and a capybara behind a turtle whose shell carries a gold proof tree, under a sapphire.](../images/logicartificialis/kernel-signs.jpg)
-
-    When the model speaks, the kernel signs.
-* - ![A corgi and a capybara riding a green turtle above the wordmark LogicArtificialis.](../images/logicartificialis/meaning-guides.jpg)
-
-    Meaning guides. Syntax decides.
-  - ![A corgi and a capybara on a dark turtle behind a blue shield bearing a gold turnstile.](../images/logicartificialis/proof-shield.jpg)
-
-    The proof shield.
-  - ![A capybara and a corgi with a blue sapphire, a small turtle and the wordmark LogicArtificialis.](../images/logicartificialis/logic-and-sapphire.jpg)
-
-    Logic is the instrument. The sapphire is the mind.
+* - ![A gold circular seal with a sapphire turtle, a corgi, a capybara and the Latin motto Organum rationis, sapphirus mentis, above the wordmark LogicArtificialis.](../images/logicartificialis/seal.jpg)
+  - ![A corgi and a capybara riding a green turtle above the wordmark LogicArtificialis and the motto Meaning guides. Syntax decides.](../images/logicartificialis/meaning-guides.jpg)
 ```
 
 ```{toctree}
