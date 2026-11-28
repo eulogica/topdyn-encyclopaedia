@@ -55,6 +55,15 @@ $(\mathbb{Q},<)$, and their Ramsey property is the finite Ramsey theorem.
 $\mathrm{Aut}(\mathbb{Q},<)$ ({prf:ref}`thm-pestov-ea`).
 :::
 
+:::{figure} ../../figures/ramsey-property.svg
+:name: fig-ramsey-property
+:figclass: enc-figure
+:alt: A colouring of the pairs of a six-element linear order C in two colours, and three points whose three pairs have the same colour
+:width: 100%
+
+{prf:ref}`def-ramsey` for the finite linear orders of {prf:ref}`ex-kpt-rationals`, with $\mathbf{A}$ the linear order with two elements, $\mathbf{B}$ the one with three, and $k=2$. The copies of $\mathbf{A}$ in a linear order $\mathbf{C}$ with six elements are its pairs, drawn as arcs and coloured by $c$; the points $1$, $3$ and $5$ form a copy $\mathbf{B}'$ of $\mathbf{B}$ whose three pairs have the same colour.
+:::
+
 :::{prf:remark}
 :label: rem-kpt-general
 

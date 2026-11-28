@@ -40,6 +40,15 @@ $\mathbb{S}^1\to X$. Since $\mathbb{S}^1$ is minimal, it maps onto every
 minimal flow.
 :::
 
+:::{figure} ../../figures/pestov-circle.svg
+:name: fig-pestov-circle
+:figclass: enc-figure
+:alt: The circle cut at a point theta becomes an interval, and the map from the circle to a flow X sending g theta to g x'
+:width: 100%
+
+The idea of the proof of {prf:ref}`thm-pestov-circle`. (a) Cutting the circle at $\theta$ turns the orientation-preserving homeomorphisms that fix $\theta$ into the increasing homeomorphisms of an interval, so the stabiliser of $\theta$ is isomorphic to $\mathrm{Homeo}_+[0,1]$. (b) The stabiliser fixes a point $x'$ of a flow $X$, and $g\theta\mapsto gx'$ is a $G$-map $\mathbb{S}^1\to X$. Since $\mathbb{S}^1$ is minimal, it maps onto every minimal flow.
+:::
+
 :::{prf:remark} Uspenskij
 :label: rem-uspenskij
 
