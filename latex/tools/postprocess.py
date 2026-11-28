@@ -447,12 +447,16 @@ def main():
             m = re.search(r"alt=\{(.*)\}\]\{[^{}]*\}\s*$", img["alt"], re.S)
             if not m:
                 continue
+            src = img["alt"]
             img["alt"] = " ".join(m.group(1).split())
             if img.find_parent("div", class_="titlepage"):
                 img["style"] = img.get("style", "").rstrip(";") + ";max-width:100%;height:auto"
             else:
                 img["class"] = img.get("class", []) + ["emblem"]
                 del img["style"]
+                h = re.search(r"height=([\d.]+)cm", src)
+                if h:  # as high on the page as in the PDF, at about 44 px to the centimetre
+                    img["style"] = "max-height:%dpx" % round(float(h.group(1)) * 44.4)
                 if "emblems" not in img.parent.get("class", []):
                     img.parent["class"] = img.parent.get("class", []) + ["emblems"]
     locs = source_locations()
