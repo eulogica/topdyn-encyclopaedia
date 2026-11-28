@@ -162,15 +162,15 @@ this table.
   its caption ends with "(Illustration added for the encyclopaedia.)".
 * Figures follow the rules for content: they show what the text says, with its
   notation, and add no claims of their own.
-* The editor's mark, monogram and emblems are not figures: they are images in
+* The editor's mark, monogram, seal and emblem are not figures: they are images in
   `images/logicartificialis/`, taken from <https://logicartificialis.org> and
   resized, with no number, label or tag. The mark (`mark.svg`, and `mark.ico`
   drawn from it, since mystmd serves its favicon as `favicon.ico`) is the
   favicon and the logo in the header of both sites; the monogram is under the
-  editor's name on the front page and the title page; the emblems are in the
-  gallery at the end of the front page (MyST: a
-  `list-table` with class `la-emblems`; LaTeX: `\emblem{file}{caption}{alt}`,
-  whose alt text `postprocess.py` puts on the web page).
+  editor's name on the front page and the title page; the seal and the
+  "Meaning guides" emblem stand side by side, without captions, at the end of
+  the front page (MyST: a `list-table` with class `la-emblems`; LaTeX:
+  `\emblem{file}{alt}`, whose alt text `postprocess.py` puts on the web page).
 
 ## Workflow
 
