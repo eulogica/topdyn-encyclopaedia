@@ -20,11 +20,9 @@
 % \illustrates{label,...}, inside a figure: the statements whose proofs it
 % illustrates. It prints nothing; on both websites their links name the figure.
 \newcommand{\illustrates}[1]{}
-% \emblem{file}{caption}{alt text}: one of the editor's emblems, a third of the
-% line wide, in the gallery at the end of Section~\ref{sec:about}.
-\newcommand{\emblem}[3]{\begin{minipage}[t]{0.31\linewidth}\centering
-  \includegraphics[width=\linewidth,alt={#3}]{#1}\par\smallskip
-  {\small #2}\end{minipage}}
+% \emblem{file}{alt text}: one of the editor's emblems, 4.5cm high, at the end
+% of Section~\ref{sec:about}.
+\newcommand{\emblem}[2]{\includegraphics[height=4.5cm,alt={#2}]{#1}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
