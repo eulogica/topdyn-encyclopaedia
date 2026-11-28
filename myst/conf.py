@@ -1,7 +1,7 @@
 # Sphinx configuration for the MyST Markdown version of the encyclopaedia.
 # Build: ./build.sh   (output in ../_site/myst)
 project = "Topological dynamics of topological groups"
-author = "Martino Lupini (editor)"
+author = "LogicArtificialis (editor)"
 copyright = "2026"
 
 extensions = [

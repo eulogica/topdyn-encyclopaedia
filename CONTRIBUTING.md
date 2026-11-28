@@ -1,8 +1,8 @@
 # Contributing to the encyclopaedia
 
 The encyclopaedia at <https://topologicaldynamics.org> is built from this
-repository. Every change goes through a pull request. The editor, Martino
-Lupini, reviews it, and the site is rebuilt automatically when the change is
+repository. Every change goes through a pull request. The editor,
+LogicArtificialis, reviews it, and the site is rebuilt automatically when the change is
 merged into `main`. Comments, corrections and new entries are welcome from
 invited collaborators and from anyone with a GitHub account.
 

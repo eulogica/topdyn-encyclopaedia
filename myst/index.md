@@ -1,7 +1,7 @@
 (sec-about)=
 # Topological dynamics of topological groups
 
-*A living, hypertextual encyclopaedia (prototype). Editor: Martino Lupini.*
+*A living, hypertextual encyclopaedia (prototype). Editor: LogicArtificialis.*
 
 This is a prototype of a living, hypertextual reference work on the topological
 dynamics of topological groups, with an emphasis on universal minimal flows. It

@@ -7,7 +7,7 @@ project:
   title: Topological dynamics of topological groups
   subtitle: A living, hypertextual encyclopaedia (prototype)
   authors:
-    - name: Martino Lupini
+    - name: LogicArtificialis
   # The repository adds an "Edit this page" link to the GitHub source of every page.
   github: https://github.com/eulogica/topdyn-encyclopaedia
   bibliography:

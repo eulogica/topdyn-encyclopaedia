@@ -8,7 +8,7 @@ changing anything. (CLAUDE.md and similar files should simply point here.)
 
 A living, hypertextual encyclopaedia of the topological dynamics of
 topological groups, with an emphasis on universal minimal flows. Editor:
-Martino Lupini. It is currently a **prototype with two parallel versions of the
+LogicArtificialis. It is currently a **prototype with two parallel versions of the
 same entries**, kept so the two toolchains can be compared:
 
 | Folder   | Source format  | Built with                         | Extras                                         |

@@ -9,7 +9,7 @@ see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 A living, hypertextual encyclopaedia of the topological dynamics of
 topological groups, with an emphasis on universal minimal flows.
-Editor: Martino Lupini. **Prototype**: the seed entries were drafted with AI
+Editor: LogicArtificialis. **Prototype**: the seed entries were drafted with AI
 assistance from the cited literature and still await expert review.
 
 The same entries currently exist in two formats, so that the two toolchains
