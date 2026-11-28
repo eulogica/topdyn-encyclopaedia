@@ -1,7 +1,14 @@
 (sec-about)=
 # Topological dynamics of topological groups
 
-*A living, hypertextual encyclopaedia (prototype). Editor: LogicArtificialis.*
+*A living, hypertextual encyclopaedia (prototype). Editor:
+[LogicArtificialis](https://logicartificialis.org).*
+
+```{image} ../images/logicartificialis/monogram.jpg
+:alt: The LogicArtificialis monogram: navy LA initials with a gold turnstile, above the wordmark LogicArtificialis.
+:width: 150px
+:class: la-monogram
+```
 
 This is a prototype of a living, hypertextual reference work on the topological
 dynamics of topological groups, with an emphasis on universal minimal flows. It
@@ -43,6 +50,34 @@ not been refereed. The entries from [](#sec-proofs-maps-transformations) to
 [](#sec-proofs-inductive-limits) reproduce the proofs from those preprints, in
 the versions cited in the bibliography; the bibliographic data of the works
 they cite were checked against Crossref, zbMATH or arXiv.
+
+**The editor.** The encyclopaedia is edited by LogicArtificialis
+(<https://logicartificialis.org>). Its seal and emblems, reproduced from its
+website, are shown below.
+
+```{list-table}
+:class: la-emblems
+
+* - ![A gold circular seal with a sapphire turtle, a corgi, a capybara and the Latin motto, above the wordmark LogicArtificialis.](../images/logicartificialis/seal.jpg)
+
+    The seal: *Organum rationis, sapphirus mentis* (the instrument of reason,
+    the sapphire of the mind).
+  - ![A faceted blue sapphire edged in gold, with a corgi, a capybara and a turtle.](../images/logicartificialis/sapphire.jpg)
+
+    The sapphire.
+  - ![A corgi and a capybara behind a turtle whose shell carries a gold proof tree, under a sapphire.](../images/logicartificialis/kernel-signs.jpg)
+
+    When the model speaks, the kernel signs.
+* - ![A corgi and a capybara riding a green turtle above the wordmark LogicArtificialis.](../images/logicartificialis/meaning-guides.jpg)
+
+    Meaning guides. Syntax decides.
+  - ![A corgi and a capybara on a dark turtle behind a blue shield bearing a gold turnstile.](../images/logicartificialis/proof-shield.jpg)
+
+    The proof shield.
+  - ![A capybara and a corgi with a blue sapphire, a small turtle and the wordmark LogicArtificialis.](../images/logicartificialis/logic-and-sapphire.jpg)
+
+    Logic is the instrument. The sapphire is the mind.
+```
 
 ```{toctree}
 :maxdepth: 1
