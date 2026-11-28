@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="680" height="280" viewBox="0 0 680 280" role="img" aria-label="A linear order on the numbers 1 to 6, listed from least to greatest, and the order transported by a permutation g, which lists g(a) where the first order lists a">
+<title>A linear order on the numbers 1 to 6, listed from least to greatest, and the order transported by a permutation g, which lists g(a) where the first order lists a</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#25303b"/></marker></defs>
+<g font-family="'STIX Two Text','Times New Roman',Times,serif" font-size="17" fill="#25303b">
+<text x="60.0" y="76.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">&lt;</text>
+<text x="60.0" y="196.0" font-size="20" text-anchor="middle" fill="#25303b" font-weight="normal" font-style="italic">g·&lt;</text>
+<circle cx="200.0" cy="70.0" r="16" fill="#fff" stroke="#25303b" stroke-width="1.5"/>
+<text x="200.0" y="76.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal">4</text>
+<circle cx="200.0" cy="190.0" r="16" fill="#dbe6f7" stroke="#2f63b8" stroke-width="1.5"/>
+<text x="200.0" y="196.0" font-size="17" text-anchor="middle" fill="#2f63b8" font-weight="normal">4</text>
+<line x1="200.0" y1="89.0" x2="200.0" y2="169.0" stroke="#c4661f" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="272.0" cy="70.0" r="16" fill="#fff" stroke="#25303b" stroke-width="1.5"/>
+<text x="272.0" y="76.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal">1</text>
+<circle cx="272.0" cy="190.0" r="16" fill="#dbe6f7" stroke="#2f63b8" stroke-width="1.5"/>
+<text x="272.0" y="196.0" font-size="17" text-anchor="middle" fill="#2f63b8" font-weight="normal">2</text>
+<line x1="272.0" y1="89.0" x2="272.0" y2="169.0" stroke="#c4661f" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="236.0" y="76.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">&lt;</text>
+<text x="236.0" y="196.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">&lt;</text>
+<circle cx="344.0" cy="70.0" r="16" fill="#fff" stroke="#25303b" stroke-width="1.5"/>
+<text x="344.0" y="76.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal">6</text>
+<circle cx="344.0" cy="190.0" r="16" fill="#dbe6f7" stroke="#2f63b8" stroke-width="1.5"/>
+<text x="344.0" y="196.0" font-size="17" text-anchor="middle" fill="#2f63b8" font-weight="normal">5</text>
+<line x1="344.0" y1="89.0" x2="344.0" y2="169.0" stroke="#c4661f" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="308.0" y="76.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">&lt;</text>
+<text x="308.0" y="196.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">&lt;</text>
+<circle cx="416.0" cy="70.0" r="16" fill="#fff" stroke="#25303b" stroke-width="1.5"/>
+<text x="416.0" y="76.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal">3</text>
+<circle cx="416.0" cy="190.0" r="16" fill="#dbe6f7" stroke="#2f63b8" stroke-width="1.5"/>
+<text x="416.0" y="196.0" font-size="17" text-anchor="middle" fill="#2f63b8" font-weight="normal">1</text>
+<line x1="416.0" y1="89.0" x2="416.0" y2="169.0" stroke="#c4661f" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="380.0" y="76.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">&lt;</text>
+<text x="380.0" y="196.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">&lt;</text>
+<circle cx="488.0" cy="70.0" r="16" fill="#fff" stroke="#25303b" stroke-width="1.5"/>
+<text x="488.0" y="76.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal">5</text>
+<circle cx="488.0" cy="190.0" r="16" fill="#dbe6f7" stroke="#2f63b8" stroke-width="1.5"/>
+<text x="488.0" y="196.0" font-size="17" text-anchor="middle" fill="#2f63b8" font-weight="normal">6</text>
+<line x1="488.0" y1="89.0" x2="488.0" y2="169.0" stroke="#c4661f" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="452.0" y="76.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">&lt;</text>
+<text x="452.0" y="196.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">&lt;</text>
+<circle cx="560.0" cy="70.0" r="16" fill="#fff" stroke="#25303b" stroke-width="1.5"/>
+<text x="560.0" y="76.0" font-size="17" text-anchor="middle" fill="#25303b" font-weight="normal">2</text>
+<circle cx="560.0" cy="190.0" r="16" fill="#dbe6f7" stroke="#2f63b8" stroke-width="1.5"/>
+<text x="560.0" y="196.0" font-size="17" text-anchor="middle" fill="#2f63b8" font-weight="normal">3</text>
+<line x1="560.0" y1="89.0" x2="560.0" y2="169.0" stroke="#c4661f" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="524.0" y="76.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">&lt;</text>
+<text x="524.0" y="196.0" font-size="15" text-anchor="middle" fill="#5d6873" font-weight="normal">&lt;</text>
+<text x="380.0" y="40.0" font-size="13" text-anchor="middle" fill="#5d6873" font-weight="normal">least  →  greatest</text>
+<text x="118.0" y="135.0" font-size="14" text-anchor="middle" fill="#c4661f" font-weight="normal"><tspan font-style="italic">a</tspan> ↦ <tspan font-style="italic">g</tspan>(<tspan font-style="italic">a</tspan>)</text>
+<text x="200.0" y="253.0" font-size="17" text-anchor="end" fill="#25303b" font-weight="normal" font-style="italic">g</text>
+<text x="208.0" y="253.0" font-size="17" text-anchor="start" fill="#25303b" font-weight="normal">=</text>
+<path d="M232,230 Q224,248 232,266" fill="none" stroke="#25303b" stroke-width="1.2"/>
+<text x="248.0" y="244.0" font-size="14" text-anchor="middle" fill="#25303b" font-weight="normal">1</text>
+<text x="248.0" y="262.0" font-size="14" text-anchor="middle" fill="#2f63b8" font-weight="normal">2</text>
+<text x="266.0" y="244.0" font-size="14" text-anchor="middle" fill="#25303b" font-weight="normal">2</text>
+<text x="266.0" y="262.0" font-size="14" text-anchor="middle" fill="#2f63b8" font-weight="normal">3</text>
+<text x="284.0" y="244.0" font-size="14" text-anchor="middle" fill="#25303b" font-weight="normal">3</text>
+<text x="284.0" y="262.0" font-size="14" text-anchor="middle" fill="#2f63b8" font-weight="normal">1</text>
+<text x="302.0" y="244.0" font-size="14" text-anchor="middle" fill="#25303b" font-weight="normal">4</text>
+<text x="302.0" y="262.0" font-size="14" text-anchor="middle" fill="#2f63b8" font-weight="normal">4</text>
+<text x="320.0" y="244.0" font-size="14" text-anchor="middle" fill="#25303b" font-weight="normal">5</text>
+<text x="320.0" y="262.0" font-size="14" text-anchor="middle" fill="#2f63b8" font-weight="normal">6</text>
+<text x="338.0" y="244.0" font-size="14" text-anchor="middle" fill="#25303b" font-weight="normal">6</text>
+<text x="338.0" y="262.0" font-size="14" text-anchor="middle" fill="#2f63b8" font-weight="normal">5</text>
+<path d="M350,230 Q358,248 350,266" fill="none" stroke="#25303b" stroke-width="1.2"/>
+<text x="368.0" y="253.0" font-size="14" text-anchor="start" fill="#5d6873" font-weight="normal">on 1, …, 6, and <tspan font-style="italic">g</tspan> fixes every other number</text>
+</g>
+</svg>
