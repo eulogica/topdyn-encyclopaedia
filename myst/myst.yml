@@ -47,6 +47,10 @@ project:
 site:
   template: book-theme
   options:
+    # The editor's mark, from https://logicartificialis.org (see ../images/logicartificialis).
+    logo: ../images/logicartificialis/mark.svg
+    logo_alt: LogicArtificialis
+    favicon: ../images/logicartificialis/mark.ico
     logo_text: Topological dynamics
     # Styles for the links after each statement (see tools/site_map.py).
     style: ./encyclopaedia.css
